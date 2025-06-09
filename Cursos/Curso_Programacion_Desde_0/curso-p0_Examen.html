@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexCode - Examen Programación desde 0</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="../../LogoWeb.png" type="image/png">
+    <link rel="stylesheet" href="../Examenes.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">NexCode</a>
+            <div class="timer-display" id="timerDisplay">
+                <i class="fas fa-clock"></i>
+                <span id="timeLeft">60:00</span>
+            </div>
+        </div>
+    </nav>
+    <div class="modal-overlay" id="startModal">
+        <div class="modal">
+            <h2><i class="fas fa-graduation-cap"></i> Examen Final</h2>
+            <h3>Curso de Programación desde 0</h3>
+            <ul class="modal-info">
+                <li><i class="fas fa-clock" style="color: #ff0080;"></i> <strong>Duración:</strong> Tienes 1 hora para completar el examen</li>
+                <li><i class="fas fa-question-circle" style="color: #00d4ff;"></i> <strong>Preguntas:</strong> El examen consta de 30 preguntas</li>
+                <li><i class="fas fa-redo" style="color: #00ff88;"></i> <strong>Intentos:</strong> Puedes hacer el examen las veces que consideres necesarias</li>
+                <li><i class="fas fa-info-circle" style="color: #8000ff;"></i> <strong>Navegación:</strong> Puedes regresar a preguntas anteriores para revisar tus respuestas</li>
+            </ul>
+            <button class="start-exam-btn" onclick="startExam()">
+                <i class="fas fa-play"></i> Comenzar Examen
+            </button>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="exam-container hidden" id="examContainer">
+            <div class="exam-header">
+                <div class="question-counter" id="questionCounter">
+                    Pregunta 1 de 30
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+            <div class="question-container" id="questionContainer">
+            </div>
+            <div class="navigation-buttons">
+                <button class="nav-btn prev-btn" id="prevBtn" onclick="previousQuestion()" disabled>
+                    <i class="fas fa-chevron-left"></i> Anterior
+                </button>
+                <button class="nav-btn next-btn" id="nextBtn" onclick="nextQuestion()">
+                    Siguiente <i class="fas fa-chevron-right"></i>
+                </button>
+                <button class="nav-btn finish-btn hidden" id="finishBtn" onclick="showReview()">
+                    <i class="fas fa-flag-checkered"></i> Terminar
+                </button>
+            </div>
+        </div>
+        <div class="review-container hidden" id="reviewContainer">
+            <div class="review-header">
+                <h2><i class="fas fa-clipboard-check"></i> Revisión Final</h2>
+                <p>Revisa tus respuestas antes de enviar el examen</p>
+            </div>
+            <div class="questions-summary" id="questionsSummary">
+            </div>
+            <div class="final-submit">
+                <button class="submit-btn" onclick="submitExam()">
+                    <i class="fas fa-paper-plane"></i> Enviar Examen
+                </button>
+            </div>
+        </div>
+        <div class="results-container hidden" id="resultsContainer">
+            <div class="score-display">
+                <div class="score-number" id="finalScore">0%</div>
+                <div class="score-text">Tu calificación final</div>
+                <div class="score-breakdown">
+                    <div class="breakdown-item correct">
+                        <h4>Correctas</h4>
+                        <div id="correctCount">0</div>
+                    </div>
+                    <div class="breakdown-item incorrect">
+                        <h4>Incorrectas</h4>
+                        <div id="incorrectCount">0</div>
+                    </div>
+                </div>
+            </div>
+            <div class="results-details" id="resultsDetails">
+            </div>
+            <div style="text-align: center;">
+                <button class="retry-btn" onclick="restartExam()">
+                    <i class="fas fa-redo"></i> Volver a Intentar
+                </button>
+                <ul class="nav-links">
+                <li><a href="../../index.html">Inicio</a></li>
+                <li><a href="../../index.html#cursos">Cursos</a></li>
+                <li><a href="../../acercade.html">Acerca de</a></li>
+                <li><a href="https://demian369369.github.io/JarvisFrontendProject/PaginasWeb/Prototipo9/RESUME-Source_code/index.html">Contacto</a></li>
+            </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        const questions = [
+            {
+                question: "¿Qué significa HTML?",
+                options: [
+                    "Hyper Text Markup Language",
+                    "High Tech Modern Language", 
+                    "Home Tool Markup Language",
+                    "Hyperlink and Text Markup Language"
+                ],
+                correct: 0,
+                explanation: "HTML significa HyperText Markup Language, es el lenguaje estándar para crear páginas web."
+            },
+            {
+                question: "¿Cuál es la función principal de CSS?",
+                options: [
+                    "Crear la estructura de la página",
+                    "Dar estilo y formato visual a las páginas web",
+                    "Manejar la lógica del servidor",
+                    "Conectar con bases de datos"
+                ],
+                correct: 1,
+                explanation: "CSS (Cascading Style Sheets) se utiliza para dar estilo y formato visual a las páginas web."
+            },
+            {
+                question: "JavaScript es un lenguaje interpretado",
+                options: ["Verdadero", "Falso"],
+                correct: 0,
+                explanation: "JavaScript es un lenguaje interpretado, no necesita ser compilado antes de ejecutarse."
+            },
+            {
+                question: "¿Cuál de estas NO es una estructura de datos básica?",
+                options: [
+                    "Array",
+                    "Stack",
+                    "Queue", 
+                    "HTML"
+                ],
+                correct: 3,
+                explanation: "HTML no es una estructura de datos, es un lenguaje de marcado para crear páginas web."
+            },
+            {
+                question: "¿Qué significa el término 'variable' en programación?",
+                options: [
+                    "Un valor que nunca cambia",
+                    "Un espacio en memoria para almacenar datos",
+                    "Una función matemática",
+                    "Un tipo de error"
+                ],
+                correct: 1,
+                explanation: "Una variable es un espacio en memoria reservado para almacenar datos que pueden cambiar durante la ejecución del programa."
+            },
+            {
+                question: "El bucle 'for' se utiliza para repetir código",
+                options: ["Verdadero", "Falso"],
+                correct: 0,
+                explanation: "El bucle 'for' es una estructura de control que permite repetir un bloque de código un número determinado de veces."
+            },
+            {
+                question: "¿Cuál es el resultado de 5 + '5' en JavaScript?",
+                options: [
+                    "10",
+                    "55",
+                    "Error",
+                    "undefined"
+                ],
+                correct: 1,
+                explanation: "En JavaScript, cuando sumas un número con una cadena, el número se convierte a cadena y se concatenan, resultando en '55'."
+            },
+            {
+                question: "¿Qué es un algoritmo?",
+                options: [
+                    "Un tipo de variable",
+                    "Una secuencia de pasos para resolver un problema",
+                    "Un lenguaje de programación",
+                    "Una base de datos"
+                ],
+                correct: 1,
+                explanation: "Un algoritmo es una secuencia finita de instrucciones bien definidas para resolver un problema o realizar una tarea."
+            },
+            {
+                question: "Las funciones en programación pueden retornar valores",
+                options: ["Verdadero", "Falso"],
+                correct: 0,
+                explanation: "Las funciones pueden retornar valores usando la palabra clave 'return', aunque también pueden no retornar nada (void)."
+            },
+            {
+                question: "¿Cuál de estos es un tipo de dato primitivo en JavaScript?",
+                options: [
+                    "Object",
+                    "Array",
+                    "String",
+                    "Function"
+                ],
+                correct: 2,
+                explanation: "String es un tipo de dato primitivo en JavaScript. Object, Array y Function son tipos de datos complejos."
+            },
+            {
+                question: "¿Qué significa 'debugging' en programación?",
+                options: [
+                    "Crear nuevos programas",
+                    "Encontrar y corregir errores en el código",
+                    "Optimizar el rendimiento",
+                    "Documentar el código"
+                ],
+                correct: 1,
+                explanation: "Debugging es el proceso de encontrar, analizar y corregir errores (bugs) en el código de un programa."
+            },
+            {
+                question: "Una base de datos relacional usa tablas para almacenar información",
+                options: ["Verdadero", "Falso"],
+                correct: 0,
+                explanation: "Las bases de datos relacionales organizan la información en tablas relacionadas entre sí mediante claves."
+            },
+            {
+                question: "¿Cuál es la diferencia entre '==' y '===' en JavaScript?",
+                options: [
+                    "No hay diferencia",
+                    "'==' compara valor y tipo, '===' solo valor",
+                    "'==' compara solo valor, '===' compara valor y tipo",
+                    "Ambos son sintaxis incorrecta"
+                ],
+                correct: 2,
+                explanation: "'==' compara solo el valor (con conversión de tipo), mientras que '===' compara tanto el valor como el tipo de dato."
+            },
+            {
+                question: "¿Qué es un IDE?",
+                options: [
+                    "Un tipo de variable",
+                    "Integrated Development Environment",
+                    "Internet Data Exchange",
+                    "Interactive Design Element"
+                ],
+                correct: 1,
+                explanation: "IDE significa Integrated Development Environment, es un software que proporciona herramientas para el desarrollo de programas."
+            },
+            {
+                question: "El método GET en HTTP se usa para enviar datos sensibles",
+                options: ["Verdadero", "Falso"],
+                correct: 1,
+                explanation: "Falso. GET se usa para obtener datos y no es seguro para datossensibles. POST es más seguro para enviar información confidencial."
+            },
+            {
+                question: "¿Cuál es la principal ventaja de usar Git?",
+                options: [
+                    "Ejecutar código más rápido",
+                    "Control de versiones y colaboración",
+                    "Crear interfaces gráficas",
+                    "Conectar con bases de datos"
+                ],
+                correct: 1,
+                explanation: "Git es un sistema de control de versiones que permite rastrear cambios en el código y facilita la colaboración entre desarrolladores."
+            },
+            {
+                question: "Un array en programación puede contener diferentes tipos de datos",
+                options: ["Verdadero", "Falso"],
+                correct: 0,
+                explanation: "En muchos lenguajes como JavaScript, un array puede contener diferentes tipos de datos (números, strings, objetos, etc.)."
+            },
+            {
+                question: "¿Qué es CSS Grid?",
+                options: [
+                    "Un framework de JavaScript",
+                    "Un sistema de layout bidimensional para CSS",
+                    "Una base de datos",
+                    "Un editor de código"
+                ],
+                correct: 1,
+                explanation: "CSS Grid es un sistema de layout bidimensional que permite crear diseños complejos con filas y columnas."
+            },
+            {
+                question: "La recursión en programación significa que una función se llama a sí misma",
+                options: ["Verdadero", "Falso"],
+                correct: 0,
+                explanation: "La recursión es una técnica donde una función se llama a sí misma para resolver un problema dividiéndolo en subproblemas más pequeños."
+            },
+            {
+                question: "¿Cuál es el propósito de una API?",
+                options: [
+                    "Diseñar interfaces de usuario",
+                    "Permitir comunicación entre diferentes aplicaciones",
+                    "Compilar código",
+                    "Crear bases de datos"
+                ],
+                correct: 1,
+                explanation: "Una API (Application Programming Interface) permite que diferentes aplicaciones se comuniquen e intercambien datos entre sí."
+            },
+            {
+                question: "¿Qué significa 'responsive design'?",
+                options: [
+                    "Diseño que responde rápidamente",
+                    "Diseño que se adapta a diferentes tamaños de pantalla",
+                    "Diseño con muchos colores",
+                    "Diseño minimalista"
+                ],
+                correct: 1,
+                explanation: "Responsive design es un enfoque de diseño web que hace que las páginas se vean bien en diferentes dispositivos y tamaños de pantalla."
+            },
+            {
+                question: "El scope (ámbito) de una variable determina dónde puede ser accedida",
+                options: ["Verdadero", "Falso"],
+                correct: 0,
+                explanation: "El scope define la región del código donde una variable es accesible y puede ser utilizada."
+            },
+            {
+                question: "¿Cuál de estos NO es un método HTTP?",
+                options: [
+                    "GET",
+                    "POST",
+                    "DELETE",
+                    "SEND"
+                ],
+                correct: 3,
+                explanation: "SEND no es un método HTTP válido. Los métodos HTTP principales incluyen GET, POST, PUT, DELETE, PATCH, etc."
+            },
+            {
+                question: "¿Qué es JSON?",
+                options: [
+                    "Un lenguaje de programación",
+                    "JavaScript Object Notation - formato de intercambio de datos",
+                    "Una base de datos",
+                    "Un framework"
+                ],
+                correct: 1,
+                explanation: "JSON (JavaScript Object Notation) es un formato ligero de intercambio de datos que es fácil de leer y escribir."
+            },
+            {
+                question: "Los comentarios en el código afectan la ejecución del programa",
+                options: ["Verdadero", "Falso"],
+                correct: 1,
+                explanation: "Falso. Los comentarios son ignorados por el intérprete/compilador y no afectan la ejecución del programa. Solo sirven para documentar el código."
+            },
+            {
+                question: "¿Cuál es la diferencia entre frontend y backend?",
+                options: [
+                    "No hay diferencia",
+                    "Frontend es la parte visible al usuario, backend es la lógica del servidor",
+                    "Frontend es más difícil que backend",
+                    "Backend solo maneja bases de datos"
+                ],
+                correct: 1,
+                explanation: "Frontend se refiere a la parte de la aplicación que interactúa con el usuario, mientras que backend maneja la lógica del servidor, bases de datos y APIs."
+            },
+            {
+                question: "¿Qué es un framework?",
+                options: [
+                    "Un tipo de variable",
+                    "Una estructura que proporciona una base para desarrollar aplicaciones",
+                    "Un lenguaje de programación",
+                    "Una base de datos"
+                ],
+                correct: 1,
+                explanation: "Un framework es una estructura de software que proporciona una base y herramientas para desarrollar aplicaciones más fácilmente."
+            },
+            {
+                question: "La programación orientada a objetos usa clases y objetos",
+                options: ["Verdadero", "Falso"],
+                correct: 0,
+                explanation: "La programación orientada a objetos (OOP) se basa en el concepto de clases y objetos para organizar y estructurar el código."
+            },
+            {
+                question: "¿Cuál de estos es un principio de UX/UI design?",
+                options: [
+                    "Hacer el diseño lo más complejo posible",
+                    "La usabilidad y experiencia del usuario son prioritarias",
+                    "Usar todos los colores disponibles",
+                    "Agregar muchas animaciones"
+                ],
+                correct: 1,
+                explanation: "En UX/UI design, la usabilidad y la experiencia del usuario son fundamentales para crear interfaces efectivas y fáciles de usar."
+            },
+            {
+                question: "¿Qué significa 'deployment' en desarrollo de software?",
+                options: [
+                    "Escribir código",
+                    "Poner la aplicación en producción para que los usuarios la usen",
+                    "Hacer pruebas",
+                    "Documentar el proyecto"
+                ],
+                correct: 1,
+                explanation: "Deployment es el proceso de poner una aplicación en un entorno de producción donde los usuarios finales pueden acceder y utilizarla."
+            }
+        ];
+        let currentQuestion = 0;
+        let userAnswers = new Array(questions.length).fill(-1);
+        let timeLeft = 3600; 
+        let timerInterval;
+        let examStarted = false;
+        function startExam() {
+            document.getElementById('startModal').classList.add('hidden');
+            document.getElementById('examContainer').classList.remove('hidden');
+            examStarted = true;
+            startTimer();
+            displayQuestion();
+        }
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                if (timeLeft <= 300) { 
+                    document.getElementById('timerDisplay').classList.add('timer-critical');
+                }
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    submitExam();
+                }
+            }, 1000);
+        }
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timeLeft').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        function displayQuestion() {
+            const question = questions[currentQuestion];
+            const container = document.getElementById('questionContainer');
+            container.innerHTML = `
+                <div class="question-text">
+                    <strong>Pregunta ${currentQuestion + 1}:</strong> ${question.question}
+                </div>
+                <div class="options-container">
+                    ${question.options.map((option, index) => `
+                        <div class="option ${userAnswers[currentQuestion] === index ? 'selected' : ''}" 
+                             onclick="selectOption(${index})">
+                            <div class="option-label">${String.fromCharCode(65 + index)}</div>
+                            <div class="option-text">${option}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;   
+            updateProgress();
+            updateNavigation();
+        }
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestion] = optionIndex;
+            displayQuestion();
+        }
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+            document.getElementById('questionCounter').textContent = 
+                `Pregunta ${currentQuestion + 1} de ${questions.length}`;
+        }
+        function updateNavigation() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const finishBtn = document.getElementById('finishBtn');
+            prevBtn.disabled = currentQuestion === 0;
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.classList.add('hidden');
+                finishBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                finishBtn.classList.add('hidden');
+            }
+        }
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                displayQuestion();
+            }
+        }
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                displayQuestion();
+            }
+        }
+        function showReview() {
+            document.getElementById('examContainer').classList.add('hidden');
+            document.getElementById('reviewContainer').classList.remove('hidden');
+            const summaryContainer = document.getElementById('questionsSummary');
+            summaryContainer.innerHTML = questions.map((question, index) => {
+                const isAnswered = userAnswers[index] !== -1;
+                const userAnswer = isAnswered ? question.options[userAnswers[index]] : 'Sin responder';
+                return `
+                    <div class="summary-item ${!isAnswered ? 'unanswered' : ''}">
+                        <div class="summary-content">
+                            <div class="summary-question">Pregunta ${index + 1}: ${question.question}</div>
+                            <div class="summary-answer ${!isAnswered ? 'empty' : ''}">
+                                Respuesta: ${userAnswer}
+                            </div>
+                        </div>
+                        <button class="change-btn" onclick="goToQuestion(${index})">
+                            <i class="fas fa-edit"></i> Cambiar
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+        function goToQuestion(questionIndex) {
+            currentQuestion = questionIndex;
+            document.getElementById('reviewContainer').classList.add('hidden');
+            document.getElementById('examContainer').classList.remove('hidden');
+            displayQuestion();
+        }
+        function submitExam() {
+            clearInterval(timerInterval);
+            calculateResults();
+            document.getElementById('reviewContainer').classList.add('hidden');
+            document.getElementById('resultsContainer').classList.remove('hidden');
+        }
+        function calculateResults() {
+            let correctAnswers = 0;
+            const results = [];
+            
+            questions.forEach((question, index) => {
+                const userAnswer = userAnswers[index];
+                const isCorrect = userAnswer === question.correct;
+                if (isCorrect) correctAnswers++;
+                
+                results.push({
+                    question: question.question,
+                    userAnswer: userAnswer !== -1 ? question.options[userAnswer] : 'Sin responder',
+                    correctAnswer: question.options[question.correct],
+                    isCorrect: isCorrect,
+                    explanation: question.explanation
+                });
+            });
+            const percentage = Math.round((correctAnswers / questions.length) * 100);
+            document.getElementById('finalScore').textContent = `${percentage}%`;
+            document.getElementById('correctCount').textContent = correctAnswers;
+            document.getElementById('incorrectCount').textContent = questions.length - correctAnswers;
+            const detailsContainer = document.getElementById('resultsDetails');
+            detailsContainer.innerHTML = results.map((result, index) => `
+                <div class="result-item ${result.isCorrect ? 'correct' : 'incorrect'}">
+                    <div class="result-question">Pregunta ${index + 1}: ${result.question}</div>
+                    <div class="result-answers">
+                        <div class="user-answer">Tu respuesta: ${result.userAnswer}</div>
+                        <div class="correct-answer">Respuesta correcta: ${result.correctAnswer}</div>
+                    </div>
+                    <div class="explanation">${result.explanation}</div>
+                </div>
+            `).join('');
+        }
+        function restartExam() {
+            currentQuestion = 0;
+            userAnswers = new Array(questions.length).fill(-1);
+            timeLeft = 3600;
+            examStarted = false;
+            
+            document.getElementById('resultsContainer').classList.add('hidden');
+            document.getElementById('timerDisplay').classList.remove('timer-critical');
+            document.getElementById('startModal').classList.remove('hidden');
+            
+            updateTimerDisplay();
+        }
+        document.addEventListener('contextmenu', function(e) {
+            if (examStarted) {
+                e.preventDefault();
+            }
+        });
+        document.addEventListener('keydown', function(e) {
+            if (examStarted && (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I'))) {
+                e.preventDefault();
+            }
+        });
+        window.addEventListener('beforeunload', function(e) {
+            if (examStarted) {
+                const confirmationMessage = '¿Estás seguro de que quieres salir? Perderás todo tu progreso.';
+                e.returnValue = confirmationMessage;
+                return confirmationMessage;
+            }
+        });
+    </script>
+</body>
+<footer style="background-color: #111; color: #888; text-align: center; padding: 1rem; margin-top: 4rem;">
+         <div class="footer-content">
+            <div class="footer-brand">Nexcode</div>
+                <img src="../../LogoWeb.png" alt="NexCode Logo" class="logo-img">
+            </div>
+            <div class="footer-text">
+                 © 2025 NexCode. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+</html>

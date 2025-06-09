@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soporte Técnico - NexCode</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="cursos.css">
+  <link rel="stylesheet" href="index.css">
+  <link rel="icon" href="../../LogoWeb.png" type="image/png">
+  
+  <style>
+    @keyframes neonPulse {
+      0% { color: #00f2ff; text-shadow: 0 0 5px #00f2ff55, 0 0 10px #00f2ff66; }
+      25% { color: #39ff14; text-shadow: 0 0 5px #39ff1466, 0 0 10px #39ff1477; }
+      50% { color: #9af302; text-shadow: 0 0 5px #4c8f0955, 0 0 10px #97f30477; }
+      100% { color: #00f2ff; text-shadow: 0 0 5px #00f2ff55, 0 0 10px #00f2ff66; }
+    }
+
+    body {
+      background-color: #111;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .support-container {
+      max-width: 800px;
+      margin: 80px auto;
+      padding: 40px;
+      background: #1c1c1e;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #00f2ff44;
+      text-align: center;
+    }
+
+    .support-container h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      animation: neonPulse 6s infinite;
+    }
+
+    .support-container h1 .brand {
+      font-weight: bold;
+    }
+
+    .support-container p {
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      color: #aaa;
+    }
+
+    .contact-methods {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .contact-card {
+      display: flex;
+      align-items: center;
+      background: #222;
+      padding: 15px 20px;
+      border-radius: 15px;
+      transition: transform 0.2s ease, background 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: #fff;
+      box-shadow: 0 0 10px #00f2ff22;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-5px);
+      background: #2b2b2e;
+    }
+
+    .contact-card i {
+      font-size: 1.8rem;
+      margin-right: 15px;
+      color: #00f2ff;
+    }
+
+    .contact-card span {
+      font-size: 1.1rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      padding: 20px;
+      color: #666;
+    }
+
+    @media (max-width: 600px) {
+      .contact-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .contact-card i {
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+ <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">NexCode</a>
+             <ul class="nav-links">
+                <li><a href="../../index.html">Inicio</a></li>
+                <li><a href="../../index.html#cursos">Cursos</a></li>
+                <li><a href="../../acercade.html">Acerca de</a></li>
+                <li><a href="https://demian369369.github.io/JarvisFrontendProject/PaginasWeb/Prototipo9/RESUME-Source_code/index.html">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+  <div class="support-container">
+    <h1><i class="fas fa-headset"></i> Centro de Soporte <span class="brand">NexCode</span></h1>
+    <p>¿Tienes alguna duda, problema técnico o sugerencia? Contáctanos por cualquiera de los siguientes medios:</p>
+    <div class="contact-methods">
+
+      <a href="mailto:soporte@nexcode.com" class="contact-card">
+        <i class="fas fa-envelope"></i>
+        <span>NexCodeMX@gmail.com</span>
+      </a>
+
+      <a href="https://www.instagram.com/nexcode_mx/" target="_blank" class="contact-card">
+        <i class="fab fa-instagram"></i>
+        <span>@NexCode</span>
+      </a>
+
+      <a href="https://github.com/tu_github" target="_blank" class="contact-card">
+        <i class="fab fa-github"></i>
+        <span>github.com/Nexcode</span>
+      </a>
+
+      <a href="https://youtube.com/tu_youtube" target="_blank" class="contact-card">
+        <i class="fab fa-youtube"></i>
+        <span>NexCode</span>
+      </a>
+
+      <div class="contact-card">
+        <i class="fas fa-phone"></i>
+        <span>📞 +52 123 456 7890</span>
+      </div>
+
+    </div>
+  </div>
+
+  <footer style="background-color: #111; color: #888; text-align: center; padding: 1rem; margin-top: 4rem;">
+         <div class="footer-content">
+            <div class="footer-brand">Nexcode</div>
+                <img src="../../LogoWeb.png" alt="NexCode Logo" class="logo-img">
+            </div>
+            <div class="footer-text">
+                 © 2025 NexCode. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

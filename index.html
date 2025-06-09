@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexCode - Cursos Web</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="../../LogoWeb.png" type="image/png">
+</head>
+
+<body>
+    <div class="login-modal" id="loginModal">
+        <div class="login-container">
+            <h2 class="login-title">🚀 Inicia Sesion</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Usuario</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="login-btn">
+                    Ingresar a la Plataforma
+                </button>
+            </form>
+        </div>
+    </div>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">NexCode</div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#cursos">Cursos</a></li>
+                <li><a href="acercade.html">Acerca de</a></li>
+                <li><a href="https://demian369369.github.io/JarvisFrontendProject/PaginasWeb/Prototipo9/RESUME-Source_code/index.html">Contacto</a></li>
+                <li><a href="#" id="logoutBtn">Cerrar Sesión</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="main-content hidden" id="mainContent">
+        <section class="hero-section" id="inicio">
+            <h1 class="hero-title">NexCode</h1>
+            <p class="hero-subtitle">Tu siguiente nivel</p>
+        </section>
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" class="search-input" id="searchInput" placeholder="🔍 Buscar cursos...">
+            </div>
+        </div>
+        <section id="cursos">
+            <div class="courses-grid" id="coursesGrid">
+            </div>
+        </section>
+    </div>
+    <div class="notification-bell" id="notificationBell">
+    <i class="fas fa-bell"></i>
+    <span class="notification-ping"></span>
+</div>
+<div class="notification-panel" id="notificationPanel">
+    <div class="notification-header">
+        🔔 Notificaciones
+    </div>
+    <ul class="notification-list">
+        <li>
+            📅 <strong>06/03/2025</strong> – 🎓 <em>Curso de Programación desde 0 ya disponible</em> 🎉💡
+        </li>
+    </ul>
+</div>
+<a href="soporte.html" class="support-button" title="Soporte Técnico">
+  <i class="fas fa-screwdriver-wrench"></i>
+</a>
+    <footer style="background-color: #111; color: #888; text-align: center; padding: 1rem; margin-top: 4rem;">
+         <div class="footer-content">
+            <div class="footer-brand">Nexcode</div>
+                <img src="../../LogoWeb.png" alt="NexCode Logo" class="logo-img">
+            </div>
+            <div class="footer-text">
+                 © 2025 NexCode. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+<script src="index.js"></script>
+</body>
+</html>

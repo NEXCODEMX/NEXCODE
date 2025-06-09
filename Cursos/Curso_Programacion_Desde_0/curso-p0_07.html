@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexCode - Fundamentos de Programación - Clase 7</title> <!--esto se cambia por clase-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../cursos.css">
+    <link rel="icon" href="../../LogoWeb.png" type="image/png">
+</head>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../../index.html" class="logo">NexCode</a>
+             <ul class="nav-links">
+                <li><a href="../../index.html">Inicio</a></li>
+                <li><a href="../../index.html#cursos">Cursos</a></li>
+                <li><a href="../../acercade.html">Acerca de</a></li>
+                <li><a href="https://demian369369.github.io/JarvisFrontendProject/PaginasWeb/Prototipo9/RESUME-Source_code/index.html">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="main-content">
+        <div class="video-container">
+            <div class="video-section">
+                <div class="video-player"> <!--esto se cambia por clase-->
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                            title="Video del Curso" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="video-controls">
+                    <a href="curso-p0_06.html" class="nav-button" id="prevBtn"> <!--esto se cambia por clase-->
+                        <i class="fas fa-chevron-left"></i>
+                        Anterior
+                    </a>
+                    <div class="class-number">Clase 7 de 20</div> <!--esto se cambia por clase-->
+                    <a href="curso-p0_08.html" class="nav-button" id="nextBtn"> <!--esto se cambia por clase-->
+                        Siguiente
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+                 <button class="materials-button" onclick="toggleMaterials()">
+                    <i class="fas fa-folder-open"></i> Materiales de la clase
+                </button>
+                <div class="materials-content" id="materialsContent">
+                    <ul> <!--esto se cambia por clase-->
+                        <li><a href="https://example.com/diapositivas-clase-2.pdf" target="_gray">📄 Diapositivas - Clase 3 (PDF)</a></li>
+                        <li><a href="https://example.com/ejercicio-practico.zip" target="_gray">📦 Ejercicio práctico</a></li>
+                        <li><a href="https://example.com/recurso-extra.html" target="_gray">🔗 Recurso adicional</a></li>
+                    </ul>
+                </div>
+                <div class="video-info">
+                    <h1 class="video-title">Introducción al Curso</h1><!--esto se cambia por clase-->
+                    <p class="video-description"><!--esto se cambia por clase-->
+                        En esta segunda clase te daremos una introducción completa al curso. 
+                        Conocerás la estructura del programa, los objetivos de aprendizaje, 
+                        las herramientas que utilizaremos y cómo aprovechar al máximo cada lección.
+                    </p>
+                </div>
+            </div>
+            <div class="progress-section">
+                <div class="progress-title">
+                    <i class="fas fa-chart-line"></i>
+                    Progreso del Curso
+                </div>
+                <div class="progress-grid" id="progressGrid">
+                </div>
+                <div class="notes-section">
+                    <div class="notes-title">
+                        <i class="fas fa-sticky-note"></i>
+                        Mis Notas
+                    </div>
+                    <textarea class="notes-input" 
+                              id="notesInput" 
+                              placeholder="Escribe tus notas y puntos importantes aquí..."></textarea>
+                    <button class="save-notes-btn" onclick="saveNotes()">
+                        <i class="fas fa-save"></i>
+                        Guardar Notas
+                    </button>
+                    <div class="saved-notes" id="savedNotes">
+                        <strong>✅ Notas guardadas exitosamente</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <footer style="background-color: #111; color: #888; text-align: center; padding: 1rem; margin-top: 4rem;">
+         <div class="footer-content">
+            <div class="footer-brand">Nexcode</div>
+                <img src="../../LogoWeb.png" alt="NexCode Logo" class="logo-img">
+            </div>
+            <div class="footer-text">
+                 © 2025 NexCode. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+    <script>
+        const currentClass = 7;  //Esto se cambia por clase
+        const totalClasses = 20;
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeProgress();
+            loadNotes();
+            updateNavigationButtons();
+        });
+        function initializeProgress() {
+            const progressGrid = document.getElementById('progressGrid');
+            progressGrid.innerHTML = '';
+            for (let i = 1; i <= totalClasses; i++) {
+                const circle = document.createElement('div');
+                circle.className = 'progress-circle';
+                circle.textContent = i;
+                circle.title = `Clase ${i}`;
+                if (i < currentClass) {
+                    circle.classList.add('completed');
+                    circle.innerHTML = '<i class="fas fa-check"></i>';
+                }
+                else if (i === currentClass) {
+                    circle.classList.add('current');
+                }
+                progressGrid.appendChild(circle);
+            }
+        }
+        function saveNotes() {
+            const notes = document.getElementById('notesInput').value;
+            const key = `nexcode_notes_class_${currentClass}`;
+            if (notes.trim()) {
+                const notesData = {
+                    content: notes,
+                    timestamp: new Date().toISOString(),
+                    className: `Clase ${currentClass}`
+                };
+                localStorage.setItem(key, JSON.stringify(notesData));
+                const savedNotesDiv = document.getElementById('savedNotes');
+                savedNotesDiv.classList.add('show');
+                setTimeout(() => {
+                    savedNotesDiv.classList.remove('show');
+                }, 3000);
+            }
+        }
+        function loadNotes() {
+            const key = `nexcode_notes_class_${currentClass}`;
+            const savedData = localStorage.getItem(key);
+            if (savedData) {
+                const notesData = JSON.parse(savedData);
+                document.getElementById('notesInput').value = notesData.content;
+            }
+        }
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            if (currentClass === 1) {
+                prevBtn.style.opacity = '0.5';
+                prevBtn.style.pointerEvents = 'none';
+            }
+            if (currentClass === totalClasses) {
+                nextBtn.style.opacity = '0.5';
+                nextBtn.style.pointerEvents = 'none';
+            }
+        }
+        function markClassCompleted() {
+            const key = `nexcode_completed_class_${currentClass}`;
+            localStorage.setItem(key, 'true');
+        }
+        function isClassCompleted(classNumber) {
+            const key = `nexcode_completed_class_${classNumber}`;
+            return localStorage.getItem(key) === 'true';
+        }
+        setInterval(() => {
+            const notes = document.getElementById('notesInput').value;
+            if (notes.trim()) {
+                const key = `nexcode_notes_class_${currentClass}_autosave`;
+                localStorage.setItem(key, notes);
+            }
+        }, 30000);
+        document.getElementById('logoutBtn')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem('techlearn_logged_in');
+            localStorage.removeItem('techlearn_username');
+            window.location.href = 'index.html';
+        });
+        function toggleMaterials() {
+            const content = document.getElementById('materialsContent');
+            content.style.display = content.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>
