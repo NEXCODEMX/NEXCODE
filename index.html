@@ -4,30 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NexCode - Cursos Web</title>
-    <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" href="../../LogoWeb.png" type="image/png">
-</head>
+    <link rel="stylesheet" href="index.css"> </head>
+    <link rel="icon" href="Imagenes/LogoWeb.png" type="image/png">
+
 
 <body>
-    <div class="login-modal" id="loginModal">
-        <div class="login-container">
-            <h2 class="login-title">🚀 Inicia Sesion</h2>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="username">Usuario</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Contraseña</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <button type="submit" class="login-btn">
-                    Ingresar a la Plataforma
-                </button>
-            </form>
-        </div>
-    </div>
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">NexCode</div>
@@ -35,53 +17,102 @@
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#cursos">Cursos</a></li>
                 <li><a href="acercade.html">Acerca de</a></li>
-                <li><a href="https://demian369369.github.io/JarvisFrontendProject/PaginasWeb/Prototipo9/RESUME-Source_code/index.html">Contacto</a></li>
-                <li><a href="#" id="logoutBtn">Cerrar Sesión</a></li>
+                <li><a href="soporte.html" class="active">Soporte</a></li> </ul>
             </ul>
         </div>
     </nav>
-    <div class="main-content hidden" id="mainContent">
+
+    <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-graduation-cap"></i>
+            Categorías
+        </div>
+        <div class="category-item active" data-category="all">
+            <i class="fas fa-th-large category-icon"></i>
+            <span class="category-name">Todos los cursos</span>
+        </div>
+        <div class="category-item" data-category="Programación">
+            <i class="fas fa-code category-icon"></i>
+            <span class="category-name">Programación</span>
+        </div>
+        <div class="category-item" data-category="Inglés">
+            <i class="fas fa-language category-icon"></i>
+            <span class="category-name">Inglés</span>
+        </div>
+        <div class="category-item" data-category="Matemáticas">
+            <i class="fas fa-square-root-variable category-icon"></i>
+            <span class="category-name">Matemáticas</span>
+        </div>
+        <div class="category-item" data-category="Ciencias">
+            <i class="fas fa-flask category-icon"></i>
+            <span class="category-name">Ciencias</span>
+        </div>
+        <div class="category-item" data-category="Habilidades Blandas">
+            <i class="fas fa-people-arrows category-icon"></i>
+            <span class="category-name">Habilidades Blandas</span>
+        </div>
+        <div class="category-item" data-category="Conocimientos Clave">
+            <i class="fas fa-briefcase category-icon"></i>
+            <span class="category-name">Conocimientos Clave</span>
+        </div>
+    </div>
+    
+    <div class="main-content" id="mainContent">
         <section class="hero-section" id="inicio">
             <h1 class="hero-title">NexCode</h1>
-            <p class="hero-subtitle">Tu siguiente nivel</p>
+            <p class="hero-subtitle">Tu siguiente nivel en educación</p>
         </section>
+        
         <div class="search-container">
             <div class="search-box">
-                <input type="text" class="search-input" id="searchInput" placeholder="🔍 Buscar cursos...">
+                <input type="text" class="search-input" id="searchInput" placeholder="Buscar cursos...">
             </div>
         </div>
+        
         <section id="cursos">
-            <div class="courses-grid" id="coursesGrid">
-            </div>
-        </section>
+            <div id="coursesGrid"></div> </section>
     </div>
+    
     <div class="notification-bell" id="notificationBell">
-    <i class="fas fa-bell"></i>
-    <span class="notification-ping"></span>
-</div>
-<div class="notification-panel" id="notificationPanel">
-    <div class="notification-header">
-        🔔 Notificaciones
+        <i class="fas fa-bell"></i>
+        <span class="notification-ping"></span>
     </div>
-    <ul class="notification-list">
-        <li>
-            📅 <strong>06/03/2025</strong> – 🎓 <em>Curso de Programación desde 0 ya disponible</em> 🎉💡
-        </li>
-    </ul>
-</div>
-<a href="soporte.html" class="support-button" title="Soporte Técnico">
-  <i class="fas fa-screwdriver-wrench"></i>
-</a>
-    <footer style="background-color: #111; color: #888; text-align: center; padding: 1rem; margin-top: 4rem;">
-         <div class="footer-content">
-            <div class="footer-brand">Nexcode</div>
-                <img src="../../LogoWeb.png" alt="NexCode Logo" class="logo-img">
-            </div>
-            <div class="footer-text">
-                 © 2025 NexCode. Todos los derechos reservados.
-            </div>
+    
+    <div class="notification-panel" id="notificationPanel">
+        <div class="notification-header">
+            <i class="fas fa-bell"></i> Notificaciones
         </div>
-    </footer>
-<script src="index.js"></script>
-</body>
+        <ul class="notification-list">
+            <li>
+                <strong>🎓 Nuevo Curso Disponible</strong><br>
+                <span style="color: #a0a0a0;">Curso de Programación desde 0 ya está disponible</span><br>
+                <small style="color: #00d4ff;">06/07/2025</small>
+            </li>
+            <li>
+                <strong>📚 Actualizaciones</strong><br>
+                <span style="color: #a0a0a0;">Nuevos cursos de matemáticas próximamente</span><br>
+                <small style="color: #00d4ff;">05/07/2025</small>
+            </li>
+        </ul>
+    </div>
+    
+    <a href="soporte.html" class="support-button" title="Soporte Técnico">
+        <i class="fas fa-headset"></i>
+    </a>
+    
+<footer>
+    <div class="footer-content">
+        <div class="footer-brand">NexCode</div>
+        <img src="Imagenes/LogoWeb.png" alt="NexCode Logo" class="logo-img"> 
+    </div>
+    <div class="footer-text">
+        © 2025 NexCode. Todos los derechos reservados.
+    </div>
+</footer>
+
+    <script src="index.js"></script> </body>
 </html>

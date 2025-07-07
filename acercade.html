@@ -2,97 +2,127 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acerca de | NexCode</title>
-    <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" href="../../LogoWeb.png" type="image/png">
+    <link rel="stylesheet" href="index.css"> <link rel="stylesheet" href="acercade.css"> <link rel="icon" href="Imagenes/LogoWeb.png" type="image/png"> 
 </head>
 <body>
 
-    <!-- Barra de navegación -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">NexCode</div>
             <ul class="nav-links">
                 <li><a href="index.html">Inicio</a></li>
-                <li><a href="index.html">Cursos</a></li>
-                <li><a href="https://demian369369.github.io/JarvisFrontendProject/PaginasWeb/Prototipo9/RESUME-Source_code/index.html">Contacto</a></li>
-                <li><a href="#" id="logoutBtn">Cerrar Sesión</a></li>
+                <li><a href="index.html#cursos">Cursos</a></li> 
+                <li><a href="soporte.html" class="active">Soporte</a></li> </ul>
             </ul>
         </div>
     </nav>
 
-    <!-- Contenido principal -->
     <main class="main-content">
         <section class="hero-section">
-            <h1 class="hero-title">Tu siguiente nivel</h1>
-            <p class="hero-subtitle">Más que cursos, una nueva forma de aprender desde cero y crecer con propósito.</p>
+            <h1 class="hero-title">Transformando el futuro digital</h1>
+            <p class="hero-subtitle">Más que cursos, una comunidad en crecimiento donde el conocimiento te impulsa.</p>
         </section>
 
-        <section class="about-section">
-            <h2 class="hero-title" style="font-size: 2.5rem;">¿Quiénes somos en NexCode?</h2>
-            <p class="hero-subtitle" style="max-width: 800px; margin: 1rem auto 2rem auto;">
-                En NexCode, creemos que el conocimiento es la herramienta más poderosa para construir un mejor futuro. 
-                Somos una iniciativa emergente enfocada en ofrecer formación digital de alta calidad en programación, tecnología, ciencia de datos, diseño web y más. 
-                Aunque aún no contamos con estudiantes inscritos, estamos construyendo una plataforma sólida, confiable y con visión de futuro. 
-            </p>
+        <section class="about-us-intro content-card-section">
+            <div class="card-large">
+                <h2 class="card-title"><i class="fas fa-question-circle card-icon"></i> ¿Quiénes somos en NexCode?</h2>
+                <p class="card-description">
+                    En NexCode, creemos que el conocimiento es la herramienta más poderosa para construir un mejor futuro. 
+                    Somos una iniciativa emergente enfocada en ofrecer formación digital de alta calidad en programación, tecnología, ciencia de datos, diseño web y más. 
+                    Aunque aún no contamos con estudiantes inscritos, estamos construyendo una plataforma sólida, confiable y con visión de futuro. 
+                </p>
+                <p class="card-description">
+                    Nuestra visión es ser el catalizador para tu éxito profesional en la era digital, brindando herramientas y conocimientos accesibles para todos.
+                </p>
+            </div>
+        </section>
 
-            <h2 class="hero-title" style="font-size: 2rem;">¿Qué nos hace diferentes?</h2>
-            <p class="hero-subtitle" style="max-width: 800px; margin: 1rem auto;">
-                Nuestro compromiso es contigo y con tu crecimiento profesional. Nos diferenciamos por:
-            </p>
-            <ul style="max-width: 800px; margin: 0 auto; text-align: left; color: #ccc; font-size: 1rem; line-height: 1.8;">
-                <li>🚀 Enfoque en habilidades prácticas y demandadas en el mercado actual.</li>
-                <li>🎯 Contenido original creado por profesionales en activo del sector tecnológico.</li>
-                <li>📈 Desarrollo continuo de nuestra plataforma con tecnología moderna y adaptable.</li>
-                <li>🌎 Visión inclusiva: queremos llegar a personas de todos los rincones del mundo hispanohablante.</li>
-            </ul>
+        <section class="mission-vision-section content-grid-section">
+            <div class="grid-item card-medium">
+                <h3 class="card-title"><i class="fas fa-bullseye card-icon"></i> Nuestra Misión</h3>
+                <p class="card-description">
+                    Capacitar a la próxima generación de profesionales digitales. En NexCode, nuestra misión es ofrecer formación accesible, actualizada y transformadora 
+                    que impulse a cada persona a alcanzar su siguiente nivel. Porque todos merecen una oportunidad para destacar en el mundo tecnológico.
+                </p>
+            </div>
+            <div class="grid-item card-medium">
+                <h3 class="card-title"><i class="fas fa-eye card-icon"></i> Visión a Futuro</h3>
+                <p class="card-description">
+                    Nos proyectamos como una plataforma de referencia en habla hispana para el aprendizaje digital. Queremos que en los próximos años, haya personas que digan: 
+                    “Pude mejorar mis habilidades con NexCode”. Estamos sembrando las semillas del conocimiento para una cosecha de éxito global.
+                </p>
+            </div>
+        </section>
 
-            <h2 class="hero-title" style="font-size: 2rem; margin-top: 3rem;">Nuestra Misión</h2>
-            <p class="hero-subtitle" style="max-width: 800px; margin: 1rem auto 2rem auto;">
-                Capacitar a la próxima generación de profesionales digitales. En NexCode, nuestra misión es ofrecer formación accesible, actualizada y transformadora 
-                que impulse a cada persona a alcanzar su siguiente nivel. Porque todos merecen una oportunidad para destacar en el mundo tecnológico.
-            </p>
+        <section class="unique-features-section content-grid-section">
+            <h2 class="section-title">¿Qué nos hace diferentes?</h2>
+            <div class="features-grid">
+                <div class="feature-item card-small">
+                    <i class="fas fa-cogs feature-icon"></i>
+                    <h4 class="feature-title">Habilidades Prácticas</h4>
+                    <p class="feature-description">Enfoque en herramientas y técnicas que el mercado laboral exige hoy.</p>
+                </div>
+                <div class="feature-item card-small">
+                    <i class="fas fa-lightbulb feature-icon"></i>
+                    <h4 class="feature-title">Contenido Original</h4>
+                    <p class="feature-description">Material de estudio exclusivo creado por expertos de la industria.</p>
+                </div>
+                <div class="feature-item card-small">
+                    <i class="fas fa-flask feature-icon"></i>
+                    <h4 class="feature-title">Innovación Constante</h4>
+                    <p class="feature-description">Plataforma en desarrollo continuo con tecnología de vanguardia.</p>
+                </div>
+                <div class="feature-item card-small">
+                    <i class="fas fa-users feature-icon"></i>
+                    <h4 class="feature-title">Comunidad Global</h4>
+                    <p class="feature-description">Construyendo una red inclusiva para el aprendizaje hispanohablante.</p>
+                </div>
+                <div class="feature-item card-small">
+                    <i class="fas fa-medal feature-icon"></i>
+                    <h4 class="feature-title">Calidad Garantizada</h4>
+                    <p class="feature-description">Compromiso con la excelencia en cada curso y experiencia.</p>
+                </div>
+                <div class="feature-item card-small">
+                    <i class="fas fa-laptop-code feature-icon"></i>
+                    <h4 class="feature-title">Aprende Haciendo</h4>
+                    <p class="feature-description">Metodología práctica con proyectos y desafíos reales.</p>
+                </div>
+            </div>
+        </section>
 
-            <h2 class="hero-title" style="font-size: 2rem;">Visión a Futuro</h2>
-            <p class="hero-subtitle" style="max-width: 800px; margin: 1rem auto 2rem auto;">
-                Nos proyectamos como una plataforma de referencia en habla hispana para el aprendizaje digital. Queremos que en los próximos años, haya personas que digan: 
-                “Pude mejorar mis habilidades con NexCode”.
-            </p>
-
-            <blockquote style="max-width: 800px; margin: 2rem auto; font-style: italic; color: #aaa; border-left: 4px solid #0af; padding-left: 1rem;">
-                “Aunque aún no tenemos estudiantes, ya estamos construyendo el futuro con cada línea de código y cada decisión que tomamos. Este es solo el comienzo.” – Equipo NexCode
+        <section class="quote-section content-card-section">
+            <blockquote class="about-blockquote">
+                “Aunque aún no tenemos estudiantes, ya estamos construyendo el futuro con cada línea de código y cada decisión que tomamos. Este es solo el comienzo.”
+                <cite>– Equipo NexCode</cite>
             </blockquote>
-
-            <div style="text-align: center; margin-top: 3rem;">
-                <a href="index.html" style="background-color: #00bfff; color: white; padding: 1rem 2rem; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 1.2rem;">
-                    Únete al cambio, forma parte del inicio
-                </a>
-            </div>
         </section>
+
+        <div class="cta-button-container">
+            <a href="index.html" class="cta-button">
+                Únete al cambio, forma parte del inicio
+            </a>
+        </div>
     </main>
-   <div class="notification-panel" id="notificationPanel">
-    <div class="notification-header">
-        🔔 Notificaciones
-    </div>
-    <ul class="notification-list">
-        <li>
-            📅 <strong>06/03/2025</strong> – 🎓 <em>Curso de Programación desde 0 ya disponible</em> 🎉💡
-        </li>
-    </ul>
-</div>
-<a href="soporte.html" class="support-button" title="Soporte Técnico">
-  <i class="fas fa-screwdriver-wrench"></i>
-</a>
- <footer style="background-color: #111; color: #888; text-align: center; padding: 1rem; margin-top: 4rem;">
-         <div class="footer-content">
-            <div class="footer-brand">Nexcode</div>
-                <img src="../../LogoWeb.png" alt="NexCode Logo" class="logo-img">
-            </div>
-            <div class="footer-text">
-                 © 2025 NexCode. Todos los derechos reservados.
-            </div>
+    
+   
+    
+    <a href="soporte.html" class="support-button" title="Soporte Técnico">
+        <i class="fas fa-headset"></i> 
+    </a>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">NexCode</div>
+            <img src="Imagenes/LogoWeb.png" alt="NexCode Logo" class="logo-img">
+        </div>
+        <div class="footer-text">
+            © 2025 NexCode. Todos los derechos reservados.
         </div>
     </footer>
+
+    <script src="index.js"></script> 
 </body>
 </html>

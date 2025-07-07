@@ -1,163 +1,127 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Soporte Técnico - NexCode</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="cursos.css">
-  <link rel="stylesheet" href="index.css">
-  <link rel="icon" href="../../LogoWeb.png" type="image/png">
-  
-  <style>
-    @keyframes neonPulse {
-      0% { color: #00f2ff; text-shadow: 0 0 5px #00f2ff55, 0 0 10px #00f2ff66; }
-      25% { color: #39ff14; text-shadow: 0 0 5px #39ff1466, 0 0 10px #39ff1477; }
-      50% { color: #9af302; text-shadow: 0 0 5px #4c8f0955, 0 0 10px #97f30477; }
-      100% { color: #00f2ff; text-shadow: 0 0 5px #00f2ff55, 0 0 10px #00f2ff66; }
-    }
-
-    body {
-      background-color: #111;
-      color: #fff;
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-
-    .support-container {
-      max-width: 800px;
-      margin: 80px auto;
-      padding: 40px;
-      background: #1c1c1e;
-      border-radius: 20px;
-      box-shadow: 0 0 20px #00f2ff44;
-      text-align: center;
-    }
-
-    .support-container h1 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-      animation: neonPulse 6s infinite;
-    }
-
-    .support-container h1 .brand {
-      font-weight: bold;
-    }
-
-    .support-container p {
-      font-size: 1.1rem;
-      margin-bottom: 30px;
-      color: #aaa;
-    }
-
-    .contact-methods {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .contact-card {
-      display: flex;
-      align-items: center;
-      background: #222;
-      padding: 15px 20px;
-      border-radius: 15px;
-      transition: transform 0.2s ease, background 0.3s ease;
-      cursor: pointer;
-      text-decoration: none;
-      color: #fff;
-      box-shadow: 0 0 10px #00f2ff22;
-    }
-
-    .contact-card:hover {
-      transform: translateY(-5px);
-      background: #2b2b2e;
-    }
-
-    .contact-card i {
-      font-size: 1.8rem;
-      margin-right: 15px;
-      color: #00f2ff;
-    }
-
-    .contact-card span {
-      font-size: 1.1rem;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 60px;
-      padding: 20px;
-      color: #666;
-    }
-
-    @media (max-width: 600px) {
-      .contact-card {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .contact-card i {
-        margin-bottom: 10px;
-      }
-    }
-  </style>
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soporte Técnico | NexCode</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="soporte.css"> <link rel="stylesheet" href="soporte.css"> <link rel="icon" href="Imagenes/LogoWeb.png" type="image/png"> </head>
 <body>
- <nav class="navbar">
+
+    <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo">NexCode</a>
-             <ul class="nav-links">
-                <li><a href="../../index.html">Inicio</a></li>
-                <li><a href="../../index.html#cursos">Cursos</a></li>
-                <li><a href="../../acercade.html">Acerca de</a></li>
-                <li><a href="https://demian369369.github.io/JarvisFrontendProject/PaginasWeb/Prototipo9/RESUME-Source_code/index.html">Contacto</a></li>
-            </ul>
+            <div class="logo">NexCode</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#cursos">Cursos</a></li>
+                <li><a href="acercade.html">Acerca de</a></li>
+                <li><a href="faq.html">FAQ</a></li> </ul>
+
         </div>
     </nav>
-  <div class="support-container">
-    <h1><i class="fas fa-headset"></i> Centro de Soporte <span class="brand">NexCode</span></h1>
-    <p>¿Tienes alguna duda, problema técnico o sugerencia? Contáctanos por cualquiera de los siguientes medios:</p>
-    <div class="contact-methods">
 
-      <a href="mailto:nexcodemx@gmail.com" class="contact-card">
-        <i class="fas fa-envelope"></i>
-        <span>nexcodemx@gmail.com</span>
-      </a>
+    <main class="main-content">
+        <section class="hero-section">
+            <h1 class="hero-title">Centro de Soporte</h1>
+            <p class="hero-subtitle">¿Necesitas ayuda? Estamos aquí para asistirte.</p>
+        </section>
 
-      <a href="https://www.instagram.com/nexcode_mx/" target="_blank" class="contact-card">
-        <i class="fab fa-instagram"></i>
-        <span>@NexCode</span>
-      </a>
+        <section class="support-content-section content-card-section">
+            <div class="card-large">
+                <h2 class="card-title"><i class="fas fa-headset card-icon"></i> Contacta con NexCode</h2>
+                <p class="card-description">
+                    Nuestro equipo está listo para resolver tus dudas, problemas técnicos o recibir tus sugerencias. 
+                    Elige el método de contacto que prefieras.
+                </p>
 
-      <a href="https://github.com/NEXCODEMX" target="_blank" class="contact-card">
-        <i class="fab fa-github"></i>
-        <span>github.com/Nexcode</span>
-      </a>
+                <div class="contact-methods-grid">
+                    <a href="mailto:nexcodemx@gmail.com" class="contact-card card-medium">
+                        <i class="fas fa-envelope contact-icon"></i>
+                        <div class="contact-info">
+                            <span class="contact-label">Envíanos un Email</span>
+                            <span class="contact-value">nexcodemx@gmail.com</span>
+                        </div>
+                    </a>
 
-      <a href="https://www.youtube.com/channel/UCM_cykeSI6AfsswHDzK9ioQ" target="_blank" class="contact-card">
-        <i class="fab fa-youtube"></i>
-        <span>NexCodeMX</span>
-      </a>
+                    <a href="https://www.instagram.com/nexcode_mx/" target="_blank" class="contact-card card-medium">
+                        <i class="fab fa-instagram contact-icon"></i>
+                        <div class="contact-info">
+                            <span class="contact-label">Síguenos en Instagram</span>
+                            <span class="contact-value">@NexCode_MX</span>
+                        </div>
+                    </a>
 
-      <div class="contact-card">
-        <i class="fas fa-phone"></i>
-        <span> +52 3343408028</span>
-      </div>
+                    <a href="https://github.com/NEXCODEMX" target="_blank" class="contact-card card-medium">
+                        <i class="fab fa-github contact-icon"></i>
+                        <div class="contact-info">
+                            <span class="contact-label">Visita nuestro GitHub</span>
+                            <span class="contact-value">github.com/NEXCODEMX</span>
+                        </div>
+                    </a>
 
-    </div>
-  </div>
+                    <a href="https://www.youtube.com/channel/UCM_cykeSI6AfsswHDzK9ioQ" target="_blank" class="contact-card card-medium">
+                        <i class="fab fa-youtube contact-icon"></i>
+                        <div class="contact-info">
+                            <span class="contact-label">Suscríbete en YouTube</span>
+                            <span class="contact-value">NexCodeMX</span>
+                        </div>
+                    </a>
 
-  <footer style="background-color: #111; color: #888; text-align: center; padding: 1rem; margin-top: 4rem;">
-         <div class="footer-content">
-            <div class="footer-brand">Nexcode</div>
-                <img src="../../LogoWeb.png" alt="NexCode Logo" class="logo-img">
+                    <div class="contact-card card-medium">
+                        <i class="fas fa-phone contact-icon"></i>
+                        <div class="contact-info">
+                            <span class="contact-label">Llámanos</span>
+                            <span class="contact-value">+52 3343408028</span>
+                        </div>
+                    </div>
+
+                    <a href="faq.html" class="contact-card card-medium">
+                        <i class="fas fa-question contact-icon"></i>
+                        <div class="contact-info">
+                            <span class="contact-label">Preguntas Frecuentes</span>
+                            <span class="contact-value">Encuentra respuestas rápidas</span>
+                        </div>
+                    </a>
+                </div>
             </div>
-            <div class="footer-text">
-                 © 2025 NexCode. Todos los derechos reservados.
-            </div>
+        </section>
+
+        <section class="location-map-section content-card-section">
+             <div class="card-large">
+                <h3 class="card-title"><i class="fas fa-map-marker-alt card-icon"></i> Nuestra Ubicación</h3>
+                <p class="card-description">Estamos orgullosos de ser una iniciativa nacida en el Centro Universitario de Ciencias Exactas e Ingenierías (CUCEI) de la Universidad de Guadalajara.</p>
+                <div class="map-container">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3733.279641775276!2d-103.32757272445892!3d20.65969548074906!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428b248a30f146f%3A0x7d6a2f79f15a3177!2sCentro%20Universitario%20de%20Ciencias%20Exactas%20e%20Ingenier%C3%ADas%20(CUCEI)!5e0!3m2!1ses-419!2smx!4v1700000000000!5m2!1ses-419!2smx" 
+                        width="100%" 
+                        height="450" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+                <p class="card-description">Tu apoyo desde nuestra casa en CUCEI impulsa nuestra misión global.</p>
+             </div>
+        </section>
+        
+        <div class="cta-button-container">
+            <a href="index.html" class="cta-button">
+                Volver a la Página Principal
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">NexCode</div>
+            <img src="Imagenes/LogoWeb.png" alt="NexCode Logo" class="logo-img">
+        </div>
+        <div class="footer-text">
+            © 2025 NexCode. Todos los derechos reservados.
         </div>
     </footer>
 
+    <script src="index.js"></script> 
 </body>
 </html>

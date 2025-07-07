@@ -1,0 +1,171 @@
+/* --- ESTILOS ESPECÍFICOS DE LAS SECCIONES DE CONTENIDO DE FAQ.HTML --- */
+
+.content-card-section {
+    max-width: 900px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+    text-align: center;
+    width: 100%;
+}
+
+.card-large, .card-medium, .card-small {
+    background: linear-gradient(145deg, rgba(20, 20, 40, 0.8), rgba(30, 30, 60, 0.8));
+    border-radius: 18px;
+    border: 1px solid rgba(64, 224, 255, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(15px);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-large:hover, .card-medium:hover, .card-small:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 212, 255, 0.25);
+    border-color: rgba(0, 212, 255, 0.4);
+}
+
+.card-large::before, .card-medium::before, .card-small::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.04), transparent);
+    transition: left 0.6s ease;
+    z-index: 0;
+}
+
+.card-large:hover::before, .card-medium:hover::before, .card-small:hover::before {
+    left: 100%;
+}
+
+.card-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #00d4ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.card-icon {
+    font-size: 1.6rem;
+    color: #00ff88;
+}
+
+.card-description {
+    font-size: 1rem;
+    color: #c0c0c0;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+    margin-left: auto;
+    margin-right: auto;
+    /* Aseguramos que no haya propiedades que impidan la lectura completa */
+    /* Removido min-height si existía para evitar conflictos */
+    /* Removido white-space: pre-wrap; o similar si existía */
+}
+
+
+/* --- ESTILOS ESPECÍFICOS DEL ACORDEÓN DE FAQ --- */
+.accordion-container {
+    margin-top: 2rem;
+    text-align: left;
+    width: 100%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.accordion-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    margin-bottom: 0.8rem;
+    /* ESTO ES CLAVE: overflow: hidden; aquí es necesario para la animación */
+    overflow: hidden; 
+    border: 1px solid rgba(64, 224, 255, 0.15);
+    transition: all 0.3s ease;
+}
+
+.accordion-item.active {
+    background: rgba(0, 212, 255, 0.1);
+    border-color: #00d4ff;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+}
+
+.accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 1.2rem 1.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.accordion-item.active .accordion-header {
+    color: #00d4ff;
+}
+
+.accordion-header:hover {
+    background: rgba(0, 212, 255, 0.05);
+}
+
+.accordion-title {
+    flex-grow: 1;
+}
+
+.accordion-icon {
+    font-size: 1rem;
+    margin-left: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.accordion-item.active .accordion-icon {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    /* CLAVE: max-height: 0; aquí y TRANSICIÓN. El JS lo controlará. */
+    max-height: 0; 
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+    padding: 0 1.5rem; 
+}
+
+.accordion-item.active .accordion-content {
+    /* NO DEFINIMOS max-height aquí. ¡El JavaScript lo hace! */
+    padding: 0.5rem 1.5rem 1.5rem 1.5rem;
+}
+
+.accordion-content p {
+    font-size: 0.95rem;
+    color: #c0c0c0;
+    line-height: 1.6;
+    margin-bottom: 0;
+    /* white-space: normal; <-- Asegura que no haya saltos de línea forzados */
+}
+
+.accordion-content a {
+    color: #00d4ff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.accordion-content a:hover {
+    text-decoration: underline;
+}

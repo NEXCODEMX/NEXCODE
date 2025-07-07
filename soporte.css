@@ -1,0 +1,519 @@
+/* --- ESTILOS ESPECÍFICOS PARA LA PÁGINA 'SOPORTE' (soporte.html) --- */
+
+/* REPLICACIÓN DE ESTILOS BASE Y ANIMACIONES GLOBALES DE INDEX.CSS */
+/* Esto asegura que soporte.css sea estéticamente autónomo para todos sus elementos */
+
+/* Estilos de Body y Fondo */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+    color: #ffffff;
+    overflow-x: hidden; /* Evita scroll horizontal */
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+    z-index: -1;
+    animation: backgroundPulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes backgroundPulse {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+/* Animaciones de degradado para texto (hero-title, footer-brand, etc.) */
+@keyframes titleGradient {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes logoGradient { /* Replicado para el logo en navbar y footer */
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes gradientShift { /* Replicado para el borde de la navbar */
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+
+/* NAV BAR STYLES (REPLICADOS AQUÍ PARA ASEGURAR CONSISTENCIA VISUAL) */
+.navbar {
+    background: rgba(15, 15, 35, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 2px solid transparent;
+    background-clip: padding-box;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 1rem 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.navbar::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #00d4ff, #00ff26, #00ff88, #9dff00);
+    background-size: 400% 400%;
+    animation: gradientShift 3s ease infinite;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: bold;
+    background: linear-gradient(45deg, #00d4ff, #00ff1a, #00ff88);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: logoGradient 4s ease infinite;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-links li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.nav-links li a:hover {
+    color: #00d4ff;
+    background: rgba(0, 212, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+}
+
+.nav-links li a.active { /* Para el enlace de la página actual */
+    color: #00d4ff;
+    background: rgba(0, 212, 255, 0.2);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+    pointer-events: none;
+}
+
+
+/* MAIN CONTENT (Centrado general del contenido de la página) */
+.main-content {
+    margin-top: 100px; /* Espacio para navbar */
+    margin-left: 0;    /* No hay sidebar en esta página, así que no hay margen izquierdo */
+    max-width: 100%;   /* Ocupa todo el ancho disponible */
+    padding: 2rem;     /* Padding general del contenido */
+    padding-bottom: 3rem; /* Espacio para el footer */
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* ¡CLAVE PARA CENTRAR HORIZONTALMENTE LOS HIJOS (SECCIONES)! */
+}
+
+
+/* Hero Section (Replicado de la estética de index.html para el banner superior de Soporte) */
+.hero-section {
+    text-align: center;
+    padding: 3rem 0;
+    margin-bottom: 2rem;
+    max-width: 1000px; /* Limita el ancho del hero */
+    width: 100%; /* Ocupa el 100% del espacio hasta max-width */
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.hero-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, #00d4ff, #00ff1e, #00ff88);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: titleGradient 4s ease infinite; /* Utiliza la animación definida arriba */
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: #a0a0a0;
+    margin-bottom: 2rem;
+}
+
+
+/* --- ESTILOS ESPECÍFICOS DE LAS TARJETAS Y CUADRÍCULAS EN SOPORTE.HTML --- */
+
+/* Contenedores de sección de contenido (recrean el estilo de tarjeta para secciones) */
+.content-card-section {
+    max-width: 900px;
+    margin: 4rem auto; /* Centra la sección horizontalmente */
+    padding: 0 2rem; /* Padding horizontal */
+    text-align: center;
+    width: 100%; /* Ocupa el ancho completo hasta max-width */
+}
+
+/* Estilos de base para las tarjetas (card-large, card-medium, card-small) */
+.card-large, .card-medium, .card-small {
+    background: linear-gradient(145deg, rgba(20, 20, 40, 0.8), rgba(30, 30, 60, 0.8));
+    border-radius: 18px;
+    border: 1px solid rgba(64, 224, 255, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(15px);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-large:hover, .card-medium:hover, .card-small:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 212, 255, 0.25);
+    border-color: rgba(0, 212, 255, 0.4);
+}
+
+/* Efecto de brillo sutil en las tarjetas al hover */
+.card-large::before, .card-medium::before, .card-small::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.04), transparent);
+    transition: left 0.6s ease;
+    z-index: 0;
+}
+
+.card-large:hover::before, .card-medium:hover::before, .card-small:hover::before {
+    left: 100%;
+}
+
+.card-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #00d4ff;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centra el título y el icono */
+    gap: 0.8rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.card-icon {
+    font-size: 1.6rem;
+    color: #00ff88;
+}
+
+.card-description {
+    font-size: 1rem;
+    color: #c0c0c0;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+    margin-left: auto; /* Centrar el párrafo si tiene un ancho limitado */
+    margin-right: auto; /* Centrar el párrafo si tiene un ancho limitado */
+}
+
+/* Cuadrícula de métodos de contacto */
+.contact-methods-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 2-3 columnas flexibles */
+    gap: 1.5rem;
+    margin-top: 2rem;
+    justify-content: center; /* Centra las tarjetas si no ocupan todo el ancho */
+}
+
+.contact-card {
+    display: flex;
+    align-items: center;
+    text-decoration: none; /* Quitar subrayado en los enlaces */
+    color: #ffffff; /* Asegurar color blanco para el texto */
+    padding: 1.5rem;
+    border-radius: 12px;
+    background: linear-gradient(145deg, rgba(30, 30, 50, 0.9), rgba(40, 40, 70, 0.9));
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3), 0 0 20px rgba(0, 212, 255, 0.2);
+    background: linear-gradient(145deg, rgba(40, 40, 60, 0.95), rgba(50, 50, 80, 0.95));
+    border-color: rgba(0, 212, 255, 0.5);
+}
+
+.contact-icon {
+    font-size: 2.5rem;
+    color: #00d4ff;
+    margin-right: 1rem;
+    filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.5));
+    min-width: 40px;
+    text-align: center;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.contact-label {
+    font-size: 0.9rem;
+    color: #a0a0a0;
+    margin-bottom: 0.2rem;
+}
+
+.contact-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+/* Estilos para el contenedor del mapa */
+.map-container {
+    margin-top: 2rem;
+    width: 100%;
+    max-width: 800px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+}
+
+.map-container iframe {
+    display: block;
+}
+
+/* FOOTER STYLES (REPLICADOS AQUÍ PARA SOPORTE.CSS) */
+/* Esto asegura que el footer se vea perfecto en soporte.html, independientemente de index.css */
+footer {
+    background: linear-gradient(145deg, rgba(15, 15, 35, 0.98), rgba(25, 25, 45, 0.98));
+    color: #a0a0a0;
+    text-align: center;
+    padding: 2rem 1rem;
+    margin-top: 5rem;
+    border-top: 2px solid rgba(0, 212, 255, 0.15);
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+.footer-brand {
+    font-size: 2.2rem;
+    font-weight: bold;
+    background: linear-gradient(45deg, #00d4ff, #00ff1a, #00ff88);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: logoGradient 4s ease infinite; /* Utiliza la animación definida arriba */
+}
+
+.logo-img { /* Esto aplicaría al logo en el footer */
+    font-size: 2.5rem; /* Si es un emoji */
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.5); /* Brillo para el emoji */
+    /* Si es una imagen: */
+    height: 60px; /* Tamaño de la imagen */
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.5));
+    transition: transform 0.3s ease;
+}
+
+.logo-img:hover { /* Efecto hover para el logo en el footer */
+    transform: scale(1.05);
+}
+
+.footer-text {
+    font-size: 0.9rem;
+    color: #888;
+    line-height: 1.5;
+}
+
+
+/* Botón Volver a la Página Principal - REPLICADO Y ESTILIZADO */
+.cta-button-container {
+    text-align: center;
+    margin-top: 4rem;
+    margin-bottom: 3rem;
+}
+
+.cta-button {
+    background: linear-gradient(45deg, #00bfff, #0080ff);
+    color: white;
+    padding: 1.2rem 3rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.25rem;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(0, 191, 255, 0.4);
+    display: inline-block;
+    border: 2px solid transparent;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.cta-button:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 12px 35px rgba(0, 191, 255, 0.6), 0 0 40px rgba(0, 212, 255, 0.5);
+    background: linear-gradient(45deg, #00d4ff, #0099ff);
+    border-color: rgba(0, 212, 255, 0.6);
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.7s ease;
+    z-index: 0;
+}
+
+.cta-button:hover::before {
+    left: 100%;
+}
+
+
+/* Responsive adjustments for Support Page */
+@media (max-width: 1024px) {
+    .content-card-section {
+        max-width: 800px;
+    }
+    .contact-methods-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content { /* Ajuste general de padding en móvil */
+        padding: 1.5rem;
+    }
+    .hero-section {
+        padding: 2rem 0.5rem;
+    }
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .content-card-section {
+        margin: 2rem auto;
+        padding: 0 1rem;
+    }
+
+    .card-large, .card-medium, .card-small {
+        padding: 1.5rem;
+        border-radius: 15px;
+    }
+    .card-title {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    .card-icon {
+        font-size: 1.3rem;
+    }
+    .card-description {
+        font-size: 0.9rem;
+    }
+
+    .contact-methods-grid {
+        grid-template-columns: 1fr; /* Una columna en móvil */
+        gap: 0.8rem;
+    }
+
+    .contact-icon {
+        font-size: 2rem;
+        margin-right: 0.8rem;
+    }
+    .contact-value {
+        font-size: 1rem;
+    }
+
+    .map-container {
+        border-radius: 8px;
+    }
+
+    /* Navbar en móvil (replicado para asegurar) */
+    .navbar {
+        padding: 1rem;
+    }
+    .nav-links {
+        display: none; /* Oculta enlaces en móvil, si se usa un toggle */
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        padding: 1rem;
+    }
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    .hero-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .content-card-section {
+        margin: 1.5rem auto;
+        padding: 0 0.5rem;
+    }
+    .card-large, .card-medium, .card-small {
+        padding: 1.2rem;
+    }
+    .card-title {
+        font-size: 1.2rem;
+    }
+    .card-icon {
+        font-size: 1.1rem;
+    }
+    .card-description {
+        font-size: 0.8rem;
+    }
+}
