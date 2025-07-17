@@ -8,7 +8,7 @@ const courses = [
         url: "Cursos/Curso_Programacion_Desde_0/curso-p0_01.html",
         category: "Programación",
         image: "Imagenes/programming-basic.jpg", // Necesitarás esta imagen
-        available: true 
+        available: true
     },
     // INICIO de los nuevos cursos "Próximamente"
     {
@@ -819,10 +819,6 @@ const courses = [
     // FIN de los nuevos cursos "Próximamente"
 ];
 
-// ... (El resto de tu index.js, incluyendo las funciones loadCourses, createCourseCard,
-// sidebar toggle, category filtering, search, notifications y particle animation.
-// No hay cambios adicionales en estas funciones con respecto a la última versión.) ...
-
 // ------------------ FUNCIONES DE CARGA DE CURSOS -------------------
 function loadCourses(filteredCourses = null, selectedCategory = 'all') {
     const coursesGrid = document.getElementById('coursesGrid');
@@ -834,10 +830,12 @@ function loadCourses(filteredCourses = null, selectedCategory = 'all') {
     
     let sourceCourses = filteredCourses || courses;
 
-    // Filter by category if a specific category is selected
-    if (selectedCategory !== 'all') {
+    // Filter by category if a specific category is selected and no search term is active
+    // If filteredCourses is not null, it means a search is active, so we show search results.
+    if (selectedCategory !== 'all' && document.getElementById('searchInput').value === '') {
         sourceCourses = sourceCourses.filter(course => course.category === selectedCategory);
     }
+
 
     // Group courses by category for display
     const categoriesToDisplay = {};
@@ -848,10 +846,7 @@ function loadCourses(filteredCourses = null, selectedCategory = 'all') {
         categoriesToDisplay[course.category].push(course);
     });
 
-    if (Object.keys(categoriesToDisplay).length === 0 && (filteredCourses === null && selectedCategory === 'all')) {
-        coursesGrid.innerHTML = '<p class="no-courses">No hay cursos disponibles en este momento.</p>';
-        return;
-    } else if (Object.keys(categoriesToDisplay).length === 0 && (filteredCourses !== null || selectedCategory !== 'all')) {
+    if (Object.keys(categoriesToDisplay).length === 0) {
         coursesGrid.innerHTML = '<p class="no-courses">No se encontraron cursos para esta búsqueda/categoría.</p>';
         return;
     }
@@ -934,6 +929,7 @@ function createCourseCard(course) {
 const sidebarToggle = document.getElementById('sidebarToggle');
 const sidebar = document.getElementById('sidebar');
 const mainContent = document.getElementById('mainContent');
+const coursesSection = document.getElementById('cursos'); // Get courses section
 
 if (sidebarToggle && sidebar && mainContent) {
     sidebarToggle.addEventListener('click', () => {
@@ -953,12 +949,13 @@ if (categoryItems) {
             item.classList.add('active');
 
             const selectedCategory = item.dataset.category;
-            if (selectedCategory === 'all') {
-                loadCourses(null, 'all'); // Load all courses
-            } else {
-                const filtered = courses.filter(course => course.category === selectedCategory);
-                loadCourses(filtered, selectedCategory); // Load filtered courses by category
-            }
+            // Ensure courses section is visible when a category is selected
+            coursesSection.classList.remove('hidden-courses');
+            loadCourses(null, selectedCategory); // Load filtered courses by category
+            
+            // Update the "View Courses" button text if courses are now visible due to category selection
+            viewCoursesButton.textContent = "Ocultar Cursos";
+            
             // Clear search input when category is selected
             document.getElementById('searchInput').value = '';
         });
@@ -973,12 +970,17 @@ document.getElementById('searchInput').addEventListener('input', function(e) {
         course.description.toLowerCase().includes(searchTerm) ||
         course.category.toLowerCase().includes(searchTerm)
     );
+    // Ensure courses section is visible when searching
+    coursesSection.classList.remove('hidden-courses');
     loadCourses(filtered, 'all'); // When searching, show all matching regardless of category filter
     
+    // Update the "View Courses" button text if courses are now visible due to search
+    viewCoursesButton.textContent = "Ocultar Cursos";
+
     // Remove active class from categories when searching
     categoryItems.forEach(i => i.classList.remove('active'));
-    // Optionally, set 'Todos los cursos' as active
-    document.querySelector('.category-item[data-category="all"]').classList.add('active');
+    // Optionally, set 'Todos los cursos' as active if no specific category is matched by search
+    // For now, let's keep it simple and just remove active.
 });
 
 // ------------------ NOTIFICATIONS -------------------
@@ -1019,6 +1021,40 @@ setInterval(createParticle, 2000);
 
 // ------------------ INITIALIZE -------------------
 // Load courses and ensure sidebar state is consistent on page load
+const viewCoursesButton = document.getElementById('viewCoursesButton');
+
 document.addEventListener('DOMContentLoaded', function() {
-    loadCourses(); // Load all courses initially when the DOM is fully loaded
+    // Initially hide the courses section
+    coursesSection.classList.add('hidden-courses');
+    
+    // Add event listener for the "Ver Cursos" button
+    if (viewCoursesButton) {
+        viewCoursesButton.addEventListener('click', () => {
+            if (coursesSection.classList.contains('hidden-courses')) {
+                // Courses are hidden, show them
+                coursesSection.classList.remove('hidden-courses');
+                loadCourses(); // Load all courses when the button is clicked
+                viewCoursesButton.textContent = "Ocultar Cursos";
+                // Optionally, scroll to the courses section
+                coursesSection.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                // Courses are visible, hide them
+                coursesSection.classList.add('hidden-courses');
+                viewCoursesButton.textContent = "Ver Cursos";
+                // Optionally, scroll back to top or hero section
+                document.getElementById('inicio').scrollIntoView({ behavior: 'smooth' });
+            }
+            // Clear search input and reset category when toggling visibility with the main button
+            document.getElementById('searchInput').value = '';
+            categoryItems.forEach(i => i.classList.remove('active'));
+            document.querySelector('.category-item[data-category="all"]').classList.add('active');
+        });
+    }
+
+    // Ensure sidebar is hidden on load
+    sidebar.classList.add('hidden');
+    mainContent.classList.add('sidebar-hidden');
+
+    // Make "Todos los cursos" active by default in the sidebar
+    document.querySelector('.category-item[data-category="all"]').classList.add('active');
 });

@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexCode - Fundamentos de Programación - Clase 4</title> <!--esto se cambia por clase-->
+    <title>NexCode - Curso De Programación desde 0 - Clase 4</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../cursos.css">
-    <link rel="icon" href="../../LogoWeb.png" type="image/png">
-</head>
+    <link rel="icon" href="../../Imagenes/LogoWeb.png" type="image/png">
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
             <a href="../../index.html" class="logo">NexCode</a>
-             <ul class="nav-links">
+            <ul class="nav-links">
                 <li><a href="../../index.html">Inicio</a></li>
                 <li><a href="../../index.html#cursos">Cursos</a></li>
                 <li><a href="../../acercade.html">Acerca de</a></li>
@@ -21,62 +20,80 @@
             </ul>
         </div>
     </nav>
+
     <div class="main-content">
         <div class="video-container">
-            <div class="video-section">
-                <div class="video-player"> <!--esto se cambia por clase-->
-                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-                            title="Video del Curso" 
+            <div class="video-details-section">
+                <div class="video-player">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=abcdefgh" 
+                            title="Video del Curso"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
                             allowfullscreen>
                     </iframe>
                 </div>
                 <div class="video-controls">
-                    <a href="curso-p0_03.html" class="nav-button" id="prevBtn"> <!--esto se cambia por clase-->
+                    <a href="curso-p0_03.html" class="nav-button" id="prevBtn">
                         <i class="fas fa-chevron-left"></i>
                         Anterior
                     </a>
-                    <div class="class-number">Clase 4 de 20</div> <!--esto se cambia por clase-->
-                    <a href="curso-p0_05.html" class="nav-button" id="nextBtn"> <!--esto se cambia por clase-->
+                    <div class="class-info">
+                        <span class="class-number">Clase 4 de 20</span>
+                        <span class="video-title">Estructuras de Control: Condicionales</span>
+                    </div>
+                    <a href="curso-p0_05.html" class="nav-button" id="nextBtn">
                         Siguiente
                         <i class="fas fa-chevron-right"></i>
                     </a>
                 </div>
-                 <button class="materials-button" onclick="toggleMaterials()">
-                    <i class="fas fa-folder-open"></i> Materiales de la clase
-                </button>
-                <div class="materials-content" id="materialsContent">
-                    <ul> <!--esto se cambia por clase-->
-                        <li><a href="https://example.com/diapositivas-clase-2.pdf" target="_gray">📄 Diapositivas - Clase 3 (PDF)</a></li>
-                        <li><a href="https://example.com/ejercicio-practico.zip" target="_gray">📦 Ejercicio práctico</a></li>
-                        <li><a href="https://example.com/recurso-extra.html" target="_gray">🔗 Recurso adicional</a></li>
-                    </ul>
-                </div>
-                 <a href="curso-p0_Ejercicio01.html" class="exercise-button">
-                    <i class="fas fa-code"></i> Ejercicios
-                </a>
-                <div class="video-info">
-                    <h1 class="video-title">Introducción al Curso</h1> <!--esto se cambia por clase-->
-                    <p class="video-description"> <!--esto se cambia por clase-->
-                        En esta segunda clase te daremos una introducción completa al curso. 
-                        Conocerás la estructura del programa, los objetivos de aprendizaje, 
-                        las herramientas que utilizaremos y cómo aprovechar al máximo cada lección.
+                <div class="video-description-box">
+                    <p class="video-description">
+                       En esta clase, comenzaremos a explorar las estructuras de control, que permiten a nuestros programas tomar decisiones y ejecutar código de forma selectiva. Nos enfocaremos en las estructuras condicionales como `if`, `else if` y `else`, aprendiendo cómo utilizarlas para dirigir el flujo de ejecución de un programa basándose en el cumplimiento de ciertas condiciones.
                     </p>
                 </div>
+
+                <div class="materials-section">
+                    <button class="materials-button" onclick="toggleMaterials()">
+                        <i class="fas fa-book"></i> Materiales Adicionales
+                    </button>
+                    <div class="materials-content" id="materialsContent">
+                        <ul>
+                            <li><a href="../pdfs_PD0/Clase04.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Diapositivas de la Clase 4 (PDF)</a></li>
+                            <li><a href="#" target="_blank"><i class="fas fa-code"></i> Código Fuente de Ejemplos</a></li>
+                            <li><a href="#" target="_blank"><i class="fas fa-link"></i> Enlace a Recursos Externos</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="assessment-section">
+                    <a href="curso-p0_Ejercicio04.html" class="exam-button" target="_blank">
+                        <i class="fas fa-laptop-code"></i> Realizar Ejercicio Práctico
+                    </a>
+                    <button class="exam-button" onclick="openQuiz()">
+                        <i class="fas fa-question-circle"></i> Tomar Quiz de la Clase
+                    </button>
+                </div>
+
             </div>
-            <div class="progress-section">
-                <div class="progress-title">
-                    <i class="fas fa-chart-line"></i>
-                    Progreso del Curso
+
+            <div class="sidebar-right">
+                <div class="progress-section">
+                    <div class="progress-title">
+                        <i class="fas fa-chart-line"></i>
+                        Progreso del Curso
+                    </div>
+                    <div class="progress-grid" id="progressGrid">
+                        </div>
                 </div>
-                <div class="progress-grid" id="progressGrid">
-                </div>
+
                 <div class="notes-section">
                     <div class="notes-title">
                         <i class="fas fa-sticky-note"></i>
                         Mis Notas
                     </div>
-                    <textarea class="notes-input" 
-                              id="notesInput" 
+                    <textarea class="notes-input"
+                              id="notesInput"
                               placeholder="Escribe tus notas y puntos importantes aquí..."></textarea>
                     <button class="save-notes-btn" onclick="saveNotes()">
                         <i class="fas fa-save"></i>
@@ -89,42 +106,98 @@
             </div>
         </div>
     </div>
-     <footer style="background-color: #111; color: #888; text-align: center; padding: 1rem; margin-top: 4rem;">
-         <div class="footer-content">
-            <div class="footer-brand">Nexcode</div>
-                <img src="../../Imagenes/LogoWeb.png" alt="NexCode Logo" class="logo-img">
-            </div>
-            <div class="footer-text">
-                 © 2025 NexCode. Todos los derechos reservados.
-            </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">NexCode</div>
+            <img src="../../Imagenes/LogoWeb.png" alt="NexCode Logo" class="logo-img">
+        </div>
+        <div class="footer-text">
+            © 2025 NexCode. Todos los derechos reservados.
         </div>
     </footer>
+
+    <div class="quiz-overlay" id="quizOverlay">
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <h2>Quiz - Clase <span id="quizClassNumber">4</span></h2>
+                <button class="close-quiz-btn" onclick="closeQuiz()">×</button>
+            </div>
+            <div class="quiz-body">
+                <div class="quiz-question-counter" id="quizQuestionCounter"></div>
+                <div class="question-area" id="questionArea">
+                    <p id="questionText"></p>
+                    <div class="drop-area" id="dropArea" ondragover="allowDrop(event)" ondrop="drop(event)" ondragleave="dragLeave(event)">
+                        Arrastra la respuesta aquí
+                    </div>
+                </div>
+
+                <div class="draggable-options" id="draggableOptions">
+                    </div>
+
+                <div class="hint-area" id="hintArea">
+                    <p id="hintText"></p>
+                </div>
+
+                <div class="explanation-area" id="explanationArea">
+                    <p id="explanationText"></p>
+                    <button class="next-question-btn" id="nextQuestionBtn" onclick="nextQuestion()">Siguiente Pregunta</button>
+                </div>
+
+                <div class="celebration-animation" id="celebrationAnimation">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+
     <script>
-        const currentClass = 4;  //Esto se cambia por clase
-        const totalClasses = 20;
+        const currentClass = 4;  // CAMBIADO MANUALMENTE PARA CLASE 4
+        const totalClasses = 20; // Asegúrate de que esto coincida con el número total de clases
+
         document.addEventListener('DOMContentLoaded', function() {
             initializeProgress();
             loadNotes();
             updateNavigationButtons();
+            // Iniciar autosave al cargar
+            setInterval(autoSaveNotes, 30000); // Autosave cada 30 segundos
         });
+
+        // --- Progreso del Curso ---
         function initializeProgress() {
             const progressGrid = document.getElementById('progressGrid');
             progressGrid.innerHTML = '';
             for (let i = 1; i <= totalClasses; i++) {
                 const circle = document.createElement('div');
                 circle.className = 'progress-circle';
-                circle.textContent = i;
-                circle.title = `Clase ${i}`;
+                
                 if (i < currentClass) {
                     circle.classList.add('completed');
                     circle.innerHTML = '<i class="fas fa-check"></i>';
-                }
-                else if (i === currentClass) {
+                } else if (i === currentClass) {
                     circle.classList.add('current');
+                    circle.textContent = i;
+                } else {
+                    circle.classList.add('locked');
+                    circle.innerHTML = '<i class="fas fa-lock"></i>';
+                    circle.style.pointerEvents = 'none';
                 }
+                
+                circle.title = `Clase ${i}`;
+
+                if (i <= currentClass) {
+                    circle.addEventListener('click', () => {
+                        if (i !== currentClass) {
+                            window.location.href = `curso-p0_${String(i).padStart(2, '0')}.html`;
+                        }
+                    });
+                }
+
                 progressGrid.appendChild(circle);
             }
         }
+
+        // --- Notas con LocalStorage ---
         function saveNotes() {
             const notes = document.getElementById('notesInput').value;
             const key = `nexcode_notes_class_${currentClass}`;
@@ -137,11 +210,15 @@
                 localStorage.setItem(key, JSON.stringify(notesData));
                 const savedNotesDiv = document.getElementById('savedNotes');
                 savedNotesDiv.classList.add('show');
+
                 setTimeout(() => {
                     savedNotesDiv.classList.remove('show');
                 }, 3000);
+            } else {
+                localStorage.removeItem(key);
             }
         }
+
         function loadNotes() {
             const key = `nexcode_notes_class_${currentClass}`;
             const savedData = localStorage.getItem(key);
@@ -150,42 +227,483 @@
                 document.getElementById('notesInput').value = notesData.content;
             }
         }
+
+        function autoSaveNotes() {
+            const notes = document.getElementById('notesInput').value;
+            const key = `nexcode_notes_class_${currentClass}`;
+            if (notes.trim()) {
+                const notesData = {
+                    content: notes,
+                    timestamp: new Date().toISOString(),
+                    className: `Clase ${currentClass}`
+                };
+                localStorage.setItem(key, JSON.stringify(notesData));
+            } else {
+                localStorage.removeItem(key);
+            }
+        }
+
+        // --- Navegación de Clases ---
         function updateNavigationButtons() {
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
-            if (currentClass === 1) {
+
+            if (currentClass <= 1) {
                 prevBtn.style.opacity = '0.5';
                 prevBtn.style.pointerEvents = 'none';
+                prevBtn.href = "#";
+            } else {
+                prevBtn.style.opacity = '1';
+                prevBtn.style.pointerEvents = 'auto';
+                prevBtn.href = `curso-p0_${String(currentClass - 1).padStart(2, '0')}.html`;
             }
-            if (currentClass === totalClasses) {
+
+            if (currentClass >= totalClasses) {
                 nextBtn.style.opacity = '0.5';
                 nextBtn.style.pointerEvents = 'none';
+                nextBtn.href = "#";
+            } else {
+                nextBtn.style.opacity = '1';
+                nextBtn.style.pointerEvents = 'auto';
+                nextBtn.href = `curso-p0_${String(currentClass + 1).padStart(2, '0')}.html`;
             }
         }
-        function markClassCompleted() {
-            const key = `nexcode_completed_class_${currentClass}`;
-            localStorage.setItem(key, 'true');
+
+        // --- Materiales Adicionales (Toggle) ---
+        function toggleMaterials() {
+            const content = document.getElementById('materialsContent');
+            content.style.display = content.style.display === 'block' ? 'none' : 'block';
         }
-        function isClassCompleted(classNumber) {
-            const key = `nexcode_completed_class_${classNumber}`;
-            return localStorage.getItem(key) === 'true';
-        }
-        setInterval(() => {
-            const notes = document.getElementById('notesInput').value;
-            if (notes.trim()) {
-                const key = `nexcode_notes_class_${currentClass}_autosave`;
-                localStorage.setItem(key, notes);
-            }
-        }, 30000);
+
+        // --- Evento de Logout (opcional) ---
         document.getElementById('logoutBtn')?.addEventListener('click', function(e) {
             e.preventDefault();
             localStorage.removeItem('techlearn_logged_in');
             localStorage.removeItem('techlearn_username');
-            window.location.href = 'index.html';
+            window.location.href = '../../index.html';
         });
-        function toggleMaterials() {
-            const content = document.getElementById('materialsContent');
-            content.style.display = content.style.display === 'block' ? 'none' : 'block';
+
+
+        // ===============================================
+        // --- QUIZ INTERACTIVO (ESTILO SCRATCH) ---
+        // ===============================================
+
+        let currentQuestionIndex = 0;
+        let attempts = 0; // Para las pistas progresivas
+        let quizQuestions = []; // Array para almacenar las preguntas de la clase actual
+
+        // *** IMPORTANTE: Define tus preguntas del Quiz aquí para CADA CLASE ***
+        const quizData = {
+            1: [ // Preguntas para la Clase 1
+                {
+                    question: "¿Qué es una 'variable' en programación?",
+                    options: ["Una función", "Un contenedor para datos", "Un tipo de error", "Una palabra clave"],
+                    correctAnswer: "Un contenedor para datos",
+                    hints: [
+                        "Piensa en algo que puede guardar diferentes valores.",
+                        "No es una acción, ni un problema. Sirve para almacenar información.",
+                        "Es como una caja con un nombre donde puedes guardar números, texto, etc."
+                    ],
+                    explanation: "Una variable es un espacio de almacenamiento en la memoria de la computadora al que se le asigna un nombre y que puede contener un valor que puede cambiar durante la ejecución de un programa."
+                },
+                {
+                    question: "¿Cuál de los siguientes NO es un tipo de dato básico?",
+                    options: ["Número entero", "Texto (Cadena)", "Función", "Booleano (Verdadero/Falso)"],
+                    correctAnswer: "Función",
+                    hints: [
+                        "Algunos tipos de datos representan valores, otros representan acciones o bloques de código.",
+                        "No es algo que 'guardas' como un valor directo, sino algo que 'haces'.",
+                        "Los tipos de datos son valores que pueden ser almacenados. Una función es una serie de instrucciones."
+                    ],
+                    explanation: "Mientras que un número entero, texto y booleano son tipos de datos que representan valores, una función es un bloque de código diseñado para realizar una tarea específica, no un tipo de dato en sí mismo."
+                },
+                {
+                    question: "¿Qué es un algoritmo?",
+                    options: ["Un lenguaje de programación", "Un conjunto de instrucciones para resolver un problema", "Un tipo de hardware", "Una interfaz de usuario"],
+                    correctAnswer: "Un conjunto de instrucciones para resolver un problema",
+                    hints: [
+                        "Piensa en una receta de cocina, pero para una computadora.",
+                        "Es una secuencia lógica y ordenada de pasos.",
+                        "No es un programa completo, sino la base lógica de cómo se resuelve una tarea."
+                    ],
+                    explanation: "Un algoritmo es una secuencia finita de instrucciones o pasos bien definidos, ordenados y finitos que permiten resolver un problema, realizar un cómputo o procesar datos."
+                },
+                {
+                    question: "¿Qué hace la sentencia 'if' en programación?",
+                    options: ["Repite un bloque de código", "Define una función", "Ejecuta código solo si una condición es verdadera", "Imprime texto en pantalla"],
+                    correctAnswer: "Ejecuta código solo si una condición es verdadera",
+                    hints: [
+                        "Es una estructura de control de flujo.",
+                        "Sirve para tomar decisiones en tu código.",
+                        "Si se cumple X, entonces haz Y."
+                    ],
+                    explanation: "La sentencia 'if' (si condicional) es una estructura de control que permite ejecutar un bloque de código determinado solo si se cumple una condición específica. Si la condición es falsa, el bloque de código dentro del 'if' se omite."
+                },
+                {
+                    question: "¿Cuál es el propósito principal de un 'bucle' (loop)?",
+                    options: ["Almacenar datos", "Realizar cálculos matemáticos", "Repetir un bloque de código varias veces", "Conectar diferentes partes de un programa"],
+                    correctAnswer: "Repetir un bloque de código varias veces",
+                    hints: [
+                        "Imagina que necesitas hacer lo mismo muchas veces sin escribirlo una y otra vez.",
+                        "Es útil para tareas que se repiten, como contar o procesar listas.",
+                        "Es como un ciclo que se ejecuta hasta que se cumple una condición de salida."
+                    ],
+                    explanation: "Un bucle (o loop) es una estructura de control de flujo que permite repetir la ejecución de un bloque de código un número determinado de veces o mientras se cumpla una condición específica. Son fundamentales para automatizar tareas repetitivas."
+                }
+            ],
+            2: [ // Preguntas para la Clase 2 - Variables y Tipos de Datos
+                {
+                    question: "¿Qué tipo de dato usarías para guardar tu edad?",
+                    options: ["Texto (String)", "Booleano (Boolean)", "Número entero (Integer)", "Número decimal (Float/Double)"],
+                    correctAnswer: "Número entero (Integer)",
+                    hints: [
+                        "La edad es un valor numérico y usualmente no tiene fracciones.",
+                        "No es una palabra, ni un 'verdadero/falso'. Piensa en un número sin decimales.",
+                        "Es un valor numérico que representa una cantidad exacta, como 1, 2, 3..."
+                    ],
+                    explanation: "Para guardar la edad, el tipo de dato 'Número entero' (Integer) es el más adecuado, ya que la edad se expresa comúnmente en años completos sin fracciones."
+                },
+                {
+                    question: "Si quieres almacenar el nombre de una persona, ¿qué tipo de dato usarías?",
+                    options: ["Booleano", "Número", "Carácter", "Cadena de texto (String)"],
+                    correctAnswer: "Cadena de texto (String)",
+                    hints: [
+                        "Los nombres son secuencias de letras y símbolos.",
+                        "No es un número o un valor lógico. Es una secuencia de caracteres.",
+                        "Este tipo de dato se usa para cualquier conjunto de caracteres, como palabras o frases."
+                    ],
+                    explanation: "Para almacenar el nombre de una persona, que es una secuencia de caracteres (letras, espacios, etc.), se utiliza el tipo de dato 'Cadena de texto' o 'String'."
+                },
+                {
+                    question: "¿Cuál es una de las principales ventajas de usar variables?",
+                    options: ["Hacer el código más corto", "Permitir que los valores cambien durante la ejecución del programa", "Acelerar la velocidad del programa", "Proteger el código de errores"],
+                    correctAnswer: "Permitir que los valores cambien durante la ejecución del programa",
+                    hints: [
+                        "Piensa en la palabra 'variable': ¿qué implica su significado?",
+                        "Su flexibilidad es clave; no son estáticas.",
+                        "Si el valor de algo necesita actualizarse, una variable es la herramienta."
+                    ],
+                    explanation: "Una de las principales ventajas de las variables es su capacidad para almacenar valores que pueden ser modificados y actualizados a lo largo de la ejecución de un programa, lo que las hace muy flexibles y dinámicas."
+                },
+                {
+                    question: "¿Qué tipo de dato representa solo 'verdadero' o 'falso'?",
+                    options: ["Numérico", "Carácter", "Booleano", "Vacío"],
+                    correctAnswer: "Booleano",
+                    hints: [
+                        "Este tipo de dato es fundamental para la lógica y las decisiones en la programación.",
+                        "Tiene solo dos estados posibles.",
+                        "Se usa para condiciones lógicas."
+                    ],
+                    explanation: "El tipo de dato 'Booleano' (Boolean) se utiliza para representar valores lógicos que pueden ser 'verdadero' (true) o 'falso' (false). Es esencial para las estructuras de control condicionales."
+                },
+                {
+                    question: "¿Qué ocurre si intentas usar una variable antes de declararla en algunos lenguajes?",
+                    options: ["Se le asigna un valor por defecto", "Provoca un error de sintaxis", "Funciona normalmente", "Se crea automáticamente"],
+                    correctAnswer: "Provoca un error de sintaxis",
+                    hints: [
+                        "La computadora necesita saber que existe antes de usarla.",
+                        "Es una regla fundamental que el lenguaje impone para evitar ambigüedades.",
+                        "El compilador o intérprete no entenderá a qué te refieres."
+                    ],
+                    explanation: "En muchos lenguajes de programación, intentar usar una variable antes de haberla declarado correctamente resulta en un error de sintaxis o de compilación, ya que el programa no sabe qué espacio de memoria reservar ni cómo interpretarla."
+                }
+            ],
+            3: [ // Preguntas para la Clase 3 - Operadores y Expresiones
+                {
+                    question: "¿Cuál operador se usa para la multiplicación en la mayoría de lenguajes?",
+                    options: ["+", "-", "*", "/"],
+                    correctAnswer: "*",
+                    hints: [
+                        "No es para sumar, restar o dividir.",
+                        "Es un símbolo que también se usa para 'comodín' en algunas búsquedas.",
+                        "Se encuentra sobre el número 8 en el teclado numérico si usas Shift."
+                    ],
+                    explanation: "El asterisco (*) es el operador estándar para la multiplicación en la mayoría de los lenguajes de programación, como C, Java, Python, JavaScript, etc."
+                },
+                {
+                    question: "¿Qué significa el operador '==' en programación?",
+                    options: ["Asignación de valor", "Igualdad de valor", "Mayor o igual que", "Diferente de"],
+                    correctAnswer: "Igualdad de valor",
+                    hints: [
+                        "Compara si dos cosas tienen el mismo contenido.",
+                        "No cambia el valor de una variable, solo verifica una condición.",
+                        "Es una pregunta: ¿Son X e Y lo mismo?"
+                    ],
+                    explanation: "El operador '==' (doble igual) se utiliza para comparar si dos valores son iguales. No debe confundirse con el operador de asignación '=' (un solo igual)."
+                },
+                {
+                    question: "Si tienes la expresión '5 + 3 * 2', ¿cuál será el resultado según la precedencia de operadores?",
+                    options: ["16", "11", "13", "10"],
+                    correctAnswer: "11",
+                    hints: [
+                        "Recuerda el orden de las operaciones matemáticas: primero multiplicaciones y divisiones.",
+                        "La multiplicación se evalúa antes que la suma.",
+                        "Calcula 3 * 2 primero, y luego súmale 5."
+                    ],
+                    explanation: "Según la precedencia de operadores, la multiplicación (*) se realiza antes que la suma (+). Por lo tanto, 3 * 2 = 6, y luego 5 + 6 = 11."
+                },
+                {
+                    question: "¿Qué operador lógico usarías para verificar si AMBAS condiciones son verdaderas?",
+                    options: ["OR (||)", "NOT (!)", "AND (&&)", "XOR (^)"],
+                    correctAnswer: "AND (&&)",
+                    hints: [
+                        "Necesitas que se cumpla una condición Y la otra.",
+                        "Si solo una es verdadera, el resultado es falso.",
+                        "Se utiliza para combinar dos expresiones lógicas de modo que el resultado sea verdadero solo si ambas son verdaderas."
+                    ],
+                    explanation: "El operador lógico 'AND' (representado comúnmente como '&&') devuelve verdadero solo si ambas expresiones que compara son verdaderas. Si al menos una es falsa, el resultado es falso."
+                },
+                {
+                    question: "¿Cuál es el propósito del operador de asignación '='?",
+                    options: ["Comparar dos valores", "Asignar un nuevo valor a una variable", "Realizar una suma", "Incrementar un valor"],
+                    correctAnswer: "Asignar un nuevo valor a una variable",
+                    hints: [
+                        "Piensa en cómo le das un valor inicial o cambias el valor de una 'caja'.",
+                        "No es para preguntar 'son iguales', sino para 'hacer que sea igual a'.",
+                        "Es el operador más básico para dar contenido a una variable."
+                    ],
+                    explanation: "El operador de asignación '=' se utiliza para asignar el valor de la expresión de la derecha a la variable que se encuentra en el lado izquierdo. Por ejemplo, `x = 10` asigna el valor 10 a la variable `x`."
+                }
+            ],
+            4: [ // Preguntas para la Clase 4 - Estructuras de Control: Condicionales
+                {
+                    question: "¿Qué estructura condicional se usa para ejecutar un bloque de código si una condición es verdadera?",
+                    options: ["else", "while", "if", "for"],
+                    correctAnswer: "if",
+                    hints: [
+                        "Es la declaración condicional más básica.",
+                        "Literalmente significa 'si' en inglés.",
+                        "Se usa para tomar una decisión simple: si esto, haz aquello."
+                    ],
+                    explanation: "La estructura `if` es la base de las condicionales, permitiendo que un bloque de código se ejecute únicamente si la condición especificada es verdadera."
+                },
+                {
+                    question: "¿Cuál de las siguientes es la extensión de un `if` para ejecutar código cuando la condición principal es falsa?",
+                    options: ["then", "else", "unless", "switch"],
+                    correctAnswer: "else",
+                    hints: [
+                        "Significa 'sino' o 'en caso contrario'.",
+                        "Va de la mano con el `if`.",
+                        "Se usa cuando la primera opción no se cumple."
+                    ],
+                    explanation: "La palabra clave `else` se utiliza en conjunto con `if` para definir un bloque de código que se ejecutará si la condición del `if` resulta ser falsa."
+                },
+                {
+                    question: "¿Qué estructura permite evaluar múltiples condiciones en secuencia, deteniéndose en la primera que sea verdadera?",
+                    options: ["if-only", "else-if", "unless-then", "do-while"],
+                    correctAnswer: "else-if",
+                    hints: [
+                        "Combina 'sino' y 'si'.",
+                        "Es útil para encadenar varias posibilidades.",
+                        "Permite una cadena de decisiones: si esto, si no esto, si no aquello..."
+                    ],
+                    explanation: "La estructura `else if` (o `elif` en algunos lenguajes) permite encadenar múltiples condiciones. El programa verifica cada condición en orden y ejecuta el bloque de código de la primera condición que sea verdadera, ignorando las subsiguientes."
+                },
+                {
+                    question: "¿Cuál es el resultado de la expresión `(5 > 3) && (10 < 5)`?",
+                    options: ["Verdadero", "Falso", "Error", "1"],
+                    correctAnswer: "Falso",
+                    hints: [
+                        "El operador `&&` (AND) requiere que ambas partes sean verdaderas.",
+                        "Evalúa cada parte de la expresión por separado primero.",
+                        "La primera parte es verdadera, pero la segunda no lo es."
+                    ],
+                    explanation: "La expresión `(5 > 3)` es verdadera. La expresión `(10 < 5)` es falsa. Como el operador `&&` (AND lógico) requiere que ambas condiciones sean verdaderas para que el resultado sea verdadero, `true && false` da como resultado `false`."
+                },
+                {
+                    question: "¿Para qué se utiliza la indentación (espaciado) en las estructuras condicionales en muchos lenguajes?",
+                    options: ["Para hacer el código más corto", "Es solo una preferencia de estilo", "Para definir qué líneas de código pertenecen a un bloque", "Para acelerar el programa"],
+                    correctAnswer: "Para definir qué líneas de código pertenecen a un bloque",
+                    hints: [
+                        "Es crucial para la legibilidad y la estructura lógica del código.",
+                        "Actúa como delimitador visual de bloques.",
+                        "Sin ella, el compilador o intérprete podría no saber qué código ejecutar bajo una condición."
+                    ],
+                    explanation: "En lenguajes como Python, la indentación es sintácticamente obligatoria para definir bloques de código dentro de estructuras condicionales (y bucles, funciones, etc.). En otros lenguajes (como C, Java), aunque no es obligatoria para la sintaxis, es una práctica estándar y crucial para la legibilidad y el mantenimiento del código."
+                }
+            ]
+            // Puedes añadir más clases aquí para futuras clases:
+            // 5: [ { question: "...", options: [...], correctAnswer: "...", hints: [...], explanation: "..." } ],
+            // ...
+        };
+
+        const quizOverlay = document.getElementById('quizOverlay');
+        const quizContainer = quizOverlay.querySelector('.quiz-container');
+        const quizClassNumberSpan = document.getElementById('quizClassNumber');
+        const quizQuestionCounter = document.getElementById('quizQuestionCounter');
+        const questionText = document.getElementById('questionText');
+        const draggableOptions = document.getElementById('draggableOptions');
+        const dropArea = document.getElementById('dropArea');
+        const hintArea = document.getElementById('hintArea');
+        const hintText = document.getElementById('hintText');
+        const explanationArea = document.getElementById('explanationArea');
+        const explanationText = document.getElementById('explanationText');
+        const nextQuestionBtn = document.getElementById('nextQuestionBtn');
+        const celebrationAnimation = document.getElementById('celebrationAnimation');
+
+        function openQuiz() {
+            quizClassNumberSpan.textContent = currentClass; // Actualiza el número de clase en el quiz
+            quizQuestions = quizData[currentClass];
+
+            if (!quizQuestions || quizQuestions.length === 0) {
+                alert("¡Ups! No hay preguntas de quiz disponibles para esta clase aún.");
+                return;
+            }
+
+            currentQuestionIndex = 0;
+            quizOverlay.classList.add('show');
+            quizContainer.classList.add('show');
+            loadQuestion();
+        }
+
+        function closeQuiz() {
+            quizOverlay.classList.remove('show');
+            quizContainer.classList.remove('show');
+            // Limpiar estado del quiz
+            currentQuestionIndex = 0;
+            attempts = 0;
+            draggableOptions.innerHTML = '';
+            dropArea.innerHTML = 'Arrastra la respuesta aquí';
+            dropArea.classList.remove('correct', 'incorrect', 'highlight');
+            hintArea.classList.remove('show');
+            explanationArea.classList.remove('show');
+            celebrationAnimation.classList.remove('show'); // Esconder animación de celebración
+        }
+
+        function loadQuestion() {
+            if (currentQuestionIndex >= quizQuestions.length) {
+                endQuiz();
+                return;
+            }
+
+            const question = quizQuestions[currentQuestionIndex];
+            attempts = 0; // Resetear intentos para la nueva pregunta
+
+            // Resetear áreas
+            dropArea.innerHTML = 'Arrastra la respuesta aquí';
+            dropArea.classList.remove('correct', 'incorrect', 'highlight');
+            hintArea.classList.remove('show');
+            explanationArea.classList.remove('show');
+            nextQuestionBtn.style.display = 'none';
+
+            quizQuestionCounter.textContent = `Pregunta ${currentQuestionIndex + 1} de ${quizQuestions.length}`;
+            questionText.textContent = question.question;
+
+            // Barajar opciones y cargarlas
+            draggableOptions.innerHTML = '';
+            const shuffledOptions = shuffleArray([...question.options]); // Copia para no modificar el original
+            shuffledOptions.forEach(option => {
+                const item = document.createElement('div');
+                item.className = 'draggable-item';
+                item.textContent = option;
+                item.draggable = true;
+                item.ondragstart = dragStart;
+                draggableOptions.appendChild(item);
+            });
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Drag and Drop Functions
+        function dragStart(event) {
+            event.dataTransfer.setData('text/plain', event.target.textContent);
+            event.target.classList.add('dragging');
+        }
+
+        function allowDrop(event) {
+            event.preventDefault(); // Permite soltar
+            dropArea.classList.add('highlight'); // Resaltar área al arrastrar sobre ella
+        }
+
+        function dragEnter(event) {
+            // Esto puede ser útil si quieres efectos adicionales al entrar al área
+        }
+
+        function dragLeave(event) {
+            dropArea.classList.remove('highlight'); // Remover resaltado al salir
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            dropArea.classList.remove('highlight');
+            
+            const data = event.dataTransfer.getData('text/plain');
+            const draggedItem = document.querySelector('.draggable-item.dragging');
+
+            if (draggedItem) {
+                dropArea.innerHTML = ''; // Limpia cualquier contenido anterior
+                dropArea.appendChild(draggedItem);
+                draggedItem.classList.remove('dragging');
+                draggedItem.draggable = false; // Una vez soltado, no se puede arrastrar de nuevo hasta resetear
+                
+                checkAnswer(data);
+            }
+        }
+
+        function checkAnswer(selectedAnswer) {
+            const question = quizQuestions[currentQuestionIndex];
+            attempts++;
+
+            if (selectedAnswer === question.correctAnswer) {
+                dropArea.classList.remove('incorrect');
+                dropArea.classList.add('correct');
+                explanationText.textContent = question.explanation;
+                explanationArea.classList.add('show');
+                nextQuestionBtn.style.display = 'block';
+                hintArea.classList.remove('show'); // Ocultar pistas si se acierta
+                
+                // Deshabilitar todas las opciones restantes para que no se puedan arrastrar más
+                document.querySelectorAll('.draggable-item').forEach(item => {
+                    item.draggable = false;
+                    item.style.pointerEvents = 'none'; // También deshabilitar clics si los hubiera
+                });
+
+            } else {
+                dropArea.classList.remove('correct');
+                dropArea.classList.add('incorrect');
+                
+                // Mostrar pista progresiva
+                const hintIndex = Math.min(attempts - 1, question.hints.length - 1);
+                hintText.textContent = question.hints[hintIndex];
+                hintArea.classList.add('show');
+                
+                // Devolver el item arrastrado a las opciones originales para reintentar
+                const draggedItem = dropArea.querySelector('.draggable-item');
+                if (draggedItem) {
+                    draggableOptions.appendChild(draggedItem);
+                    draggedItem.draggable = true;
+                    draggedItem.style.pointerEvents = 'auto';
+                }
+                dropArea.innerHTML = 'Arrastra la respuesta aquí'; // Restablecer el texto
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+
+        function endQuiz() {
+            quizQuestionCounter.textContent = '';
+            questionText.textContent = '¡Felicidades! Has completado el Quiz de la Clase.';
+            draggableOptions.innerHTML = '';
+            dropArea.innerHTML = '¡Excelente trabajo!';
+            dropArea.classList.add('correct'); // Mantener verde al final
+            hintArea.classList.remove('show');
+            explanationArea.classList.remove('show');
+            nextQuestionBtn.style.display = 'none';
+
+            celebrationAnimation.classList.add('show'); // Mostrar animación de celebración
+
+            setTimeout(() => {
+                closeQuiz(); // Cerrar el quiz después de la celebración
+            }, 5000); // 5 segundos para la animación
         }
     </script>
 </body>

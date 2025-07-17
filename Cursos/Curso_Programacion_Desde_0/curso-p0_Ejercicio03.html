@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexCode - Ejercicio 2: Cuadrado Perfecto</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../curso-p0_Ejercicios.css">
+    <style>
+        /* Estilos específicos para el Ejercicio 2 (Cuadrado Perfecto) */
+        .stage-area {
+            position: relative; 
+            display: block; 
+            background: #ffffff; 
+            border: 3px solid #00d4ff; 
+            border-radius: 15px;
+            height: 300px;
+            overflow: hidden; 
+            margin-bottom: 1.5rem;
+        }
+
+        .sprite {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: #ff6b35; 
+            border-radius: 50%;
+            transition: all 0.5s ease; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            left: 50px; /* Posición inicial X */
+            top: 130px; /* Posición inicial Y */
+            z-index: 10;
+        }
+
+        .goal-indicator {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 215, 0, 0.7);
+            border-radius: 50%;
+            border: 3px solid #ffd700;
+            /* La estrella estará donde el gato debe terminar, que es su punto de partida */
+            left: 55px; /* Ligeramente ajustado para el centro del gato */
+            top: 135px; /* Ligeramente ajustado para el centro del gato */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            animation: pulse 2s infinite;
+            z-index: 5;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Estilos para el botón de navegación - inyectado en JS */
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../../index.html" class="logo">NexCode</a>
+             <ul class="nav-links">
+                <li><a href="../../index.html">Inicio</a></li>
+                <li><a href="../../index.html#cursos">Cursos</a></li>
+                <li><a href="../../acercade.html">Acerca de</a></li>
+                <li><a href="https://demian369369.github.io/JarvisFrontendProject/PaginasWeb/Prototipo9/RESUME-Source_code/index.html">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="exercise-header">
+            <h1 class="exercise-title">Ejercicios de Scratch</h1>
+            <p class="exercise-subtitle">Practica programación visual con bloques interactivos</p>
+        </div>
+
+        <div class="exercise-container">
+            <div class="scratch-workspace">
+                <div class="workspace-header">
+                    <h2 class="workspace-title">
+                        <i class="fas fa-code"></i>
+                        Área de Trabajo
+                    </h2>
+                    <button class="run-button" onclick="runCode()">
+                        <i class="fas fa-play"></i>
+                        Ejecutar Código
+                    </button>
+                </div>
+
+                <div class="stage-area" id="stage">
+                    <div class="sprite" id="sprite">🐱</div>
+                    <div class="goal-indicator" style="left: 55px; top: 135px;">⭐</div>
+                </div>
+
+                <div class="blocks-area">
+                    <div class="blocks-title">Bloques Disponibles:</div>
+                    <div class="available-blocks" id="availableBlocks">
+                        <div class="block event" draggable="true" data-block="start">al hacer clic en 🏁</div>
+                        <div class="block control" draggable="true" data-block="repeat" data-value="4">repetir 4 veces</div>
+                        <div class="block motion" draggable="true" data-block="move" data-value="40">mover 40 pasos</div>
+                        <div class="block motion" draggable="true" data-block="turn-right" data-value="90">girar ↻ 90°</div>
+                    </div>
+                    
+                    <div class="blocks-title">Tu Código:</div>
+                    <div class="code-area" id="codeArea" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <p class="placeholder-text">Arrastra los bloques aquí para crear tu programa</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="instruction-panel">
+                <h2 class="instruction-title">
+                    <i class="fas fa-bullseye"></i>
+                    Ejercicio 2: ¡Cuadrado Perfecto!
+                </h2>
+                
+                <div class="instruction-text">
+                    <strong>Objetivo:</strong> Programa al gato para que dibuje un cuadrado perfecto y termine exactamente donde empezó (sobre la estrella).
+                    <br><br>
+                    <strong>Instrucciones:</strong>
+                    <ul style="margin-left: 1rem; margin-top: 0.5rem;">
+                        <li>Usa el bloque "al hacer clic en 🏁" para empezar tu programa.</li>
+                        <li>Un cuadrado tiene 4 lados iguales y 4 esquinas.</li>
+                        <li>Necesitarás repetir el movimiento y el giro varias veces.</li>
+                        <li>¡Ejecuta tu código y observa al gato!</li>
+                    </ul>
+                </div>
+
+                <div class="hint-section">
+                    <button class="hint-button" onclick="showHint(1)" id="hintBtn1">
+                        <i class="fas fa-lightbulb"></i>
+                        Pista 1 (2 restantes)
+                    </button>
+                    <div class="hint-content" id="hint1">
+                        <strong>💡 Pista 1:</strong> Para dibujar un cuadrado, el gato debe moverse y luego girar en cada esquina. Un cuadrado tiene 4 lados.
+                    </div>
+
+                    <button class="hint-button" onclick="showHint(2)" id="hintBtn2" style="display: none;">
+                        <i class="fas fa-lightbulb"></i>
+                        Solución para este ejercicio
+                    </button>
+                    <div class="hint-content" id="hint2">
+                        <strong>🎯 Solución:</strong>
+                        <ol style="margin-left: 1rem;">
+                            <li>Arrastra "al hacer clic en 🏁".</li>
+                            <li>Luego arrastra "repetir 4 veces".</li>
+                            <li>Dentro del bucle "repetir": arrastra "mover 40 pasos".</li>
+                            <li>Dentro del bucle "repetir": arrastra "girar ↻ 90°".</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <button class="check-solution" onclick="checkSolution()">
+                    <i class="fas fa-check-circle"></i>
+                    Verificar Solución
+                </button>
+
+                <a href="curso-p0_02.html" id="navToCourseBtn" class="nav-course-button initial-state">
+                    <i class="fas fa-book-open"></i> Repasar Clase
+                </a>
+
+                <div class="result-message" id="resultMessage"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let hintsUsed = 0;
+        // The codeBlocks array will now represent the flat sequence as dropped.
+        // The execution logic will parse for 'repeat' and handle its contents.
+        let codeBlocks = []; 
+        let spriteInitialPosition = { x: 50, y: 130 }; 
+        let spriteCurrentPosition = { ...spriteInitialPosition }; 
+        let spriteCurrentDirection = 0; // 0 = right
+        const animationSpeed = 500; // Milliseconds per block for visual animation
+
+        // Get the goal indicator's position once (assuming it's static)
+        let goalPosition = { x: 0, y: 0 }; 
+        
+        // Elementos del DOM para el botón de navegación
+        const navToCourseBtn = document.getElementById('navToCourseBtn');
+        const EXERCISE_COMPLETED_KEY = 'exercise2Completed'; // Key for localStorage for Ejercicio 2
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateSpritePosition();
+
+            const stageArea = document.getElementById('stage');
+            const goalIndicator = document.querySelector('.goal-indicator');
+
+            const stageRect = stageArea.getBoundingClientRect();
+            const goalRect = goalIndicator.getBoundingClientRect();
+            
+            goalPosition.x = (goalRect.left - stageRect.left) + (goalRect.width / 2);
+            goalPosition.y = (goalRect.top - stageRect.top) + (goalRect.height / 2);
+
+            const spriteElement = document.getElementById('sprite');
+            const spriteWidth = spriteElement.offsetWidth;
+            const spriteHeight = spriteElement.offsetHeight;
+            goalPosition.x -= spriteWidth / 2;
+            goalPosition.y -= spriteHeight / 2;
+
+            loadButtonState();
+        });
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        document.querySelectorAll('.block').forEach(block => {
+            block.addEventListener('dragstart', function(e) {
+                e.dataTransfer.setData("blockType", this.dataset.block);
+                if (this.dataset.value) {
+                    e.dataTransfer.setData("blockValue", this.dataset.value);
+                }
+            });
+        });
+
+        function drop(ev) {
+            ev.preventDefault();
+            const blockType = ev.dataTransfer.getData("blockType");
+            const blockValue = ev.dataTransfer.getData("blockValue");
+
+            addBlockToCode(blockType, blockValue ? parseInt(blockValue) : null);
+        }
+
+        function addBlockToCode(blockType, blockValue) {
+            const codeArea = document.getElementById('codeArea');
+            const blockElement = document.createElement('div');
+            blockElement.className = 'dropped-block';
+            
+            let blockText = '';
+            let blockClass = '';
+            
+            switch(blockType) {
+                case 'start':
+                    blockText = 'al hacer clic en 🏁';
+                    blockClass = 'event';
+                    // Only allow one 'start' block and place it at the top
+                    if (codeBlocks.some(b => b.type === 'start')) {
+                        return; 
+                    }
+                    break;
+                case 'move':
+                    blockText = `mover ${blockValue} pasos`;
+                    blockClass = 'motion';
+                    break;
+                case 'turn-right':
+                    blockText = `girar ↻ ${blockValue}°`;
+                    blockClass = 'motion';
+                    break;
+                case 'repeat':
+                    blockText = `repetir ${blockValue} veces`;
+                    blockClass = 'control';
+                    break;
+            }
+            
+            blockElement.innerHTML = `
+                <span>${blockText}</span>
+                <button class="remove-block" onclick="removeBlock(this)">×</button>
+            `;
+            
+            blockElement.classList.add(blockClass); 
+            blockElement.dataset.blockType = blockType;
+            if (blockValue !== null) { 
+                blockElement.dataset.blockValue = blockValue;
+            }
+            
+            const placeholder = codeArea.querySelector('.placeholder-text');
+            if (placeholder) {
+                placeholder.remove();
+            }
+            
+            if (blockType === 'start') {
+                codeArea.prepend(blockElement);
+                codeBlocks.unshift({ type: blockType, value: blockValue });
+            } else {
+                codeArea.appendChild(blockElement);
+                codeBlocks.push({ type: blockType, value: blockValue });
+            }
+        }
+
+        function removeBlock(button) {
+            const blockElement = button.parentElement;
+            const blockTypeToRemove = blockElement.dataset.blockType;
+            const blockValueToRemove = blockElement.dataset.blockValue ? parseInt(blockElement.dataset.blockValue) : null;
+            
+            const index = codeBlocks.findIndex(block => 
+                block.type === blockTypeToRemove && 
+                (block.value === blockValueToRemove || (block.value === null && blockValueToRemove === null))
+            );
+            
+            if (index > -1) {
+                codeBlocks.splice(index, 1);
+            }
+            blockElement.remove();
+            
+            const codeArea = document.getElementById('codeArea');
+            if (codeArea.children.length === 0) {
+                codeArea.innerHTML = '<p class="placeholder-text">Arrastra los bloques aquí para crear tu programa</p>';
+            }
+        }
+
+        function updateSpritePosition() {
+            const sprite = document.getElementById('sprite');
+            const stage = document.getElementById('stage');
+            const stageWidth = stage.clientWidth;
+            const stageHeight = stage.clientHeight;
+            const spriteSize = sprite.offsetWidth; 
+
+            spriteCurrentPosition.x = Math.max(0, Math.min(spriteCurrentPosition.x, stageWidth - spriteSize));
+            spriteCurrentPosition.y = Math.max(0, Math.min(spriteCurrentPosition.y, stageHeight - spriteSize));
+
+            sprite.style.left = spriteCurrentPosition.x + 'px';
+            sprite.style.top = spriteCurrentPosition.y + 'px';
+            sprite.style.transform = `rotate(${spriteCurrentDirection}deg)`;
+        }
+
+        let executionQueue = [];
+        let isExecuting = false;
+
+        async function runCode() {
+            if (isExecuting) return; 
+
+            // Reset sprite to initial state
+            spriteCurrentPosition = { ...spriteInitialPosition };
+            spriteCurrentDirection = 0;
+            updateSpritePosition();
+            
+            document.getElementById('resultMessage').style.display = 'none';
+
+            executionQueue = [];
+            let hasStartBlock = false;
+            
+            for (let i = 0; i < codeBlocks.length; i++) {
+                const block = codeBlocks[i];
+                if (block.type === 'start') {
+                    hasStartBlock = true;
+                    // Add a small initial delay after 'start'
+                    executionQueue.push(() => new Promise(resolve => setTimeout(resolve, 100)));
+                } else if (hasStartBlock) {
+                    if (block.type === 'repeat') {
+                        const repeatCount = block.value;
+                        let innerBlocks = [];
+                        // Collect blocks immediately following the repeat, assume they are its content
+                        // For this simple exercise, we expect 'move' and 'turn-right'
+                        for (let j = i + 1; j < codeBlocks.length; j++) {
+                            const innerBlock = codeBlocks[j];
+                            if (innerBlock.type === 'move' || innerBlock.type === 'turn-right') {
+                                innerBlocks.push(innerBlock);
+                            } else {
+                                break; // Stop collecting if other block type or end of code
+                            }
+                        }
+                        
+                        if (innerBlocks.length > 0) {
+                            for (let k = 0; k < repeatCount; k++) {
+                                for (const innerBlock of innerBlocks) {
+                                    if (innerBlock.type === 'move') {
+                                        executionQueue.push(() => moveSprite(innerBlock.value));
+                                    } else if (innerBlock.type === 'turn-right') {
+                                        executionQueue.push(() => turnSprite(innerBlock.value));
+                                    }
+                                    executionQueue.push(() => new Promise(resolve => setTimeout(resolve, animationSpeed)));
+                                }
+                            }
+                            i += innerBlocks.length; // Skip over the inner blocks for main loop
+                        } else {
+                            console.warn("Repeat block without inner blocks.");
+                        }
+                    } else if (block.type === 'move') {
+                        executionQueue.push(() => moveSprite(block.value));
+                        executionQueue.push(() => new Promise(resolve => setTimeout(resolve, animationSpeed)));
+                    } else if (block.type === 'turn-right') {
+                        executionQueue.push(() => turnSprite(block.value));
+                        executionQueue.push(() => new Promise(resolve => setTimeout(resolve, animationSpeed)));
+                    }
+                }
+            }
+
+            if (!hasStartBlock) {
+                resultMessage.textContent = '❌ ¡Falta el bloque "al hacer clic en 🏁"! Tu programa no puede empezar.';
+                resultMessage.className = 'result-message error';
+                resultMessage.style.display = 'block';
+                setTimeout(() => resultMessage.style.display = 'none', 5000);
+                return;
+            }
+
+            isExecuting = true;
+            await executeNextQueuedBlock(); // Use await to ensure animation completes before checkSolution
+            checkSolution(); // Check solution once all animations are done
+        }
+
+        async function executeNextQueuedBlock() {
+            if (executionQueue.length === 0) {
+                isExecuting = false;
+                return;
+            }
+
+            const nextAction = executionQueue.shift();
+            // If it's a promise, await it; otherwise, execute directly
+            if (typeof nextAction === 'function') {
+                const result = nextAction();
+                if (result instanceof Promise) {
+                    await result;
+                }
+            } else {
+                console.error("Unexpected item in execution queue:", nextAction);
+            }
+            
+            // Continue execution without a fixed delay here, as the promise-based actions handle their own delays
+            if (executionQueue.length > 0) {
+                return executeNextQueuedBlock(); // Recursively call for next block
+            }
+        }
+
+        function moveSprite(steps) {
+            const radians = (spriteCurrentDirection * Math.PI) / 180;
+            const deltaX = Math.cos(radians) * steps;
+            const deltaY = Math.sin(radians) * steps;
+            
+            spriteCurrentPosition.x += deltaX;
+            spriteCurrentPosition.y += deltaY;
+            
+            updateSpritePosition();
+        }
+
+        function turnSprite(degrees) {
+            spriteCurrentDirection = (spriteCurrentDirection + degrees) % 360;
+            if (spriteCurrentDirection < 0) spriteCurrentDirection += 360;
+            updateSpritePosition();
+        }
+
+        function showHint(hintNumber) {
+            if (hintsUsed >= 2) return; 
+            
+            const hintContentDiv = document.getElementById('hint' + hintNumber);
+            const hintButton = document.getElementById('hintBtn' + hintNumber);
+            
+            hintContentDiv.classList.add('show');
+            hintButton.style.display = 'none';
+            hintsUsed++;
+            
+            if (hintNumber < 2) {
+                const nextButton = document.getElementById('hintBtn' + (hintNumber + 1));
+                nextButton.style.display = 'block';
+                if (hintNumber === 1) { 
+                    nextButton.innerHTML = '<i class="fas fa-lightbulb"></i> Solución para este ejercicio';
+                }
+            }
+        }
+
+        function checkSolution() {
+            const resultMessage = document.getElementById('resultMessage');
+            resultMessage.style.display = 'none';
+
+            // Simulate the execution to get the theoretical final position and direction
+            let simulatedX = spriteInitialPosition.x;
+            let simulatedY = spriteInitialPosition.y;
+            let simulatedDirection = 0; // Starts facing right
+
+            let hasStartBlock = false;
+            
+            for (let i = 0; i < codeBlocks.length; i++) {
+                const block = codeBlocks[i];
+                if (block.type === 'start') {
+                    hasStartBlock = true;
+                } else if (hasStartBlock) {
+                    if (block.type === 'repeat') {
+                        const repeatCount = block.value;
+                        let innerBlocks = [];
+                        for (let j = i + 1; j < codeBlocks.length; j++) {
+                            const innerBlock = codeBlocks[j];
+                            if (innerBlock.type === 'move' || innerBlock.type === 'turn-right') {
+                                innerBlocks.push(innerBlock);
+                            } else {
+                                break; 
+                            }
+                        }
+                        
+                        if (innerBlocks.length === 2 && 
+                            innerBlocks[0].type === 'move' && innerBlocks[0].value === 40 &&
+                            innerBlocks[1].type === 'turn-right' && innerBlocks[1].value === 90) {
+                            
+                            for (let k = 0; k < repeatCount; k++) {
+                                // Simulate move
+                                let radians = (simulatedDirection * Math.PI) / 180;
+                                simulatedX += Math.cos(radians) * 40;
+                                simulatedY += Math.sin(radians) * 40;
+                                
+                                // Simulate turn
+                                simulatedDirection = (simulatedDirection + 90) % 360;
+                            }
+                            i += innerBlocks.length; // Skip inner blocks for main loop
+                        } else {
+                            // If repeat doesn't contain exactly move 40 and turn 90
+                            hasStartBlock = false; // Indicate incorrect structure
+                            break; 
+                        }
+                    } else {
+                        // Any block after start that is not repeat (or not recognized) is an error
+                        hasStartBlock = false;
+                        break; 
+                    }
+                }
+            }
+
+            if (!hasStartBlock) {
+                resultMessage.textContent = '❌ Tu programa debe empezar con "al hacer clic en 🏁" y la secuencia principal debe ser un bucle "repetir 4 veces" conteniendo "mover 40 pasos" y "girar ↻ 90°"';
+                resultMessage.className = 'result-message error';
+                resultMessage.style.display = 'block';
+                updateButtonOnSuccess(false);
+                setTimeout(() => resultMessage.style.display = 'none', 7000);
+                return;
+            }
+
+            // Check final sprite position against initial position (for a perfect square)
+            const tolerance = 5; 
+            const atGoalX = Math.abs(simulatedX - spriteInitialPosition.x) < tolerance;
+            const atGoalY = Math.abs(simulatedY - spriteInitialPosition.y) < tolerance;
+
+            // Also check final direction (should be 0 or 360 after 4 turns of 90)
+            const correctFinalDirection = (simulatedDirection % 360 === 0);
+
+            if (atGoalX && atGoalY && correctFinalDirection) {
+                resultMessage.textContent = '¡Excelente! 🎉 Has dibujado un cuadrado perfecto y el gato terminó donde empezó.';
+                resultMessage.className = 'result-message success';
+                resultMessage.style.display = 'block';
+                
+                const sprite = document.getElementById('sprite');
+                sprite.style.animation = 'bounce 0.6s ease-in-out 3';
+                setTimeout(() => sprite.style.animation = '', 2000);
+
+                updateButtonOnSuccess(true); 
+            } else {
+                let message = 'El gato no dibujó un cuadrado perfecto o no terminó en la posición inicial.';
+                if (!atGoalX || !atGoalY) {
+                     message += ' Asegúrate de que el gato regrese a la estrella de inicio.';
+                }
+                if (!correctFinalDirection) {
+                    message += ' El gato no terminó mirando en la dirección correcta.';
+                }
+                
+                resultMessage.textContent = `❌ Solución incorrecta. ${message} ¡Inténtalo de nuevo!`;
+                resultMessage.className = 'result-message error';
+                resultMessage.style.display = 'block';
+
+                updateButtonOnSuccess(false); 
+            }
+            
+            setTimeout(() => {
+                resultMessage.style.display = 'none';
+            }, 7000);
+        }
+
+        function updateButtonOnSuccess(isSolved) {
+            if (isSolved) {
+                navToCourseBtn.href = 'curso-p0_03.html'; 
+                navToCourseBtn.innerHTML = '<i class="fas fa-chevron-right"></i> Siguiente Clase';
+                navToCourseBtn.classList.remove('initial-state');
+                navToCourseBtn.classList.add('success-state');
+                localStorage.setItem(EXERCISE_COMPLETED_KEY, 'true');
+            } else {
+                navToCourseBtn.href = 'curso-p0_02.html'; 
+                navToCourseBtn.innerHTML = '<i class="fas fa-book-open"></i> Repasar Clase';
+                navToCourseBtn.classList.remove('success-state');
+                navToCourseBtn.classList.add('initial-state');
+                localStorage.setItem(EXERCISE_COMPLETED_KEY, 'false');
+            }
+        }
+
+        function loadButtonState() {
+            const isSolved = localStorage.getItem(EXERCISE_COMPLETED_KEY) === 'true';
+            updateButtonOnSuccess(isSolved);
+        }
+
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes bounce {
+                0%, 100% { transform: translateY(0) rotate(${spriteCurrentDirection}deg); }
+                50% { transform: translateY(-10px) rotate(${spriteCurrentDirection}deg); }
+            }
+            .nav-course-button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 14px 28px;
+                font-size: 17px;
+                font-weight: bold;
+                border: none;
+                border-radius: 15px;
+                text-decoration: none;
+                cursor: pointer;
+                transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+                margin-top: 1.5rem;
+                width: 100%;
+            }
+            .nav-course-button i {
+                margin-right: 10px;
+            }
+            .nav-course-button.initial-state {
+                background: linear-gradient(90deg, #b08d0b, #d4a900);
+                color: #fff;
+                box-shadow: 0 0 15px rgba(176, 141, 11, 0.8), 0 0 28px rgba(212, 169, 0, 0.6);
+            }
+            .nav-course-button.initial-state:hover {
+                transform: scale(1.02);
+                box-shadow: 0 0 20px rgba(176, 141, 11, 1), 0 0 35px rgba(212, 169, 0, 0.8);
+            }
+            .nav-course-button.success-state {
+                background: linear-gradient(90deg, #00d4ff, #00ff88);
+                color: #0c0c0c;
+                box-shadow: 0 0 15px rgba(0, 212, 255, 0.8), 0 0 28px rgba(0, 255, 136, 0.6);
+            }
+            .nav-course-button.success-state:hover {
+                transform: scale(1.02);
+                box-shadow: 0 0 20px rgba(0, 212, 255, 1), 0 0 35px rgba(0, 255, 136, 0.8);
+            }
+        `;
+        document.head.appendChild(style);
+
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                runCode();
+            } else if (e.key === 'Escape') {
+                const codeArea = document.getElementById('codeArea');
+                codeArea.innerHTML = '<p class="placeholder-text">Arrastra los bloques aquí para crear tu programa</p>';
+                codeBlocks = [];
+                spriteCurrentPosition = { ...spriteInitialPosition };
+                spriteCurrentDirection = 0;
+                updateSpritePosition();
+                document.getElementById('resultMessage').style.display = 'none';
+                isExecuting = false;
+                executionQueue = [];
+                updateButtonOnSuccess(false);
+            }
+        });
+
+        document.addEventListener('dragstart', function(e) {
+            if (e.target.classList.contains('block') && e.target.closest('.available-blocks')) {
+                e.target.style.opacity = '0.5';
+            }
+        });
+
+        document.addEventListener('dragend', function(e) {
+            if (e.target.classList.contains('block')) {
+                e.target.style.opacity = '1';
+            }
+        });
+
+        const codeArea = document.getElementById('codeArea');
+        codeArea.addEventListener('dragenter', function(e) {
+            this.style.borderColor = '#00ff88';
+            this.style.backgroundColor = 'rgba(0, 255, 136, 0.1)';
+        });
+
+        codeArea.addEventListener('dragleave', function(e) {
+            this.style.borderColor = 'rgba(0, 212, 255, 0.3)';
+            this.style.backgroundColor = 'rgba(0, 0, 0, 0.3)';
+        });
+
+        codeArea.addEventListener('drop', function(e) {
+            this.style.borderColor = 'rgba(0, 212, 255, 0.3)';
+            this.style.backgroundColor = 'rgba(0, 0, 0, 0.3)';
+        });
+    </script>
+</body>
+</html>

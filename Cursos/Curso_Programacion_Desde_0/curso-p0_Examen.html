@@ -3,15 +3,765 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexCode - Examen Programación desde 0</title>
+    <title>NexCode - Curso De Programación desde 0 - Clase 20</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" href="../../LogoWeb.png" type="image/png">
-    <link rel="stylesheet" href="../Examenes.css">
+    <link rel="icon" href="../../Imagenes/LogoWeb.png" type="image/png">
+    <style>
+        /* General & Body */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column; /* For sticky footer */
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+            z-index: -1;
+            animation: backgroundPulse 8s ease-in-out infinite alternate;
+        }
+        @keyframes backgroundPulse {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid transparent;
+            background-clip: padding-box;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+        }
+        .navbar::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #00d4ff, #1adf0b, #00ff88, #13d631);
+            background-size: 400% 400%;
+            animation: gradientShift 3s ease infinite;
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00d4ff, #16ca16, #00ff88);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: logoGradient 4s ease infinite;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        @keyframes logoGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .timer-display {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00ff88;
+            padding: 0.5rem 1rem;
+            border: 2px solid #00ff88;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+            transition: all 0.3s ease;
+        }
+        .timer-display.timer-critical {
+            color: #ff0080;
+            border-color: #ff0080;
+            box-shadow: 0 0 15px rgba(255, 0, 128, 0.7);
+            animation: pulseCritical 1s infinite alternate;
+        }
+        @keyframes pulseCritical {
+            from { transform: scale(1); opacity: 1; }
+            to { transform: scale(1.05); opacity: 0.8; }
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        .modal-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .modal {
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #00d4ff, #00ff88, #00d4ff) 1;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5), 0 0 60px rgba(0, 255, 136, 0.3);
+            width: 90%;
+            max-width: 600px;
+            padding: 40px;
+            text-align: center;
+            transform: scale(1);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        .modal h2 {
+            font-size: 2.5rem;
+            color: #00d4ff;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .modal h3 {
+            font-size: 1.5rem;
+            color: #00ff88;
+            margin-bottom: 2rem;
+        }
+        .modal-info {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 2.5rem;
+            text-align: left;
+        }
+        .modal-info li {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #a0a0a0;
+        }
+        .modal-info li strong {
+            color: #fff;
+        }
+        .start-exam-btn {
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            color: #0c0c0c;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .start-exam-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 255, 136, 0.6);
+        }
+
+        /* Main Content & Exam Container */
+        .main-content {
+            margin-top: 100px; /* Space for fixed navbar */
+            padding: 2rem;
+            max-width: 900px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            flex-grow: 1; /* Allow content to push footer down */
+        }
+        .exam-container, .review-container, .results-container {
+            background: linear-gradient(145deg, rgba(20, 20, 40, 0.8), rgba(30, 30, 60, 0.8));
+            border-radius: 20px;
+            padding: 2.5rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(64, 224, 255, 0.15);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            margin-bottom: 2rem;
+        }
+        .hidden {
+            display: none;
+        }
+
+        /* Exam Header & Progress Bar */
+        .exam-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        .question-counter {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #00d4ff;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
+        }
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #00ff88, #00d4ff);
+            border-radius: 5px;
+            transition: width 0.3s ease-in-out;
+        }
+
+        /* Question and Options */
+        .question-container {
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start; /* Align text to start */
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+        .question-text {
+            font-size: 1.3rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+            color: #fff;
+        }
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 1rem;
+        }
+        .option {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .option:hover {
+            background: rgba(0, 212, 255, 0.15);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+        }
+        .option.selected {
+            background: linear-gradient(90deg, rgba(0, 212, 255, 0.2), rgba(0, 255, 136, 0.2));
+            border-color: #00d4ff;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+        .option-label {
+            font-weight: bold;
+            color: #00ff88;
+            font-size: 1.2rem;
+        }
+        .option-text {
+            flex-grow: 1;
+            color: #fff;
+        }
+
+        /* Navigation Buttons */
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+        .nav-btn, .finish-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        .prev-btn {
+            background: linear-gradient(45deg, #00d4ff, #0080ff);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+        }
+        .prev-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.5);
+        }
+        .next-btn {
+            background: linear-gradient(45deg, #00ff88, #13d631);
+            color: #0c0c0c;
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+            margin-left: auto; /* Push to right */
+        }
+        .next-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 255, 136, 0.5);
+        }
+        .finish-btn {
+            background: linear-gradient(45deg, #ff0080, #8000ff);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 0, 128, 0.3);
+            margin-left: auto;
+        }
+        .finish-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 0, 128, 0.5);
+        }
+
+        /* Review and Results */
+        .review-container h2, .results-container h2 {
+            font-size: 2rem;
+            color: #00d4ff;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .review-container p {
+            color: #a0a0a0;
+            margin-bottom: 2rem;
+        }
+        .questions-summary {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 2rem;
+            padding-right: 10px; /* For scrollbar */
+        }
+        .questions-summary::-webkit-scrollbar {
+            width: 8px;
+        }
+        .questions-summary::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        .questions-summary::-webkit-scrollbar-thumb {
+            background: linear-gradient(transparent, #00d4ff, transparent);
+            border-radius: 10px;
+        }
+
+        .summary-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 5px solid transparent;
+            transition: all 0.2s ease;
+        }
+        .summary-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .summary-item.unanswered {
+            border-left-color: #FFD700; /* Yellow for unanswered */
+        }
+        .summary-question {
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+        .summary-answer {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+        .summary-answer.empty {
+            color: #ff0080;
+            font-style: italic;
+        }
+        .change-btn {
+            background: none;
+            border: 1px solid #00d4ff;
+            color: #00d4ff;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .change-btn:hover {
+            background: #00d4ff;
+            color: #0c0c0c;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #00d4ff, #8000ff);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.6);
+        }
+
+        /* Results Display */
+        .score-display {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        .score-number {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #00ff88;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.8);
+            margin-bottom: 0.5rem;
+        }
+        .score-text {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 1.5rem;
+        }
+        .score-breakdown {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .breakdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .breakdown-item.correct h4 { color: #00ff88; }
+        .breakdown-item.incorrect h4 { color: #ff0080; }
+        .breakdown-item div {
+            font-size: 1.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .results-details {
+            max-height: 500px;
+            overflow-y: auto;
+            margin-bottom: 2rem;
+            padding-right: 10px;
+        }
+        .results-details::-webkit-scrollbar {
+            width: 8px;
+        }
+        .results-details::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        .results-details::-webkit-scrollbar-thumb {
+            background: linear-gradient(transparent, #00ff88, transparent);
+            border-radius: 10px;
+        }
+
+        .result-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+            border-left: 5px solid transparent;
+        }
+        .result-item.correct {
+            border-left-color: #00ff88;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+        }
+        .result-item.incorrect {
+            border-left-color: #ff0080;
+            box-shadow: 0 0 10px rgba(255, 0, 128, 0.3);
+        }
+        .result-question {
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+        .result-answers div {
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+        }
+        .user-answer {
+            color: #a0a0a0;
+        }
+        .result-item.incorrect .user-answer {
+            color: #ff0080;
+            font-weight: bold;
+        }
+        .correct-answer {
+            color: #00ff88;
+            font-weight: bold;
+        }
+        .explanation {
+            font-style: italic;
+            color: #bbb;
+            margin-top: 1rem;
+            padding-top: 0.8rem;
+            border-top: 1px dashed rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+        }
+
+        .retry-btn {
+            background: linear-gradient(45deg, #00d4ff, #0080ff);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+            margin-top: 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .retry-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.6);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(145deg, rgba(15, 15, 35, 0.98), rgba(25, 25, 45, 0.98));
+            color: #a0a0a0;
+            text-align: center;
+            padding: 2.5rem 1rem 1.5rem;
+            margin-top: auto; /* Push footer to bottom */
+            border-top: 2px solid rgba(0, 212, 255, 0.15);
+            box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+        .footer-brand {
+            font-size: 2.2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00d4ff, #00ff1a, #00ff88);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: logoGradient 4s ease infinite;
+        }
+        .logo-img {
+            height: 50px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.5));
+            transition: transform 0.3s ease;
+        }
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+        .footer-text {
+            font-size: 0.9rem;
+            color: #888;
+            line-height: 1.5;
+        }
+        /* Nav links in results section */
+        .results-container .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+            padding-left: 0; /* Override default list padding */
+        }
+        .results-container .nav-links li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            background: rgba(0, 212, 255, 0.1);
+        }
+        .results-container .nav-links li a:hover {
+            background: rgba(0, 212, 255, 0.3);
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.4);
+            color: #00d4ff;
+        }
+
+        /* Media Queries (from cursos.css) */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+            .nav-container {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .timer-display {
+                font-size: 1.2rem;
+            }
+            .modal {
+                padding: 20px;
+            }
+            .modal h2 {
+                font-size: 2rem;
+            }
+            .modal h3 {
+                font-size: 1.2rem;
+            }
+            .modal-info li {
+                font-size: 0.9rem;
+            }
+            .start-exam-btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+            .main-content {
+                padding: 1rem;
+            }
+            .exam-container, .review-container, .results-container {
+                padding: 1.5rem;
+            }
+            .question-counter {
+                font-size: 1.1rem;
+            }
+            .question-text {
+                font-size: 1.1rem;
+            }
+            .options-container {
+                gap: 0.8rem;
+            }
+            .option {
+                padding: 0.8rem 1rem;
+                font-size: 0.95rem;
+            }
+            .option-label {
+                font-size: 1rem;
+            }
+            .navigation-buttons {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+            .nav-btn, .finish-btn {
+                width: 100%;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+            .review-container h2, .results-container h2 {
+                font-size: 1.8rem;
+            }
+            .score-number {
+                font-size: 3rem;
+            }
+            .score-text {
+                font-size: 1.2rem;
+            }
+            .score-breakdown {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .breakdown-item {
+                font-size: 1rem;
+            }
+            .breakdown-item div {
+                font-size: 1.5rem;
+            }
+            .summary-question, .result-question {
+                font-size: 1rem;
+            }
+            .summary-answer, .explanation, .user-answer, .correct-answer {
+                font-size: 0.85rem;
+            }
+            .retry-btn {
+                width: 100%;
+                font-size: 1rem;
+                padding: 0.8rem 1.5rem;
+            }
+            .results-container .nav-links {
+                flex-wrap: wrap;
+                gap: 0.8rem;
+            }
+            .results-container .nav-links li a {
+                font-size: 0.9rem;
+                padding: 0.2rem 0.6rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
-            <a href="#" class="logo">NexCode</a>
+            <a href="../../index.html" class="logo">NexCode</a>
             <div class="timer-display" id="timerDisplay">
                 <i class="fas fa-clock"></i>
                 <span id="timeLeft">60:00</span>
@@ -95,299 +845,381 @@
                 <li><a href="../../index.html">Inicio</a></li>
                 <li><a href="../../index.html#cursos">Cursos</a></li>
                 <li><a href="../../acercade.html">Acerca de</a></li>
-                <li><a href="https://demian369369.github.io/JarvisFrontendProject/PaginasWeb/Prototipo9/RESUME-Source_code/index.html">Contacto</a></li>
+                <li><a href="https://demian369369.github.io/CV/">Contacto</a></li>
             </ul>
             </div>
         </div>
     </div>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">NexCode</div>
+            <img src="../../Imagenes/LogoWeb.png" alt="NexCode Logo" class="logo-img">
+        </div>
+        <div class="footer-text">
+            © 2025 NexCode. Todos los derechos reservados.
+        </div>
+    </footer>
     <script>
         const questions = [
+            // Clase 1: Introducción a la Programación
             {
-                question: "¿Qué significa HTML?",
+                question: "¿Qué es un 'algoritmo' en programación?",
                 options: [
-                    "Hyper Text Markup Language",
-                    "High Tech Modern Language", 
-                    "Home Tool Markup Language",
-                    "Hyperlink and Text Markup Language"
-                ],
-                correct: 0,
-                explanation: "HTML significa HyperText Markup Language, es el lenguaje estándar para crear páginas web."
-            },
-            {
-                question: "¿Cuál es la función principal de CSS?",
-                options: [
-                    "Crear la estructura de la página",
-                    "Dar estilo y formato visual a las páginas web",
-                    "Manejar la lógica del servidor",
-                    "Conectar con bases de datos"
-                ],
-                correct: 1,
-                explanation: "CSS (Cascading Style Sheets) se utiliza para dar estilo y formato visual a las páginas web."
-            },
-            {
-                question: "JavaScript es un lenguaje interpretado",
-                options: ["Verdadero", "Falso"],
-                correct: 0,
-                explanation: "JavaScript es un lenguaje interpretado, no necesita ser compilado antes de ejecutarse."
-            },
-            {
-                question: "¿Cuál de estas NO es una estructura de datos básica?",
-                options: [
-                    "Array",
-                    "Stack",
-                    "Queue", 
-                    "HTML"
-                ],
-                correct: 3,
-                explanation: "HTML no es una estructura de datos, es un lenguaje de marcado para crear páginas web."
-            },
-            {
-                question: "¿Qué significa el término 'variable' en programación?",
-                options: [
-                    "Un valor que nunca cambia",
-                    "Un espacio en memoria para almacenar datos",
-                    "Una función matemática",
-                    "Un tipo de error"
-                ],
-                correct: 1,
-                explanation: "Una variable es un espacio en memoria reservado para almacenar datos que pueden cambiar durante la ejecución del programa."
-            },
-            {
-                question: "El bucle 'for' se utiliza para repetir código",
-                options: ["Verdadero", "Falso"],
-                correct: 0,
-                explanation: "El bucle 'for' es una estructura de control que permite repetir un bloque de código un número determinado de veces."
-            },
-            {
-                question: "¿Cuál es el resultado de 5 + '5' en JavaScript?",
-                options: [
-                    "10",
-                    "55",
-                    "Error",
-                    "undefined"
-                ],
-                correct: 1,
-                explanation: "En JavaScript, cuando sumas un número con una cadena, el número se convierte a cadena y se concatenan, resultando en '55'."
-            },
-            {
-                question: "¿Qué es un algoritmo?",
-                options: [
-                    "Un tipo de variable",
-                    "Una secuencia de pasos para resolver un problema",
                     "Un lenguaje de programación",
-                    "Una base de datos"
-                ],
-                correct: 1,
-                explanation: "Un algoritmo es una secuencia finita de instrucciones bien definidas para resolver un problema o realizar una tarea."
-            },
-            {
-                question: "Las funciones en programación pueden retornar valores",
-                options: ["Verdadero", "Falso"],
-                correct: 0,
-                explanation: "Las funciones pueden retornar valores usando la palabra clave 'return', aunque también pueden no retornar nada (void)."
-            },
-            {
-                question: "¿Cuál de estos es un tipo de dato primitivo en JavaScript?",
-                options: [
-                    "Object",
-                    "Array",
-                    "String",
-                    "Function"
-                ],
-                correct: 2,
-                explanation: "String es un tipo de dato primitivo en JavaScript. Object, Array y Function son tipos de datos complejos."
-            },
-            {
-                question: "¿Qué significa 'debugging' en programación?",
-                options: [
-                    "Crear nuevos programas",
-                    "Encontrar y corregir errores en el código",
-                    "Optimizar el rendimiento",
-                    "Documentar el código"
-                ],
-                correct: 1,
-                explanation: "Debugging es el proceso de encontrar, analizar y corregir errores (bugs) en el código de un programa."
-            },
-            {
-                question: "Una base de datos relacional usa tablas para almacenar información",
-                options: ["Verdadero", "Falso"],
-                correct: 0,
-                explanation: "Las bases de datos relacionales organizan la información en tablas relacionadas entre sí mediante claves."
-            },
-            {
-                question: "¿Cuál es la diferencia entre '==' y '===' en JavaScript?",
-                options: [
-                    "No hay diferencia",
-                    "'==' compara valor y tipo, '===' solo valor",
-                    "'==' compara solo valor, '===' compara valor y tipo",
-                    "Ambos son sintaxis incorrecta"
-                ],
-                correct: 2,
-                explanation: "'==' compara solo el valor (con conversión de tipo), mientras que '===' compara tanto el valor como el tipo de dato."
-            },
-            {
-                question: "¿Qué es un IDE?",
-                options: [
+                    "Una secuencia de pasos para resolver un problema",
                     "Un tipo de variable",
-                    "Integrated Development Environment",
-                    "Internet Data Exchange",
-                    "Interactive Design Element"
-                ],
-                correct: 1,
-                explanation: "IDE significa Integrated Development Environment, es un software que proporciona herramientas para el desarrollo de programas."
-            },
-            {
-                question: "El método GET en HTTP se usa para enviar datos sensibles",
-                options: ["Verdadero", "Falso"],
-                correct: 1,
-                explanation: "Falso. GET se usa para obtener datos y no es seguro para datossensibles. POST es más seguro para enviar información confidencial."
-            },
-            {
-                question: "¿Cuál es la principal ventaja de usar Git?",
-                options: [
-                    "Ejecutar código más rápido",
-                    "Control de versiones y colaboración",
-                    "Crear interfaces gráficas",
-                    "Conectar con bases de datos"
-                ],
-                correct: 1,
-                explanation: "Git es un sistema de control de versiones que permite rastrear cambios en el código y facilita la colaboración entre desarrolladores."
-            },
-            {
-                question: "Un array en programación puede contener diferentes tipos de datos",
-                options: ["Verdadero", "Falso"],
-                correct: 0,
-                explanation: "En muchos lenguajes como JavaScript, un array puede contener diferentes tipos de datos (números, strings, objetos, etc.)."
-            },
-            {
-                question: "¿Qué es CSS Grid?",
-                options: [
-                    "Un framework de JavaScript",
-                    "Un sistema de layout bidimensional para CSS",
-                    "Una base de datos",
                     "Un editor de código"
                 ],
                 correct: 1,
-                explanation: "CSS Grid es un sistema de layout bidimensional que permite crear diseños complejos con filas y columnas."
+                explanation: "Un algoritmo es un conjunto ordenado y finito de instrucciones que se siguen para resolver un problema o realizar una tarea."
             },
+            // Clase 2: Variables y Tipos de Datos
             {
-                question: "La recursión en programación significa que una función se llama a sí misma",
-                options: ["Verdadero", "Falso"],
-                correct: 0,
-                explanation: "La recursión es una técnica donde una función se llama a sí misma para resolver un problema dividiéndolo en subproblemas más pequeños."
-            },
-            {
-                question: "¿Cuál es el propósito de una API?",
+                question: "¿Qué tipo de dato usarías para almacenar 'false' o 'true'?",
                 options: [
-                    "Diseñar interfaces de usuario",
-                    "Permitir comunicación entre diferentes aplicaciones",
-                    "Compilar código",
-                    "Crear bases de datos"
+                    "String",
+                    "Integer",
+                    "Boolean",
+                    "Float"
+                ],
+                correct: 2,
+                explanation: "El tipo de dato Booleano (Boolean) se usa específicamente para valores de verdad: verdadero (true) o falso (false)."
+            },
+            // Clase 3: Operadores y Expresiones
+            {
+                question: "¿Qué operador lógico usarías si necesitas que al menos una condición sea verdadera?",
+                options: [
+                    "AND (&&)",
+                    "NOT (!)",
+                    "OR (||)",
+                    "XOR (^)"
+                ],
+                correct: 2,
+                explanation: "El operador lógico OR (||) devuelve verdadero si al menos una de las condiciones que compara es verdadera."
+            },
+            // Clase 4: Estructuras de Control: Condicionales
+            {
+                question: "¿Qué estructura de control permite ejecutar código solo si una condición específica es verdadera?",
+                options: [
+                    "Bucle For",
+                    "If",
+                    "Bucle While",
+                    "Función"
                 ],
                 correct: 1,
-                explanation: "Una API (Application Programming Interface) permite que diferentes aplicaciones se comuniquen e intercambien datos entre sí."
+                explanation: "La sentencia `if` es la estructura condicional más básica que ejecuta un bloque de código solo si la condición es verdadera."
             },
+            // Clase 5: Estructuras de Control: Bucles (Loops)
             {
-                question: "¿Qué significa 'responsive design'?",
+                question: "¿Qué tipo de bucle usarías si necesitas repetir un bloque de código mientras una condición sea verdadera, y no sabes cuántas veces se repetirá?",
                 options: [
-                    "Diseño que responde rápidamente",
-                    "Diseño que se adapta a diferentes tamaños de pantalla",
-                    "Diseño con muchos colores",
-                    "Diseño minimalista"
+                    "for",
+                    "do-while",
+                    "while",
+                    "foreach"
+                ],
+                correct: 2,
+                explanation: "El bucle `while` es ideal cuando el número de iteraciones es desconocido y la repetición depende de que una condición se mantenga verdadera."
+            },
+            // Clase 6: Bucles Anidados y Sentencias de Salto
+            {
+                question: "¿Qué sucede cuando se ejecuta la sentencia `break` dentro de un bucle?",
+                options: [
+                    "Se salta la iteración actual y pasa a la siguiente",
+                    "Se sale del bucle completamente",
+                    "Se reinicia el bucle",
+                    "Se ignora la sentencia y el bucle continúa normalmente"
                 ],
                 correct: 1,
-                explanation: "Responsive design es un enfoque de diseño web que hace que las páginas se vean bien en diferentes dispositivos y tamaños de pantalla."
+                explanation: "La sentencia `break` termina la ejecución del bucle más cercano que la contiene y el control del programa continúa con la instrucción inmediatamente posterior al bucle."
             },
+            // Clase 7: Funciones y Modularidad
             {
-                question: "El scope (ámbito) de una variable determina dónde puede ser accedida",
-                options: ["Verdadero", "Falso"],
-                correct: 0,
-                explanation: "El scope define la región del código donde una variable es accesible y puede ser utilizada."
-            },
-            {
-                question: "¿Cuál de estos NO es un método HTTP?",
+                question: "¿Para qué se utilizan los 'parámetros' en una función?",
                 options: [
-                    "GET",
-                    "POST",
-                    "DELETE",
-                    "SEND"
+                    "Para ocultar la lógica interna de la función",
+                    "Para que la función se llame a sí misma",
+                    "Para recibir valores de entrada que la función necesita para operar",
+                    "Para definir variables globales"
+                ],
+                correct: 2,
+                explanation: "Los parámetros son variables que actúan como marcadores de posición para los valores que una función espera recibir cuando es llamada, permitiéndole trabajar con diferentes datos."
+            },
+            // Clase 8: Manejo de Errores y Excepciones
+            {
+                question: "¿Qué bloque de código en el manejo de excepciones garantiza que se ejecute siempre, independientemente de si hubo un error o no?",
+                options: [
+                    "try",
+                    "catch",
+                    "finally",
+                    "throw"
+                ],
+                correct: 2,
+                explanation: "El bloque `finally` se ejecuta siempre después de los bloques `try` y `catch`, lo que lo hace ideal para la limpieza de recursos."
+            },
+            // Clase 9: Introducción a la Programación Orientada a Objetos
+            {
+                question: "¿Qué es una 'clase' en Programación Orientada a Objetos (POO)?",
+                options: [
+                    "Un error en el código",
+                    "Un valor numérico",
+                    "Una plantilla o plano para crear objetos",
+                    "Un tipo de función especial"
+                ],
+                correct: 2,
+                explanation: "Una clase es una plantilla o un molde que define la estructura (atributos) y el comportamiento (métodos) que tendrán los objetos que se creen a partir de ella."
+            },
+            // Clase 10: Conceptos Avanzados de POO: Herencia y Polimorfismo
+            {
+                question: "¿Qué principio de POO permite que una clase 'hija' herede características y comportamientos de una clase 'padre'?",
+                options: [
+                    "Polimorfismo",
+                    "Encapsulamiento",
+                    "Abstracción",
+                    "Herencia"
                 ],
                 correct: 3,
-                explanation: "SEND no es un método HTTP válido. Los métodos HTTP principales incluyen GET, POST, PUT, DELETE, PATCH, etc."
+                explanation: "La herencia es un pilar de la POO que permite que una clase (subclase) adquiera las propiedades y métodos de otra clase (superclase), promoviendo la reutilización de código."
             },
+            // Clase 11: Colecciones de Datos: Arrays y Listas
             {
-                question: "¿Qué es JSON?",
+                question: "¿Cuál es la forma más común de acceder al segundo elemento en un array llamado `miArray` en la mayoría de lenguajes?",
                 options: [
-                    "Un lenguaje de programación",
-                    "JavaScript Object Notation - formato de intercambio de datos",
-                    "Una base de datos",
-                    "Un framework"
+                    "miArray[1]",
+                    "miArray[2]",
+                    "miArray.get(2)",
+                    "miArray.second"
                 ],
-                correct: 1,
-                explanation: "JSON (JavaScript Object Notation) es un formato ligero de intercambio de datos que es fácil de leer y escribir."
-            },
-            {
-                question: "Los comentarios en el código afectan la ejecución del programa",
-                options: ["Verdadero", "Falso"],
-                correct: 1,
-                explanation: "Falso. Los comentarios son ignorados por el intérprete/compilador y no afectan la ejecución del programa. Solo sirven para documentar el código."
-            },
-            {
-                question: "¿Cuál es la diferencia entre frontend y backend?",
-                options: [
-                    "No hay diferencia",
-                    "Frontend es la parte visible al usuario, backend es la lógica del servidor",
-                    "Frontend es más difícil que backend",
-                    "Backend solo maneja bases de datos"
-                ],
-                correct: 1,
-                explanation: "Frontend se refiere a la parte de la aplicación que interactúa con el usuario, mientras que backend maneja la lógica del servidor, bases de datos y APIs."
-            },
-            {
-                question: "¿Qué es un framework?",
-                options: [
-                    "Un tipo de variable",
-                    "Una estructura que proporciona una base para desarrollar aplicaciones",
-                    "Un lenguaje de programación",
-                    "Una base de datos"
-                ],
-                correct: 1,
-                explanation: "Un framework es una estructura de software que proporciona una base y herramientas para desarrollar aplicaciones más fácilmente."
-            },
-            {
-                question: "La programación orientada a objetos usa clases y objetos",
-                options: ["Verdadero", "Falso"],
                 correct: 0,
-                explanation: "La programación orientada a objetos (OOP) se basa en el concepto de clases y objetos para organizar y estructurar el código."
+                explanation: "En la mayoría de los lenguajes de programación, los arrays son cero-indexados, lo que significa que el primer elemento está en el índice 0, el segundo en el índice 1, y así sucesivamente."
             },
+            // Clase 12: Algoritmos de Búsqueda y Ordenamiento
             {
-                question: "¿Cuál de estos es un principio de UX/UI design?",
+                question: "¿Qué algoritmo de ordenamiento es simple pero ineficiente para listas grandes, comparando elementos adyacentes repetidamente?",
                 options: [
-                    "Hacer el diseño lo más complejo posible",
-                    "La usabilidad y experiencia del usuario son prioritarias",
-                    "Usar todos los colores disponibles",
-                    "Agregar muchas animaciones"
+                    "Merge Sort",
+                    "Quick Sort",
+                    "Bubble Sort",
+                    "Selection Sort"
+                ],
+                correct: 2,
+                explanation: "El Bubble Sort (Ordenamiento de Burbuja) es un algoritmo de ordenamiento sencillo que compara y posiblemente intercambia pares de elementos adyacentes repetidamente hasta que todos los elementos están ordenados. Es ineficiente para grandes conjuntos de datos."
+            },
+            // Clase 13: Introducción a las Bases de Datos
+            {
+                question: "¿Qué tipo de base de datos es flexible y no usa un esquema fijo, siendo ideal para documentos JSON?",
+                options: [
+                    "Relacional",
+                    "SQL Server",
+                    "NoSQL",
+                    "Oracle"
+                ],
+                correct: 2,
+                explanation: "Las bases de datos NoSQL están diseñadas para manejar una amplia variedad de modelos de datos, no requieren un esquema fijo y son ideales para datos no estructurados o semi-estructurados como JSON."
+            },
+            // Clase 14: Introducción a la Programación Web
+            {
+                question: "¿Qué lenguaje define la INTERACTIVIDAD y el comportamiento dinámico en una página web (por ejemplo, validar formularios o animaciones)?",
+                options: [
+                    "HTML",
+                    "CSS",
+                    "JavaScript",
+                    "Python"
+                ],
+                correct: 2,
+                explanation: "JavaScript es el lenguaje de programación que permite añadir interactividad, efectos visuales y comportamientos dinámicos a las páginas web."
+            },
+            // Clase 15: Desarrollo Frontend: Frameworks y Librerías
+            {
+                question: "¿Cuál de las siguientes es una **librería** de JavaScript popular para construir interfaces de usuario, a menudo utilizada con un enfoque basado en componentes?",
+                options: [
+                    "Angular",
+                    "Django",
+                    "React",
+                    "Spring"
+                ],
+                correct: 2,
+                explanation: "React (o ReactJS) es una librería de JavaScript mantenida por Facebook, muy popular para construir interfaces de usuario interactivas y reutilizables basadas en componentes."
+            },
+            // Clase 16: Desarrollo Backend: Servidores y APIs
+            {
+                question: "¿Qué son las 'APIs' en el desarrollo web?",
+                options: [
+                    "Un tipo de base de datos",
+                    "Interfaces que permiten la comunicación entre diferentes sistemas de software",
+                    "Herramientas para diseñar interfaces de usuario",
+                    "Lenguajes de marcado para documentos"
                 ],
                 correct: 1,
-                explanation: "En UX/UI design, la usabilidad y la experiencia del usuario son fundamentales para crear interfaces efectivas y fáciles de usar."
+                explanation: "Las APIs (Interfaces de Programación de Aplicaciones) son conjuntos de reglas y protocolos que permiten que diferentes aplicaciones de software se comuniquen e interactúen entre sí."
             },
+            // Clase 17: Control de Versiones con Git y GitHub
             {
-                question: "¿Qué significa 'deployment' en desarrollo de software?",
+                question: "¿Qué comando de Git se utiliza para 'clonar' un repositorio remoto a tu máquina local?",
                 options: [
-                    "Escribir código",
-                    "Poner la aplicación en producción para que los usuarios la usen",
-                    "Hacer pruebas",
-                    "Documentar el proyecto"
+                    "git commit",
+                    "git push",
+                    "git clone",
+                    "git pull"
+                ],
+                correct: 2,
+                explanation: "El comando `git clone` se utiliza para crear una copia local completa de un repositorio Git existente que se encuentra en un servidor remoto."
+            },
+            // Clase 18: Despliegue y Hosting de Aplicaciones Web
+            {
+                question: "¿Qué servicio te permite hacer que tu aplicación web sea accesible públicamente en Internet?",
+                options: [
+                    "Un editor de código",
+                    "Un sistema operativo",
+                    "Un proveedor de hosting",
+                    "Un navegador web"
+                ],
+                correct: 2,
+                explanation: "Un proveedor de hosting es una empresa que te alquila espacio en sus servidores para que tu sitio web o aplicación pueda ser accedida por usuarios de todo el mundo a través de Internet."
+            },
+            // Clase 19: Seguridad en Aplicaciones Web
+            {
+                question: "¿Qué vulnerabilidad permite a un atacante ejecutar código malicioso en el navegador de los usuarios de una aplicación web, a menudo a través de entradas no sanitizadas?",
+                options: [
+                    "Inyección SQL",
+                    "Cross-Site Request Forgery (CSRF)",
+                    "Cross-Site Scripting (XSS)",
+                    "Denegación de Servicio (DoS)"
+                ],
+                correct: 2,
+                explanation: "Cross-Site Scripting (XSS) es una vulnerabilidad que permite a los atacantes inyectar scripts maliciosos en páginas web legítimas, que luego se ejecutan en el navegador de otros usuarios."
+            },
+            // Clase 20: Próximos Pasos y Tendencias en Desarrollo de Software
+            {
+                question: "¿Qué área de la tecnología se enfoca en que las máquinas 'aprendan' de los datos para realizar tareas sin ser explícitamente programadas para cada una?",
+                options: [
+                    "Desarrollo Frontend",
+                    "Big Data",
+                    "Inteligencia Artificial / Machine Learning",
+                    "Ciberseguridad"
+                ],
+                correct: 2,
+                explanation: "La Inteligencia Artificial (IA) y el Machine Learning (ML) son campos que permiten a los sistemas aprender de los datos, identificar patrones y tomar decisiones, simulando la inteligencia humana."
+            },
+            // Preguntas adicionales para llegar a 30 (cubriendo un rango más amplio del curso)
+            {
+                question: "¿Cuál es la diferencia entre un error de sintaxis y un error lógico?",
+                options: [
+                    "Un error de sintaxis ocurre en tiempo de ejecución, un lógico en tiempo de compilación.",
+                    "Un error de sintaxis impide que el código se ejecute, un lógico hace que se ejecute incorrectamente.",
+                    "No hay diferencia, son lo mismo.",
+                    "Los errores lógicos son más fáciles de encontrar."
                 ],
                 correct: 1,
-                explanation: "Deployment es el proceso de poner una aplicación en un entorno de producción donde los usuarios finales pueden acceder y utilizarla."
+                explanation: "Un error de sintaxis es una violación de las reglas del lenguaje que impide que el programa se compile o interprete. Un error lógico permite que el programa se ejecute, pero produce resultados incorrectos o inesperados."
+            },
+            {
+                question: "¿Qué es un 'IDE'?",
+                options: [
+                    "Un tipo de base de datos",
+                    "Un entorno de desarrollo integrado que facilita la programación",
+                    "Un protocolo de red",
+                    "Un tipo de algoritmo de ordenamiento"
+                ],
+                correct: 1,
+                explanation: "Un IDE (Integrated Development Environment) es una aplicación de software que proporciona instalaciones integrales a los programadores de software para el desarrollo de software."
+            },
+            {
+                question: "¿Qué estructura de control es ideal para recorrer todos los elementos de una lista o array por su índice?",
+                options: [
+                    "while",
+                    "do-while",
+                    "for",
+                    "if-else"
+                ],
+                correct: 2,
+                explanation: "El bucle `for` es comúnmente utilizado para iterar sobre colecciones de datos cuando se necesita un índice para acceder a los elementos o cuando se sabe el número exacto de iteraciones."
+            },
+            {
+                question: "¿Qué significa 'refactorizar' el código?",
+                options: [
+                    "Eliminar todo el código y empezar de nuevo",
+                    "Cambiar el comportamiento del programa sin cambiar su estructura",
+                    "Mejorar la estructura interna del código sin cambiar su comportamiento externo",
+                    "Agregar nuevas funcionalidades al programa"
+                ],
+                correct: 2,
+                explanation: "Refactorizar el código implica reestructurar el código existente sin cambiar su comportamiento externo, con el objetivo de mejorar su legibilidad, mantenibilidad y reducir la complejidad."
+            },
+            {
+                question: "¿Qué es un 'parámetro' vs. un 'argumento' en una función?",
+                options: [
+                    "Son lo mismo, solo diferentes términos.",
+                    "El parámetro es el valor pasado al llamar la función, el argumento es la variable en la definición.",
+                    "El parámetro es la variable en la definición de la función, el argumento es el valor pasado al llamarla.",
+                    "Los argumentos son solo para funciones de callback."
+                ],
+                correct: 2,
+                explanation: "Un parámetro es una variable nombrada en la definición de una función. Un argumento es el valor real que se pasa a (o se recibe por) el parámetro de una función cuando se llama a esa función."
+            },
+            {
+                question: "¿Qué es 'encapsulamiento' en POO?",
+                options: [
+                    "La habilidad de un objeto de tomar muchas formas.",
+                    "Ocultar los detalles internos de un objeto y proteger sus datos.",
+                    "Reutilizar código de una clase padre.",
+                    "Definir múltiples clases en un mismo archivo."
+                ],
+                correct: 1,
+                explanation: "El encapsulamiento es el principio de agrupar datos (atributos) y los métodos que operan sobre esos datos dentro de una sola unidad (la clase), ocultando la complejidad interna y controlando el acceso a los datos."
+            },
+            {
+                question: "¿Qué protocolo es la base de la comunicación en la World Wide Web?",
+                options: [
+                    "FTP",
+                    "SMTP",
+                    "HTTP",
+                    "TCP"
+                ],
+                correct: 2,
+                explanation: "HTTP (Hypertext Transfer Protocol) es el protocolo de transferencia de hipertexto, el protocolo de comunicación que permite la transferencia de información en la World Wide Web."
+            },
+            {
+                question: "¿Qué lenguaje se utiliza para consultas y manipulación de bases de datos relacionales?",
+                options: [
+                    "Python",
+                    "Java",
+                    "SQL",
+                    "C++"
+                ],
+                correct: 2,
+                explanation: "SQL (Structured Query Language) es el lenguaje estándar utilizado para gestionar y manipular sistemas de gestión de bases de datos relacionales (RDBMS)."
+            },
+            {
+                question: "¿Qué es 'responsive web design'?",
+                options: [
+                    "Diseñar páginas web que cargan muy rápido.",
+                    "Diseñar páginas web que se adaptan y se ven bien en cualquier tamaño de pantalla/dispositivo.",
+                    "Diseñar páginas web con muchas animaciones.",
+                    "Diseñar páginas web con enfoque en la seguridad."
+                ],
+                correct: 1,
+                explanation: "El diseño web responsivo es un enfoque de diseño web que hace que las páginas web se representen bien en una variedad de dispositivos y tamaños de ventana o pantalla."
+            },
+            {
+                question: "¿Qué significa 'Open Source' en software?",
+                options: [
+                    "El software es gratuito.",
+                    "El código fuente del software está disponible públicamente y puede ser modificado y distribuido.",
+                    "El software se ejecuta solo en Linux.",
+                    "El software tiene soporte técnico ilimitado."
+                ],
+                correct: 1,
+                explanation: "El software de código abierto (Open Source) es software con un código fuente que cualquier persona puede inspeccionar, modificar y mejorar. La accesibilidad al código fuente fomenta el desarrollo colaborativo."
             }
         ];
+
         let currentQuestion = 0;
         let userAnswers = new Array(questions.length).fill(-1);
         let timeLeft = 3600; 
         let timerInterval;
         let examStarted = false;
+
         function startExam() {
             document.getElementById('startModal').classList.add('hidden');
             document.getElementById('examContainer').classList.remove('hidden');
@@ -395,6 +1227,7 @@
             startTimer();
             displayQuestion();
         }
+
         function startTimer() {
             timerInterval = setInterval(() => {
                 timeLeft--;
@@ -408,12 +1241,14 @@
                 }
             }, 1000);
         }
+
         function updateTimerDisplay() {
             const minutes = Math.floor(timeLeft / 60);
             const seconds = timeLeft % 60;
             document.getElementById('timeLeft').textContent = 
                 `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }
+
         function displayQuestion() {
             const question = questions[currentQuestion];
             const container = document.getElementById('questionContainer');
@@ -430,25 +1265,30 @@
                         </div>
                     `).join('')}
                 </div>
-            `;   
+            `; 
             updateProgress();
             updateNavigation();
         }
+
         function selectOption(optionIndex) {
             userAnswers[currentQuestion] = optionIndex;
-            displayQuestion();
+            displayQuestion(); // Re-render to show selection
         }
+
         function updateProgress() {
             const progress = ((currentQuestion + 1) / questions.length) * 100;
             document.getElementById('progressFill').style.width = `${progress}%`;
             document.getElementById('questionCounter').textContent = 
                 `Pregunta ${currentQuestion + 1} de ${questions.length}`;
         }
+
         function updateNavigation() {
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
             const finishBtn = document.getElementById('finishBtn');
+
             prevBtn.disabled = currentQuestion === 0;
+
             if (currentQuestion === questions.length - 1) {
                 nextBtn.classList.add('hidden');
                 finishBtn.classList.remove('hidden');
@@ -457,18 +1297,21 @@
                 finishBtn.classList.add('hidden');
             }
         }
+
         function previousQuestion() {
             if (currentQuestion > 0) {
                 currentQuestion--;
                 displayQuestion();
             }
         }
+
         function nextQuestion() {
             if (currentQuestion < questions.length - 1) {
                 currentQuestion++;
                 displayQuestion();
             }
         }
+
         function showReview() {
             document.getElementById('examContainer').classList.add('hidden');
             document.getElementById('reviewContainer').classList.remove('hidden');
@@ -491,18 +1334,21 @@
                 `;
             }).join('');
         }
+
         function goToQuestion(questionIndex) {
             currentQuestion = questionIndex;
             document.getElementById('reviewContainer').classList.add('hidden');
             document.getElementById('examContainer').classList.remove('hidden');
             displayQuestion();
         }
+
         function submitExam() {
             clearInterval(timerInterval);
             calculateResults();
             document.getElementById('reviewContainer').classList.add('hidden');
             document.getElementById('resultsContainer').classList.remove('hidden');
         }
+
         function calculateResults() {
             let correctAnswers = 0;
             const results = [];
@@ -536,6 +1382,7 @@
                 </div>
             `).join('');
         }
+
         function restartExam() {
             currentQuestion = 0;
             userAnswers = new Array(questions.length).fill(-1);
@@ -548,6 +1395,7 @@
             
             updateTimerDisplay();
         }
+
         document.addEventListener('contextmenu', function(e) {
             if (examStarted) {
                 e.preventDefault();
@@ -567,14 +1415,5 @@
         });
     </script>
 </body>
-<footer style="background-color: #111; color: #888; text-align: center; padding: 1rem; margin-top: 4rem;">
-         <div class="footer-content">
-            <div class="footer-brand">Nexcode</div>
-                <img src="../../LogoWeb.png" alt="NexCode Logo" class="logo-img">
-            </div>
-            <div class="footer-text">
-                 © 2025 NexCode. Todos los derechos reservados.
-            </div>
-        </div>
-    </footer>
+
 </html>

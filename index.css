@@ -19,7 +19,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: 
+    background:
         radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
         radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
@@ -235,6 +235,28 @@ body::before {
     margin-bottom: 2rem;
 }
 
+/* Updated button style for professional and tech look */
+.view-courses-button {
+    background: linear-gradient(90deg, #00d4ff, #00ff88); /* Neon gradient */
+    color: #0c0c0c; /* Dark text for contrast */
+    padding: 1rem 2.5rem; /* Larger padding */
+    border: none;
+    border-radius: 5px; /* Slightly sharper edges */
+    font-size: 1.1rem; /* Larger font */
+    font-weight: bold; /* Bold text */
+    cursor: pointer;
+    transition: all 0.4s ease, background-position 0.8s ease; /* Smooth transitions */
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.6), 0 0 30px rgba(0, 255, 136, 0.4); /* Dual neon glow */
+    margin-top: 1.5rem;
+    background-size: 200% 100%; /* For gradient animation */
+}
+
+.view-courses-button:hover {
+    transform: translateY(-3px) scale(1.02); /* Slight lift and scale */
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.8), 0 0 40px rgba(0, 255, 136, 0.6); /* More intense glow */
+    background-position: 100% 0; /* Animate gradient on hover */
+}
+
 .search-container {
     margin-bottom: 2rem;
     text-align: center;
@@ -283,6 +305,11 @@ body::before {
     font-size: 1rem;
     z-index: 1; /* Asegura que el icono esté sobre el input si hay conflicto */
     pointer-events: none; /* Permite hacer clic en el input a través del icono */
+}
+
+/* Initially hide the courses section */
+.hidden-courses {
+    display: none;
 }
 
 .category-section {
@@ -577,9 +604,9 @@ footer {
 
 /* Si usas una imagen para el logo, descomenta y ajusta esta sección */
 /* .logo-img {
-    height: 60px; 
+    height: 60px;
     object-fit: contain;
-    filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.5)); 
+    filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.5));
     transition: transform 0.3s ease;
 }
 
@@ -587,7 +614,7 @@ footer {
     transform: scale(1.05);
 } */
 
-/* Si usas un emoji para el logo, los estilos actuales son suficientes. 
+/* Si usas un emoji para el logo, los estilos actuales son suficientes.
    Para que el emoji también sea más grande y con sombra: */
 .logo-img { /* Esto aplicaría al 🚀 */
     font-size: 2.5rem; /* Tamaño más grande para el emoji */
@@ -743,5 +770,3 @@ footer {
         text-shadow: 0 0 20px rgba(0, 212, 255, 0.8), 0 0 30px rgba(0, 212, 255, 0.6);
     }
 }
-
-

@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NexCode - Cursos Web</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="index.css"> </head>
+    <link rel="stylesheet" href="index.css">
     <link rel="icon" href="Imagenes/LogoWeb.png" type="image/png">
-
-
+</head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
@@ -17,7 +16,7 @@
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#cursos">Cursos</a></li>
                 <li><a href="acercade.html">Acerca de</a></li>
-                <li><a href="soporte.html" class="active">Soporte</a></li> </ul>
+                <li><a href="soporte.html" class="active">Soporte</a></li>
             </ul>
         </div>
     </nav>
@@ -26,7 +25,7 @@
         <i class="fas fa-bars"></i>
     </button>
 
-    <div class="sidebar" id="sidebar">
+    <div class="sidebar hidden" id="sidebar">
         <div class="sidebar-header">
             <i class="fas fa-graduation-cap"></i>
             Categorías
@@ -61,10 +60,11 @@
         </div>
     </div>
     
-    <div class="main-content" id="mainContent">
+    <div class="main-content sidebar-hidden" id="mainContent">
         <section class="hero-section" id="inicio">
             <h1 class="hero-title">NexCode</h1>
             <p class="hero-subtitle">Tu siguiente nivel en educación</p>
+            <button class="view-courses-button" id="viewCoursesButton">Ver Cursos</button>
         </section>
         
         <div class="search-container">
@@ -73,8 +73,9 @@
             </div>
         </div>
         
-        <section id="cursos">
-            <div id="coursesGrid"></div> </section>
+        <section id="cursos" class="hidden-courses">
+            <div id="coursesGrid"></div>
+        </section>
     </div>
     
     <div class="notification-bell" id="notificationBell">
@@ -107,12 +108,13 @@
 <footer>
     <div class="footer-content">
         <div class="footer-brand">NexCode</div>
-        <img src="Imagenes/LogoWeb.png" alt="NexCode Logo" class="logo-img"> 
+        <img src="Imagenes/LogoWeb.png" alt="NexCode Logo" class="logo-img">
     </div>
     <div class="footer-text">
         © 2025 NexCode. Todos los derechos reservados.
     </div>
 </footer>
 
-    <script src="index.js"></script> </body>
+    <script src="index.js"></script>
+</body>
 </html>

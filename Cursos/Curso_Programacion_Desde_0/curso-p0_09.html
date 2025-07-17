@@ -3,17 +3,974 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexCode - Fundamentos de Programación - Clase 9</title> <!--esto se cambia por clase-->
+    <title>NexCode - Curso De Programación desde 0 - Clase 9</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../cursos.css">
-    <link rel="icon" href="../../LogoWeb.png" type="image/png">
-</head>
+    <link rel="icon" href="../../Imagenes/LogoWeb.png" type="image/png">
+    <style>
+        /* General & Body */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+            z-index: -1;
+            animation: backgroundPulse 8s ease-in-out infinite alternate;
+        }
+        @keyframes backgroundPulse {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid transparent;
+            background-clip: padding-box;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        .navbar::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #00d4ff, #1adf0b, #00ff88, #13d631);
+            background-size: 400% 400%;
+            animation: gradientShift 3s ease infinite;
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00d4ff, #16ca16, #00ff88);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: logoGradient 4s ease infinite;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        @keyframes logoGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        .nav-links li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        .nav-links li a:hover {
+            color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        } 
+
+        /* Main Content Layout */
+        .main-content {
+            margin-top: 100px;
+            padding: 2rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .video-container {
+            display: grid;
+            grid-template-columns: 1fr 350px; /* Video section and right sidebar */
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .video-details-section { 
+            position: relative;
+        }
+        .video-player {
+            width: 100%;
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+        .video-player::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #00d4ff, #4bc711, #00ff88, #3bcd16);
+            background-size: 400% 400%;
+            border-radius: 23px;
+            z-index: -1;
+            animation: neonGlow 3s ease infinite;
+        }
+        @keyframes neonGlow {
+            0%, 100% { 
+                background-position: 0% 50%;
+                filter: brightness(1);
+            }
+            50% { 
+                background-position: 100% 50%;
+                filter: brightness(1.2);
+            }
+        }
+        .video-player iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 17px;
+        }
+        .video-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        .class-info { 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            flex-grow: 1;
+        }
+        .class-info .class-number {
+            margin-bottom: 0.3rem;
+        }
+        .class-info .video-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #fff;
+            background: none;
+            -webkit-background-clip: unset;
+            -webkit-text-fill-color: unset;
+        }
+        .nav-button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(45deg, #00d4ff, #0080ff);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
+        }
+        .nav-button:disabled, .nav-button[style*="opacity: 0.5"] {
+            opacity: 0.5 !important;
+            cursor: not-allowed !important;
+        }
+        .video-description-box {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: linear-gradient(145deg, rgba(20, 20, 40, 0.8), rgba(30, 30, 60, 0.8));
+            border-radius: 15px;
+            backdrop-filter: blur(20px);
+        }
+        .video-title { 
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .video-description {
+            color: #a0a0a0;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        .class-number {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: linear-gradient(45deg, #07e137, #26cf08);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        /* Right Sidebar */
+        .sidebar-right {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .progress-section, .notes-section {
+            background: linear-gradient(145deg, rgba(20, 20, 40, 0.8), rgba(30, 30, 60, 0.8));
+            border-radius: 20px;
+            padding: 1.5rem;
+            backdrop-filter: blur(20px);
+            height: fit-content;
+            border: 1px solid rgba(64, 224, 255, 0.15);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+        /* Progress Section - Standard Theme */
+        .progress-section .progress-title {
+            font-size: 1.4rem; /* Un poco más grande */
+            font-weight: bold;
+            margin-bottom: 1.2rem; /* Más espacio */
+            color: #00d4ff;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem; /* Más espacio entre ícono y texto */
+            text-shadow: 0 0 8px rgba(0, 212, 255, 0.4); /* Sombra de texto neón */
+        }
+        .progress-section .progress-title i { /* Style for the progress icon */
+            font-size: 1.2em; /* Adjust icon size to fit */
+            color: #00ffaa; /* Make icon green neon */
+            text-shadow: 0 0 5px #00ffaa;
+        }
+        .progress-section .progress-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem; /* Mayor separación */
+            margin-bottom: 2rem;
+        }
+        .progress-section .progress-circle {
+            width: 50px; /* Tamaño más grande */
+            height: 50px; /* Tamaño más grande */
+            border-radius: 50%; /* Vuelve a ser circular */
+            border: 3px solid #333; /* Borde más grueso */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem; /* Texto más grande */
+            font-weight: bold;
+            color: #eee;
+            background: rgba(255, 255, 255, 0.08); /* Fondo ligeramente visible */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra para círculos */
+            transition: all 0.3s ease;
+            cursor: pointer; /* Keep cursor pointer */
+        }
+        .progress-section .progress-circle:hover:not(.current):not(.locked) {
+            transform: scale(1.1); /* Efecto hover */
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+            background: rgba(0, 212, 255, 0.1);
+        }
+        /* Completed State */
+        .progress-section .progress-circle.completed {
+            background: linear-gradient(45deg, #00ff88, #00d4ff); /* Gradiente más vibrante */
+            border-color: #00ff88;
+            color: #1a1a2e; /* Dark text for contrast */
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.6), 0 0 25px rgba(0, 212, 255, 0.4); /* Doble brillo neón */
+        }
+        .progress-section .progress-circle.completed i {
+            font-size: 1.3em; /* Icono de check más grande */
+            color: #1a1a2e;
+        }
+        /* Current State */
+        .progress-section .progress-circle.current {
+            background: linear-gradient(45deg, #71cd08, #0b9c2d); /* Gradiente de neón verde más intenso */
+            border-color: #11ab91;
+            color: #fff;
+            box-shadow: 0 0 20px rgba(113, 205, 8, 0.8), 0 0 30px rgba(17, 171, 145, 0.6); /* Brillo más fuerte */
+            animation: pulse 2s infinite alternate, flicker 0.5s infinite alternate; /* Múltiples animaciones */
+        }
+        .progress-section .progress-circle.current i {
+            text-shadow: none;
+        }
+
+        /* Locked State (New) */
+        .progress-section .progress-circle.locked {
+            background: rgba(255, 255, 255, 0.03); /* Fondo muy sutil */
+            border-color: #555;
+            color: #777; /* Color gris para indicar inactividad */
+            cursor: not-allowed;
+            filter: grayscale(80%) brightness(70%); /* Desaturar y oscurecer */
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5); /* Sombra interna para profundidad */
+        }
+        .progress-section .progress-circle.locked i {
+            font-size: 1.1em; /* Icono de candado */
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.08); opacity: 0.9; } /* Un poco más de escala y opacidad */
+        }
+        @keyframes flicker { /* Nueva animación de parpadeo sutil */
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.95; }
+            52% { opacity: 1; }
+            54% { opacity: 0.9; }
+            56% { opacity: 1; }
+        }
+
+
+        /* Notes Section */
+        .notes-section {
+            /* margin-top: 2rem; -- already handled by sidebar-right gap */
+        }
+        .notes-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #00ff88;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            text-shadow: 0 0 8px rgba(0, 255, 136, 0.4);
+        }
+        .notes-input {
+            width: 100%;
+            height: 150px;
+            padding: 1rem;
+            border: 2px solid rgba(0, 255, 136, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            font-size: 1rem;
+            resize: vertical;
+            margin-bottom: 1rem;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+        .notes-input:focus {
+            outline: none;
+            border-color: #00ff88;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+        .save-notes-btn {
+            padding: 0.9rem 1.8rem;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            color: #0c0c0c;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+        }
+        .save-notes-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.6);
+        }
+        .saved-notes {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid #00ff88;
+            display: none;
+            font-weight: 500;
+        }
+        .saved-notes.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(145deg, rgba(15, 15, 35, 0.98), rgba(25, 25, 45, 0.98));
+            color: #a0a0a0;
+            text-align: center;
+            padding: 2.5rem 1rem 1.5rem;
+            margin-top: 5rem;
+            border-top: 2px solid rgba(0, 212, 255, 0.15);
+            box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+        .footer-brand {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00d4ff, #00ff1a, #00ff88);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: logoGradient 4s ease infinite;
+        }
+        .logo-img {
+            height: 60px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.6));
+            transition: transform 0.3s ease;
+        }
+        .logo-img:hover {
+            transform: scale(1.08);
+        }
+        .footer-text {
+            font-size: 1rem;
+            color: #888;
+            line-height: 1.5;
+        }
+
+        /* Materials and Assessment */
+        .materials-section, .assessment-section {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(145deg, rgba(20, 20, 40, 0.8), rgba(30, 30, 60, 0.8));
+            border-radius: 15px;
+            backdrop-filter: blur(20px);
+            text-align: center;
+            border: 1px solid rgba(64, 224, 255, 0.15);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .materials-button, .exam-button, .exercise-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px;
+            padding: 14px 28px;
+            font-size: 17px;
+            font-weight: bold;
+            border: none;
+            border-radius: 15px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .materials-button {
+            background: linear-gradient(90deg, #00ffe1, #00b3ff);
+            color: #111;
+            box-shadow: 0 0 15px rgba(0, 255, 225, 0.8), 0 0 25px rgba(0, 179, 255, 0.6);
+        }
+        .materials-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 255, 225, 1), 0 0 40px rgba(0, 179, 255, 0.8);
+        }
+
+        .materials-content {
+            display: none;
+            background-color: #1e1e1e;
+            border: 1px solid #00ffe1;
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin-top: 15px;
+            box-shadow: 0 0 12px rgba(0, 255, 225, 0.6);
+            text-align: left;
+        }
+        .materials-content ul {
+            list-style: none;
+            padding: 0;
+        }
+        .materials-content li {
+            margin-bottom: 12px;
+        }
+        .materials-content a {
+            color: #00e5ff;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.2s ease, text-shadow 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.05rem;
+        }
+        .materials-content a:hover {
+            color: #00ffc3;
+            text-shadow: 0 0 8px #00ffc3;
+        }
+        .materials-content a i {
+            font-size: 1.2em;
+        }
+
+        .exam-button {
+            background: linear-gradient(90deg, #0ba8b0, #7873f5);
+            color: #fff;
+            box-shadow: 0 0 18px rgba(11, 168, 176, 0.8), 0 0 30px rgba(120, 115, 245, 0.6);
+        }
+        .exam-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(11, 168, 176, 1), 0 0 40px rgba(120, 115, 245, 0.8);
+        }
+
+        .exercise-button {
+            background: linear-gradient(90deg, #00ff88, #00ffaa);
+            color: #111;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.8), 0 0 28px rgba(0, 255, 170, 0.6);
+        }
+        .exercise-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 255, 136, 1), 0 0 40px rgba(0, 255, 170, 0.8);
+        }
+        .exam-button i, .exercise-button i {
+            margin-right: 10px;
+        }
+
+        /* Media Queries */
+        @media (max-width: 1024px) {
+            .video-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .sidebar-right {
+                order: -1;
+            }
+            .video-player {
+                height: 400px;
+            }
+            .progress-grid {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 0.7rem;
+            }
+            .progress-circle {
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+            .progress-circle.completed i {
+                font-size: 1.2em;
+            }
+            .notes-input {
+                height: 120px;
+            }
+        }
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+            .nav-links {
+                display: none;
+            }
+            .main-content {
+                padding: 1rem;
+            }
+            .video-player {
+                height: 250px;
+            }
+            .video-controls {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+            .nav-button {
+                width: 100%;
+            }
+            .class-info .video-title {
+                font-size: 1rem;
+            }
+            .progress-grid {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 0.6rem;
+            }
+            .progress-circle {
+                width: 40px;
+                height: 40px;
+                font-size: 0.9rem;
+            }
+            .progress-circle.completed i {
+                font-size: 1.1em;
+            }
+            .footer {
+                padding: 2rem 1rem 1rem;
+            }
+            .materials-button, .exam-button, .exercise-button {
+                width: 100%;
+                margin: 10px 0;
+                font-size: 15px;
+                padding: 12px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .progress-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .progress-circle {
+                width: 35px;
+                height: 35px;
+                font-size: 0.8rem;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* ===============================================
+           QUIZ STYLES (STANDARD THEME)
+           =============================================== */
+        .quiz-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85); /* Oscuro y semitransparente */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000; /* Asegura que esté por encima de todo */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            backdrop-filter: blur(5px); /* Desenfoque de fondo */
+        }
+
+        .quiz-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .quiz-container {
+            background: linear-gradient(145deg, #1a1a2e, #16213e); /* Fondo oscuro consistente */
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #00d4ff, #00ff88, #00d4ff) 1; /* Neon border */
+            border-radius: 20px; /* Bordes más redondeados */
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5), 0 0 60px rgba(0, 255, 136, 0.3); /* Doble brillo neón */
+            width: 90%;
+            max-width: 700px;
+            padding: 30px;
+            text-align: center;
+            transform: scale(0.8);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            position: relative; /* Para la animación de fuegos artificiales */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Restore default font */
+        }
+
+        .quiz-container.show {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .quiz-header h2 {
+            font-size: 2.2rem; /* Tamaño de título más grande */
+            color: #00d4ff; /* Color principal neón */
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+            background: linear-gradient(45deg, #00d4ff, #00ff88); /* Degradado neón */
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: normal; /* Remove pixel letter spacing */
+        }
+
+        .close-quiz-btn {
+            background: none;
+            border: none;
+            color: #FF6347; /* Rojo tomate para cerrar */
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, color 0.2s ease;
+            text-shadow: 0 0 8px rgba(255, 99, 71, 0.5);
+        }
+
+        .close-quiz-btn:hover {
+            transform: rotate(90deg);
+            color: #00d4ff; /* Cambia a neón al pasar el ratón */
+            text-shadow: 0 0 15px rgba(0, 212, 255, 0.8);
+        }
+
+        .quiz-body {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .quiz-question-counter {
+            font-size: 1.1rem;
+            color: #00d4ff; /* Azul cielo */
+            margin-bottom: 15px;
+            font-weight: 500;
+            text-shadow: none; /* Remove pixel shadow */
+        }
+
+        .question-area {
+            background: linear-gradient(135deg, rgba(20, 20, 40, 0.9), rgba(30, 30, 60, 0.9)); /* Dark blue gradient */
+            border-radius: 15px;
+            padding: 25px;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+        }
+
+        .drop-area {
+            background: rgba(255, 255, 255, 0.08); /* Light transparent background */
+            border: 3px dashed #00d4ff; /* Neon blue dashed border */
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            width: 80%;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #00e5ff; /* Lighter neon blue */
+            transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            text-shadow: none; /* Remove pixel shadow */
+        }
+
+        .drop-area.highlight {
+            background-color: rgba(0, 212, 255, 0.15); /* Brighter transparent blue on highlight */
+            border-color: #00ff88; /* Green neon */
+            box-shadow: 0 0 15px #00ff88;
+        }
+
+        .drop-area.correct {
+            background-color: #2ECC71; /* Green esmeralda */
+            border-color: #27AE60; /* Darker green */
+            color: #fff;
+            box-shadow: 0 0 20px rgba(46, 204, 113, 0.7);
+            animation: correctPulse 0.8s ease-in-out;
+        }
+
+        .drop-area.incorrect {
+            background-color: #E74C3C; /* Red ladrillo */
+            border-color: #C0392B; /* Darker red */
+            color: #fff;
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.7);
+            animation: incorrectShake 0.5s ease-in-out;
+        }
+
+        @keyframes correctPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes incorrectShake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+
+        .draggable-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+            min-height: 80px;
+        }
+
+        .draggable-item {
+            background: linear-gradient(135deg, #00ffaa, #00e5ff); /* Green-blue neon gradient */
+            border: 2px solid #00d4ff; /* Neon blue border */
+            border-radius: 10px;
+            padding: 12px 20px;
+            cursor: grab;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #1a1a2e; /* Dark text for contrast */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            min-width: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-shadow: none; /* Remove pixel shadow */
+        }
+
+        .draggable-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        .draggable-item.dragging {
+            opacity: 0.5;
+            border-style: dashed;
+            background: #bbb;
+            box-shadow: 0 0 0px transparent;
+        }
+
+        .hint-area {
+            background: rgba(255, 255, 0, 0.1); /* Light yellow transparent */
+            border-left: 5px solid #FFEB3B; /* Yellow for hint */
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-top: 20px;
+            text-align: left;
+            display: none;
+            font-size: 1rem;
+            color: #FFEB3B; /* Yellow text */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.3s ease;
+            text-shadow: none; /* Remove pixel shadow */
+        }
+
+        .hint-area.show {
+            display: block;
+        }
+
+        .explanation-area {
+            background: rgba(46, 204, 113, 0.15); /* Light green transparent */
+            border-left: 5px solid #2ECC71; /* Green for explanation */
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: left;
+            display: none;
+            font-size: 1.1rem;
+            color: #2ECC71; /* Green text */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.3s ease;
+            text-shadow: none; /* Remove pixel shadow */
+        }
+
+        .explanation-area.show {
+            display: block;
+        }
+
+        .next-question-btn {
+            background: linear-gradient(45deg, #00ff88, #00d4ff); /* Green-blue neon */
+            color: #0c0c0c; /* Dark text */
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+            text-shadow: none; /* Remove pixel shadow */
+        }
+
+        .next-question-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 255, 136, 0.6);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Celebration Animation (Standard Fireworks) */
+        .celebration-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none; /* Clicks go through */
+            z-index: 10; /* Above other quiz elements */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease;
+        }
+
+        .celebration-animation.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Example: Simple CSS fireworks particle */
+        .celebration-animation::before,
+        .celebration-animation::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle, #fff, #ffeb3b, transparent 50%);
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(0);
+            animation: firework 1.5s ease-out forwards;
+        }
+
+        .celebration-animation::before {
+            top: 20%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+        .celebration-animation::after {
+            top: 80%;
+            left: 80%;
+            background: radial-gradient(circle, #fff, #e91e63, transparent 50%);
+            animation-delay: 0.5s;
+        }
+
+        @keyframes firework {
+            0% { transform: scale(0); opacity: 0; }
+            10% { opacity: 1; transform: scale(0.5); }
+            100% { opacity: 0; transform: scale(1.5); }
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
             <a href="../../index.html" class="logo">NexCode</a>
-             <ul class="nav-links">
+            <ul class="nav-links">
                 <li><a href="../../index.html">Inicio</a></li>
                 <li><a href="../../index.html#cursos">Cursos</a></li>
                 <li><a href="../../acercade.html">Acerca de</a></li>
@@ -21,59 +978,80 @@
             </ul>
         </div>
     </nav>
+
     <div class="main-content">
         <div class="video-container">
-            <div class="video-section">
-                <div class="video-player"> <!--esto se cambia por clase-->
-                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-                            title="Video del Curso" 
+            <div class="video-details-section">
+                <div class="video-player">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=abcdefgh" 
+                            title="Video del Curso"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
                             allowfullscreen>
                     </iframe>
                 </div>
                 <div class="video-controls">
-                    <a href="curso-p0_08.html" class="nav-button" id="prevBtn"> <!--esto se cambia por clase-->
+                    <a href="curso-p0_08.html" class="nav-button" id="prevBtn">
                         <i class="fas fa-chevron-left"></i>
                         Anterior
                     </a>
-                    <div class="class-number">Clase 9 de 20</div> <!--esto se cambia por clase-->
-                    <a href="curso-p0_10.html" class="nav-button" id="nextBtn"> <!--esto se cambia por clase-->
+                    <div class="class-info">
+                        <span class="class-number">Clase 9 de 20</span>
+                        <span class="video-title">Introducción a la Programación Orientada a Objetos</span>
+                    </div>
+                    <a href="curso-p0_10.html" class="nav-button" id="nextBtn">
                         Siguiente
                         <i class="fas fa-chevron-right"></i>
                     </a>
                 </div>
-                 <button class="materials-button" onclick="toggleMaterials()">
-                    <i class="fas fa-folder-open"></i> Materiales de la clase
-                </button>
-                <div class="materials-content" id="materialsContent">
-                    <ul> <!--esto se cambia por clase-->
-                        <li><a href="https://example.com/diapositivas-clase-2.pdf" target="_gray">📄 Diapositivas - Clase 3 (PDF)</a></li>
-                        <li><a href="https://example.com/ejercicio-practico.zip" target="_gray">📦 Ejercicio práctico</a></li>
-                        <li><a href="https://example.com/recurso-extra.html" target="_gray">🔗 Recurso adicional</a></li>
-                    </ul>
-                </div>
-                <div class="video-info">
-                    <h1 class="video-title">Introducción al Curso</h1> <!--esto se cambia por clase-->
-                    <p class="video-description"> <!--esto se cambia por clase-->
-                        En esta segunda clase te daremos una introducción completa al curso. 
-                        Conocerás la estructura del programa, los objetivos de aprendizaje, 
-                        las herramientas que utilizaremos y cómo aprovechar al máximo cada lección.
+                <div class="video-description-box">
+                    <p class="video-description">
+                       En esta clase, te introduciremos a uno de los paradigmas de programación más influyentes: la Programación Orientada a Objetos (POO). Aprenderás los conceptos fundamentales de objetos, clases, atributos y métodos, y cómo la POO te permite modelar problemas del mundo real de manera más intuitiva y modular, sentando las bases para un código más organizado y escalable.
                     </p>
                 </div>
+
+                <div class="materials-section">
+                    <button class="materials-button" onclick="toggleMaterials()">
+                        <i class="fas fa-book"></i> Materiales Adicionales
+                    </button>
+                    <div class="materials-content" id="materialsContent">
+                        <ul>
+                            <li><a href="../pdfs_PD0/Clase09.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Diapositivas de la Clase 9 (PDF)</a></li>
+                            <li><a href="#" target="_blank"><i class="fas fa-code"></i> Código Fuente de Ejemplos</a></li>
+                            <li><a href="#" target="_blank"><i class="fas fa-link"></i> Enlace a Recursos Externos</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="assessment-section">
+                    <a href="curso-p0_Ejercicio09.html" class="exam-button" target="_blank">
+                        <i class="fas fa-laptop-code"></i> Realizar Ejercicio Práctico
+                    </a>
+                    <button class="exam-button" onclick="openQuiz()">
+                        <i class="fas fa-question-circle"></i> Tomar Quiz de la Clase
+                    </button>
+                </div>
+
             </div>
-            <div class="progress-section">
-                <div class="progress-title">
-                    <i class="fas fa-chart-line"></i>
-                    Progreso del Curso
+
+            <div class="sidebar-right">
+                <div class="progress-section">
+                    <div class="progress-title">
+                        <i class="fas fa-chart-line"></i>
+                        Progreso del Curso
+                    </div>
+                    <div class="progress-grid" id="progressGrid">
+                        </div>
                 </div>
-                <div class="progress-grid" id="progressGrid">
-                </div>
+
                 <div class="notes-section">
                     <div class="notes-title">
                         <i class="fas fa-sticky-note"></i>
                         Mis Notas
                     </div>
-                    <textarea class="notes-input" 
-                              id="notesInput" 
+                    <textarea class="notes-input"
+                              id="notesInput"
                               placeholder="Escribe tus notas y puntos importantes aquí..."></textarea>
                     <button class="save-notes-btn" onclick="saveNotes()">
                         <i class="fas fa-save"></i>
@@ -86,42 +1064,98 @@
             </div>
         </div>
     </div>
-     <footer style="background-color: #111; color: #888; text-align: center; padding: 1rem; margin-top: 4rem;">
-         <div class="footer-content">
-            <div class="footer-brand">Nexcode</div>
-                <img src="../../Imagenes/LogoWeb.png" alt="NexCode Logo" class="logo-img">
-            </div>
-            <div class="footer-text">
-                 © 2025 NexCode. Todos los derechos reservados.
-            </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">NexCode</div>
+            <img src="../../Imagenes/LogoWeb.png" alt="NexCode Logo" class="logo-img">
+        </div>
+        <div class="footer-text">
+            © 2025 NexCode. Todos los derechos reservados.
         </div>
     </footer>
+
+    <div class="quiz-overlay" id="quizOverlay">
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <h2>Quiz - Clase <span id="quizClassNumber">9</span></h2>
+                <button class="close-quiz-btn" onclick="closeQuiz()">×</button>
+            </div>
+            <div class="quiz-body">
+                <div class="quiz-question-counter" id="quizQuestionCounter"></div>
+                <div class="question-area" id="questionArea">
+                    <p id="questionText"></p>
+                    <div class="drop-area" id="dropArea" ondragover="allowDrop(event)" ondrop="drop(event)" ondragleave="dragLeave(event)">
+                        Arrastra la respuesta aquí
+                    </div>
+                </div>
+
+                <div class="draggable-options" id="draggableOptions">
+                    </div>
+
+                <div class="hint-area" id="hintArea">
+                    <p id="hintText"></p>
+                </div>
+
+                <div class="explanation-area" id="explanationArea">
+                    <p id="explanationText"></p>
+                    <button class="next-question-btn" id="nextQuestionBtn" onclick="nextQuestion()">Siguiente Pregunta</button>
+                </div>
+
+                <div class="celebration-animation" id="celebrationAnimation">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+
     <script>
-        const currentClass = 9;  //Esto se cambia por clase
-        const totalClasses = 20;
+        const currentClass = 9;  // CAMBIADO MANUALMENTE PARA CLASE 9
+        const totalClasses = 20; // Asegúrate de que esto coincida con el número total de clases
+
         document.addEventListener('DOMContentLoaded', function() {
             initializeProgress();
             loadNotes();
             updateNavigationButtons();
+            // Iniciar autosave al cargar
+            setInterval(autoSaveNotes, 30000); // Autosave cada 30 segundos
         });
+
+        // --- Progreso del Curso ---
         function initializeProgress() {
             const progressGrid = document.getElementById('progressGrid');
             progressGrid.innerHTML = '';
             for (let i = 1; i <= totalClasses; i++) {
                 const circle = document.createElement('div');
                 circle.className = 'progress-circle';
-                circle.textContent = i;
-                circle.title = `Clase ${i}`;
+                
                 if (i < currentClass) {
                     circle.classList.add('completed');
                     circle.innerHTML = '<i class="fas fa-check"></i>';
-                }
-                else if (i === currentClass) {
+                } else if (i === currentClass) {
                     circle.classList.add('current');
+                    circle.textContent = i;
+                } else {
+                    circle.classList.add('locked');
+                    circle.innerHTML = '<i class="fas fa-lock"></i>';
+                    circle.style.pointerEvents = 'none';
                 }
+                
+                circle.title = `Clase ${i}`;
+
+                if (i <= currentClass) {
+                    circle.addEventListener('click', () => {
+                        if (i !== currentClass) {
+                            window.location.href = `curso-p0_${String(i).padStart(2, '0')}.html`;
+                        }
+                    });
+                }
+
                 progressGrid.appendChild(circle);
             }
         }
+
+        // --- Notas con LocalStorage ---
         function saveNotes() {
             const notes = document.getElementById('notesInput').value;
             const key = `nexcode_notes_class_${currentClass}`;
@@ -134,11 +1168,15 @@
                 localStorage.setItem(key, JSON.stringify(notesData));
                 const savedNotesDiv = document.getElementById('savedNotes');
                 savedNotesDiv.classList.add('show');
+
                 setTimeout(() => {
                     savedNotesDiv.classList.remove('show');
                 }, 3000);
+            } else {
+                localStorage.removeItem(key);
             }
         }
+
         function loadNotes() {
             const key = `nexcode_notes_class_${currentClass}`;
             const savedData = localStorage.getItem(key);
@@ -147,42 +1185,765 @@
                 document.getElementById('notesInput').value = notesData.content;
             }
         }
+
+        function autoSaveNotes() {
+            const notes = document.getElementById('notesInput').value;
+            const key = `nexcode_notes_class_${currentClass}`;
+            if (notes.trim()) {
+                const notesData = {
+                    content: notes,
+                    timestamp: new Date().toISOString(),
+                    className: `Clase ${currentClass}`
+                };
+                localStorage.setItem(key, JSON.stringify(notesData));
+            } else {
+                localStorage.removeItem(key);
+            }
+        }
+
+        // --- Navegación de Clases ---
         function updateNavigationButtons() {
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
-            if (currentClass === 1) {
+
+            if (currentClass <= 1) {
                 prevBtn.style.opacity = '0.5';
                 prevBtn.style.pointerEvents = 'none';
+                prevBtn.href = "#";
+            } else {
+                prevBtn.style.opacity = '1';
+                prevBtn.style.pointerEvents = 'auto';
+                prevBtn.href = `curso-p0_${String(currentClass - 1).padStart(2, '0')}.html`;
             }
-            if (currentClass === totalClasses) {
+
+            if (currentClass >= totalClasses) {
                 nextBtn.style.opacity = '0.5';
                 nextBtn.style.pointerEvents = 'none';
+                nextBtn.href = "#";
+            } else {
+                nextBtn.style.opacity = '1';
+                nextBtn.style.pointerEvents = 'auto';
+                nextBtn.href = `curso-p0_${String(currentClass + 1).padStart(2, '0')}.html`;
             }
         }
-        function markClassCompleted() {
-            const key = `nexcode_completed_class_${currentClass}`;
-            localStorage.setItem(key, 'true');
+
+        // --- Materiales Adicionales (Toggle) ---
+        function toggleMaterials() {
+            const content = document.getElementById('materialsContent');
+            content.style.display = content.style.display === 'block' ? 'none' : 'block';
         }
-        function isClassCompleted(classNumber) {
-            const key = `nexcode_completed_class_${classNumber}`;
-            return localStorage.getItem(key) === 'true';
-        }
-        setInterval(() => {
-            const notes = document.getElementById('notesInput').value;
-            if (notes.trim()) {
-                const key = `nexcode_notes_class_${currentClass}_autosave`;
-                localStorage.setItem(key, notes);
-            }
-        }, 30000);
+
+        // --- Evento de Logout (opcional) ---
         document.getElementById('logoutBtn')?.addEventListener('click', function(e) {
             e.preventDefault();
             localStorage.removeItem('techlearn_logged_in');
             localStorage.removeItem('techlearn_username');
-            window.location.href = 'index.html';
+            window.location.href = '../../index.html';
         });
-        function toggleMaterials() {
-            const content = document.getElementById('materialsContent');
-            content.style.display = content.style.display === 'block' ? 'none' : 'block';
+
+
+        // ===============================================
+        // --- QUIZ INTERACTIVO (ESTILO STANDARD) ---
+        // ===============================================
+
+        let currentQuestionIndex = 0;
+        let attempts = 0; // Para las pistas progresivas
+        let quizQuestions = []; // Array para almacenar las preguntas de la clase actual
+
+        // *** IMPORTANTE: Define tus preguntas del Quiz aquí para CADA CLASE ***
+        const quizData = {
+            1: [ // Preguntas para la Clase 1
+                {
+                    question: "¿Qué es una 'variable' en programación?",
+                    options: ["Una función", "Un contenedor para datos", "Un tipo de error", "Una palabra clave"],
+                    correctAnswer: "Un contenedor para datos",
+                    hints: [
+                        "Piensa en algo que puede guardar diferentes valores.",
+                        "No es una acción, ni un problema. Sirve para almacenar información.",
+                        "Es como una caja con un nombre donde puedes guardar números, texto, etc."
+                    ],
+                    explanation: "Una variable es un espacio de almacenamiento en la memoria de la computadora al que se le asigna un nombre y que puede contener un valor que puede cambiar durante la ejecución de un programa."
+                },
+                {
+                    question: "¿Cuál de los siguientes NO es un tipo de dato básico?",
+                    options: ["Número entero", "Texto (Cadena)", "Función", "Booleano (Verdadero/Falso)"],
+                    correctAnswer: "Función",
+                    hints: [
+                        "Algunos tipos de datos representan valores, otros representan acciones o bloques de código.",
+                        "No es algo que 'guardas' como un valor directo, sino algo que 'haces'.",
+                        "Los tipos de datos son valores que pueden ser almacenados. Una función es una serie de instrucciones."
+                    ],
+                    explanation: "Mientras que un número entero, texto y booleano son tipos de datos que representan valores, una función es un bloque de código diseñado para realizar una tarea específica, no un tipo de dato en sí mismo."
+                },
+                {
+                    question: "¿Qué es un algoritmo?",
+                    options: ["Un lenguaje de programación", "Un conjunto de instrucciones para resolver un problema", "Un tipo de hardware", "Una interfaz de usuario"],
+                    correctAnswer: "Un conjunto de instrucciones para resolver un problema",
+                    hints: [
+                        "Piensa en una receta de cocina, pero para una computadora.",
+                        "Es una secuencia lógica y ordenada de pasos.",
+                        "No es un programa completo, sino la base lógica de cómo se resuelve una tarea."
+                    ],
+                    explanation: "Un algoritmo es una secuencia finita de instrucciones o pasos bien definidos, ordenados y finitos que permiten resolver un problema, realizar un cómputo o procesar datos."
+                },
+                {
+                    question: "¿Qué hace la sentencia 'if' en programación?",
+                    options: ["Repite un bloque de código", "Define una función", "Ejecuta código solo si una condición es verdadera", "Imprime texto en pantalla"],
+                    correctAnswer: "Ejecuta código solo si una condición es verdadera",
+                    hints: [
+                        "Es una estructura de control de flujo.",
+                        "Sirve para tomar decisiones en tu código.",
+                        "Si se cumple X, entonces haz Y."
+                    ],
+                    explanation: "La sentencia 'if' (si condicional) es una estructura de control que permite ejecutar un bloque de código determinado solo si se cumple una condición específica. Si la condición es falsa, el bloque de código dentro del 'if' se omite."
+                },
+                {
+                    question: "¿Cuál es el propósito principal de un 'bucle' (loop)?",
+                    options: ["Almacenar datos", "Realizar cálculos matemáticos", "Repetir un bloque de código varias veces", "Conectar diferentes partes de un programa"],
+                    correctAnswer: "Repetir un bloque de código varias veces",
+                    hints: [
+                        "Imagina que necesitas hacer lo mismo muchas veces sin escribirlo una y otra vez.",
+                        "Es útil para tareas que se repiten, como contar o procesar listas.",
+                        "Es como un ciclo que se ejecuta hasta que se cumple una condición de salida."
+                    ],
+                    explanation: "Un bucle (o loop) es una estructura de control de flujo que permite repetir la ejecución de un bloque de código un número determinado de veces o mientras se cumpla una condición específica. Son fundamentales para automatizar tareas repetitivas."
+                }
+            ],
+            2: [ // Preguntas para la Clase 2 - Variables y Tipos de Datos
+                {
+                    question: "¿Qué tipo de dato usarías para guardar tu edad?",
+                    options: ["Texto (String)", "Booleano (Boolean)", "Número entero (Integer)", "Número decimal (Float/Double)"],
+                    correctAnswer: "Número entero (Integer)",
+                    hints: [
+                        "La edad es un valor numérico y usualmente no tiene fracciones.",
+                        "No es una palabra, ni un 'verdadero/falso'. Piensa en un número sin decimales.",
+                        "Es un valor numérico que representa una cantidad exacta, como 1, 2, 3..."
+                    ],
+                    explanation: "Para guardar la edad, el tipo de dato 'Número entero' (Integer) es el más adecuado, ya que la edad se expresa comúnmente en años completos sin fracciones."
+                },
+                {
+                    question: "Si quieres almacenar el nombre de una persona, ¿qué tipo de dato usarías?",
+                    options: ["Booleano", "Número", "Carácter", "Cadena de texto (String)"],
+                    correctAnswer: "Cadena de texto (String)",
+                    hints: [
+                        "Los nombres son secuencias de letras y símbolos.",
+                        "No es un número o un valor lógico. Es una secuencia de caracteres.",
+                        "Este tipo de dato se usa para cualquier conjunto de caracteres, como palabras o frases."
+                    ],
+                    explanation: "Para almacenar el nombre de una persona, que es una secuencia de caracteres (letras, espacios, etc.), se utiliza el tipo de dato 'Cadena de texto' o 'String'."
+                },
+                {
+                    question: "¿Cuál es una de las principales ventajas de usar variables?",
+                    options: ["Hacer el código más corto", "Permitir que los valores cambien durante la ejecución del programa", "Acelerar la velocidad del programa", "Proteger el código de errores"],
+                    correctAnswer: "Permitir que los valores cambien durante la ejecución del programa",
+                    hints: [
+                        "Piensa en la palabra 'variable': ¿qué implica su significado?",
+                        "Su flexibilidad es clave; no son estáticas.",
+                        "Si el valor de algo necesita actualizarse, una variable es la herramienta."
+                    ],
+                    explanation: "Una de las principales ventajas de las variables es su capacidad para almacenar valores que pueden ser modificados y actualizados a lo largo de la ejecución de un programa, lo que las hace muy flexibles y dinámicas."
+                },
+                {
+                    question: "¿Qué tipo de dato representa solo 'verdadero' o 'falso'?",
+                    options: ["Numérico", "Carácter", "Booleano", "Vacío"],
+                    correctAnswer: "Booleano",
+                    hints: [
+                        "Este tipo de dato es fundamental para la lógica y las decisiones en la programación.",
+                        "Tiene solo dos estados posibles.",
+                        "Se usa para condiciones lógicas."
+                    ],
+                    explanation: "El tipo de dato 'Booleano' (Boolean) se utiliza para representar valores lógicos que pueden ser 'verdadero' (true) o 'falso' (false). Es esencial para las estructuras de control condicionales."
+                },
+                {
+                    question: "¿Qué ocurre si intentas usar una variable antes de declararla en algunos lenguajes?",
+                    options: ["Se le asigna un valor por defecto", "Provoca un error de sintaxis", "Funciona normalmente", "Se crea automáticamente"],
+                    correctAnswer: "Provoca un error de sintaxis",
+                    hints: [
+                        "La computadora necesita saber que existe antes de usarla.",
+                        "Es una regla fundamental que el lenguaje impone para evitar ambigüedades.",
+                        "El compilador o intérprete no entenderá a qué te refieres."
+                    ],
+                    explanation: "En muchos lenguajes de programación, intentar usar una variable antes de haberla declarado correctamente resulta en un error de sintaxis o de compilación, ya que el programa no sabe qué espacio de memoria reservar ni cómo interpretarla."
+                }
+            ],
+            3: [ // Preguntas para la Clase 3 - Operadores y Expresiones
+                {
+                    question: "¿Cuál operador se usa para la multiplicación en la mayoría de lenguajes?",
+                    options: ["+", "-", "*", "/"],
+                    correctAnswer: "*",
+                    hints: [
+                        "No es para sumar, restar o dividir.",
+                        "Es un símbolo que también se usa para 'comodín' en algunas búsquedas.",
+                        "Se encuentra sobre el número 8 en el teclado numérico si usas Shift."
+                    ],
+                    explanation: "El asterisco (*) es el operador estándar para la multiplicación en la mayoría de los lenguajes de programación, como C, Java, Python, JavaScript, etc."
+                },
+                {
+                    question: "¿Qué significa el operador '==' en programación?",
+                    options: ["Asignación de valor", "Igualdad de valor", "Mayor o igual que", "Diferente de"],
+                    correctAnswer: "Igualdad de valor",
+                    hints: [
+                        "Compara si dos cosas tienen el mismo contenido.",
+                        "No cambia el valor de una variable, solo verifica una condición.",
+                        "Es una pregunta: ¿Son X e Y lo mismo?"
+                    ],
+                    explanation: "El operador '==' (doble igual) se utiliza para comparar si dos valores son iguales. No debe confundirse con el operador de asignación '=' (un solo igual)."
+                },
+                {
+                    question: "Si tienes la expresión '5 + 3 * 2', ¿cuál será el resultado según la precedencia de operadores?",
+                    options: ["16", "11", "13", "10"],
+                    correctAnswer: "11",
+                    hints: [
+                        "Recuerda el orden de las operaciones matemáticas: primero multiplicaciones y divisiones.",
+                        "La multiplicación se evalúa antes que la suma.",
+                        "Calcula 3 * 2 primero, y luego súmale 5."
+                    ],
+                    explanation: "Según la precedencia de operadores, la multiplicación (*) se realiza antes que la suma (+). Por lo tanto, 3 * 2 = 6, y luego 5 + 6 = 11."
+                },
+                {
+                    question: "¿Qué operador lógico usarías para verificar si AMBAS condiciones son verdaderas?",
+                    options: ["OR (||)", "NOT (!)", "AND (&&)", "XOR (^)"],
+                    correctAnswer: "AND (&&)",
+                    hints: [
+                        "Necesitas que se cumpla una condición Y la otra.",
+                        "Si solo una es verdadera, el resultado es falso.",
+                        "Se utiliza para combinar dos expresiones lógicas de modo que el resultado sea verdadero solo si ambas son verdaderas."
+                    ],
+                    explanation: "El operador lógico 'AND' (representado comúnmente como '&&') devuelve verdadero solo si ambas expresiones que compara son verdaderas. Si al menos una es falsa, el resultado es falso."
+                },
+                {
+                    question: "¿Cuál es el propósito del operador de asignación '='?",
+                    options: ["Comparar dos valores", "Asignar un nuevo valor a una variable", "Realizar una suma", "Incrementar un valor"],
+                    correctAnswer: "Asignar un nuevo valor a una variable",
+                    hints: [
+                        "Piensa en cómo le das un valor inicial o cambias el valor de una 'caja'.",
+                        "No es para preguntar 'son iguales', sino para 'hacer que sea igual a'.",
+                        "Es el operador más básico para dar contenido a una variable."
+                    ],
+                    explanation: "El operador de asignación '=' se utiliza para asignar el valor de la expresión de la derecha a la variable que se encuentra en el lado izquierdo. Por ejemplo, `x = 10` asigna el valor 10 a la variable `x`."
+                }
+            ],
+            4: [ // Preguntas para la Clase 4 - Estructuras de Control: Condicionales
+                {
+                    question: "¿Qué estructura condicional se usa para ejecutar un bloque de código si una condición es verdadera?",
+                    options: ["else", "while", "if", "for"],
+                    correctAnswer: "if",
+                    hints: [
+                        "Es la declaración condicional más básica.",
+                        "Literalmente significa 'si' en inglés.",
+                        "Se usa para tomar una decisión simple: si esto, haz aquello."
+                    ],
+                    explanation: "La estructura `if` es la base de las condicionales, permitiendo que un bloque de código se ejecute únicamente si la condición especificada es verdadera."
+                },
+                {
+                    question: "¿Cuál de las siguientes es la extensión de un `if` para ejecutar código cuando la condición principal es falsa?",
+                    options: ["then", "else", "unless", "switch"],
+                    correctAnswer: "else",
+                    hints: [
+                        "Significa 'sino' o 'en caso contrario'.",
+                        "Va de la mano con el `if`.",
+                        "Se usa cuando la primera opción no se cumple."
+                    ],
+                    explanation: "La palabra clave `else` se utiliza en conjunto con `if` para definir un bloque de código que se ejecutará si la condición del `if` resulta ser falsa."
+                },
+                {
+                    question: "¿Qué estructura permite evaluar múltiples condiciones en secuencia, deteniéndose en la primera que sea verdadera?",
+                    options: ["if-only", "else-if", "unless-then", "do-while"],
+                    correctAnswer: "else-if",
+                    hints: [
+                        "Combina 'sino' y 'si'.",
+                        "Es útil para encadenar varias posibilidades.",
+                        "Permite una cadena de decisiones: si esto, si no esto, si no aquello..."
+                    ],
+                    explanation: "La estructura `else if` (o `elif` en algunos lenguajes) permite encadenar múltiples condiciones. El programa verifica cada condición en orden y ejecuta el bloque de código de la primera condición que sea verdadera, ignorando las subsiguientes."
+                },
+                {
+                    question: "¿Cuál es el resultado de la expresión `(5 > 3) && (10 < 5)`?",
+                    options: ["Verdadero", "Falso", "Error", "1"],
+                    correctAnswer: "Falso",
+                    hints: [
+                        "El operador `&&` (AND) requiere que ambas partes sean verdaderas.",
+                        "Evalúa cada parte de la expresión por separado primero.",
+                        "La primera parte es verdadera, pero la segunda no lo es."
+                    ],
+                    explanation: "La expresión `(5 > 3)` es verdadera. La expresión `(10 < 5)` es falsa. Como el operador `&&` (AND lógico) requiere que ambas condiciones sean verdaderas para que el resultado sea verdadero, `true && false` da como resultado `false`."
+                },
+                {
+                    question: "¿Para qué se utiliza la indentación (espaciado) en las estructuras condicionales en muchos lenguajes?",
+                    options: ["Para hacer el código más corto", "Es solo una preferencia de estilo", "Para definir qué líneas de código pertenecen a un bloque", "Para acelerar el programa"],
+                    correctAnswer: "Para definir qué líneas de código pertenecen a un bloque",
+                    hints: [
+                        "Es crucial para la legibilidad y la estructura lógica del código.",
+                        "Actúa como delimitador visual de bloques.",
+                        "Sin ella, el compilador o intérprete podría no saber qué código ejecutar bajo una condición."
+                    ],
+                    explanation: "En lenguajes como Python, la indentación es sintácticamente obligatoria para definir bloques de código dentro de estructuras condicionales (y bucles, funciones, etc.). En otros lenguajes (como C, Java), aunque no es obligatoria para la sintaxis, es una práctica estándar y crucial para la legibilidad y el mantenimiento del código."
+                }
+            ],
+            5: [ // Preguntas para la Clase 5 - Estructuras de Control: Bucles (Loops)
+                {
+                    question: "¿Cuál es el propósito principal de un bucle `for`?",
+                    options: ["Ejecutar código solo una vez", "Repetir código un número conocido de veces", "Tomar decisiones en el programa", "Guardar valores variables"],
+                    correctAnswer: "Repetir código un número conocido de veces",
+                    hints: [
+                        "Se usa comúnmente para iterar sobre una secuencia o un rango definido.",
+                        "Piensa en un contador que va de un inicio a un fin.",
+                        "Cuando sabes de antemano cuántas veces necesitas repetir algo."
+                    ],
+                    explanation: "Un bucle `for` se utiliza principalmente para iterar un número predefinido de veces, como recorrer los elementos de una lista o ejecutar un bloque de código un número fijo de repeticiones."
+                },
+                {
+                    question: "¿Cuándo es más apropiado usar un bucle `while` en lugar de un bucle `for`?",
+                    options: ["Cuando necesitas repetir el código una sola vez", "Cuando el número de repeticiones es conocido de antemano", "Cuando el número de repeticiones es desconocido y depende de una condición", "Cuando quieres tomar una decisión simple"],
+                    correctAnswer: "Cuando el número de repeticiones es desconocido y depende de una condición",
+                    hints: [
+                        "Este bucle continúa 'mientras' una condición sea verdadera.",
+                        "Es ideal para situaciones donde no sabes cuándo terminará la repetición.",
+                        "Se usa, por ejemplo, para leer datos hasta que se detecte un fin o una condición específica."
+                    ],
+                    explanation: "El bucle `while` es ideal cuando no se conoce de antemano cuántas veces se debe repetir un bloque de código. La repetición continúa 'mientras' una condición específica sea verdadera."
+                },
+                {
+                    question: "¿Qué sentencia se usa para SALIR completamente de un bucle antes de que termine su ejecución normal?",
+                    options: ["continue", "skip", "exit", "break"],
+                    correctAnswer: "break",
+                    hints: [
+                        "Literalmente 'rompe' la ejecución del bucle.",
+                        "Se utiliza para detener la iteración inmediatamente.",
+                        "Cuando ya no necesitas seguir dentro del ciclo."
+                    ],
+                    explanation: "La sentencia `break` se utiliza para terminar la ejecución de un bucle (ya sea `for` o `while`) de forma prematura. El control del programa salta al código que sigue inmediatamente después del bucle."
+                },
+                {
+                    question: "¿Qué hace la sentencia `continue` dentro de un bucle?",
+                    options: ["Sale del bucle por completo", "Reinicia el bucle desde el principio", "Salta la iteración actual y pasa a la siguiente", "Repite la iteración actual"],
+                    correctAnswer: "Salta la iteración actual y pasa a la siguiente",
+                    hints: [
+                        "Permite omitir el resto del código en la iteración actual.",
+                        "El bucle sigue ejecutándose, pero esa repetición particular se acorta.",
+                        "Continúa con la siguiente vuelta del ciclo."
+                    ],
+                    explanation: "La sentencia `continue` se utiliza para saltar el resto de la iteración actual de un bucle y pasar directamente a la siguiente iteración. El bucle no se detiene, solo omite el código restante para esa repetición."
+                },
+                {
+                    question: "¿Qué es un 'bucle infinito'?",
+                    options: ["Un bucle que se ejecuta solo una vez", "Un bucle que nunca termina su ejecución", "Un bucle que solo se ejecuta con números", "Un bucle que contiene otro bucle"],
+                    correctAnswer: "Un bucle que nunca termina su ejecución",
+                    hints: [
+                        "Se produce cuando la condición de un bucle `while` siempre es verdadera, o el `for` no tiene una condición de salida.",
+                        "Es un error común que puede 'colgar' tu programa.",
+                        "El programa se queda atrapado en una repetición sin fin."
+                    ],
+                    explanation: "Un bucle infinito es un error de programación en el que un bucle se ejecuta repetidamente sin una condición de terminación adecuada. Esto hace que el programa se congele o consuma excesivos recursos, ya que nunca puede salir del ciclo de repetición."
+                }
+            ],
+            6: [ // Preguntas para la Clase 6 - Bucles Anidados y Sentencias de Salto
+                {
+                    question: "¿Qué es un bucle anidado?",
+                    options: ["Un bucle que se repite una sola vez", "Un bucle que contiene otro bucle", "Un bucle que nunca termina", "Un bucle que no tiene condición"],
+                    correctAnswer: "Un bucle que contiene otro bucle",
+                    hints: [
+                        "Piensa en una estructura donde un ciclo se ejecuta completamente por cada iteración de un ciclo exterior.",
+                        "Se usan comúnmente para trabajar con matrices o tablas bidimensionales.",
+                        "Imagínate un reloj: por cada hora, los minutos dan una vuelta completa."
+                    ],
+                    explanation: "Un bucle anidado es una estructura en la que un bucle (bucle interno) se encuentra completamente dentro del cuerpo de otro bucle (bucle externo). El bucle interno se ejecutará por completo en cada iteración del bucle externo."
+                },
+                {
+                    question: "¿Para qué se utiliza comúnmente un bucle `for` anidado?",
+                    options: ["Procesar listas simples", "Realizar cálculos matemáticos complejos", "Recorrer estructuras de datos bidimensionales (ej. matrices)", "Validar entradas de usuario"],
+                    correctAnswer: "Recorrer estructuras de datos bidimensionales (ej. matrices)",
+                    hints: [
+                        "Necesitas controlar tanto filas como columnas.",
+                        "Cada elemento requiere dos índices para ser accedido.",
+                        "Imagina un tablero de ajedrez o una hoja de cálculo."
+                    ],
+                    explanation: "Los bucles `for` anidados son muy comunes y eficientes para recorrer y procesar elementos en estructuras de datos bidimensionales, como matrices o tablas, donde un bucle controla las filas y el otro las columnas."
+                },
+                {
+                    question: "Si el bucle externo se ejecuta 3 veces y el bucle interno 5 veces, ¿cuántas veces se ejecuta la sentencia dentro del bucle interno?",
+                    options: ["3 veces", "5 veces", "8 veces", "15 veces"],
+                    correctAnswer: "15 veces",
+                    hints: [
+                        "Multiplica el número de iteraciones de cada bucle.",
+                        "Por cada vuelta del bucle exterior, el interior se completa totalmente.",
+                        "Si tienes 3 filas y 5 columnas, ¿cuántas celdas hay?"
+                    ],
+                    explanation: "Para un bucle anidado, el número total de ejecuciones de la sentencia más interna es el producto del número de iteraciones de cada bucle. En este caso, 3 * 5 = 15 veces."
+                },
+                {
+                    question: "¿Qué sentencia de salto se utiliza para omitir la iteración actual de un bucle y pasar a la siguiente?",
+                    options: ["break", "exit", "return", "continue"],
+                    correctAnswer: "continue",
+                    hints: [
+                        "El bucle sigue, pero el código restante de la vuelta actual no se ejecuta.",
+                        "No termina el bucle, solo la repetición en curso.",
+                        "Se usa para 'saltar' o 'continuar' a la próxima iteración."
+                    ],
+                    explanation: "La sentencia `continue` se utiliza dentro de un bucle para saltar el resto del código de la iteración actual y pasar directamente a la siguiente iteración. El bucle no se detiene, solo omite el código restante para esa repetición."
+                },
+                {
+                    question: "¿Qué sucede cuando una sentencia `break` se ejecuta dentro de un bucle anidado?",
+                    options: ["Sale de todos los bucles anidados", "Sale solo del bucle más interno donde se encuentra", "Reinicia el programa", "Continúa con la siguiente iteración del bucle más externo"],
+                    correctAnswer: "Sale solo del bucle más interno donde se encuentra",
+                    hints: [
+                        "El `break` afecta solo al ciclo inmediato que lo contiene.",
+                        "Piensa en cómo funciona una 'ruptura' directa e inmediata.",
+                        "No afecta a los bucles 'padre' o externos."
+                    ],
+                    explanation: "Cuando una sentencia `break` se ejecuta dentro de un bucle anidado, solo termina la ejecución del bucle más interno en el que se encuentra. El control del programa se transfiere a la sentencia que sigue inmediatamente al bucle interno."
+                }
+            ],
+            7: [ // Preguntas para la Clase 7 - Funciones y Modularidad
+                {
+                    question: "¿Qué es una función en programación?",
+                    options: ["Una variable que guarda texto", "Un bloque de código reutilizable que realiza una tarea específica", "Un tipo de error", "Un bucle infinito"],
+                    correctAnswer: "Un bloque de código reutilizable que realiza una tarea específica",
+                    hints: [
+                        "Piensa en ella como una 'mini-programa' dentro de tu programa principal.",
+                        "Ayuda a organizar tu código y evitar repeticiones.",
+                        "Puedes llamarla varias veces sin escribir el mismo código."
+                    ],
+                    explanation: "Una función es un bloque de código con un nombre que encapsula una serie de instrucciones para realizar una tarea específica. Su principal ventaja es la reutilización de código y la modularización."
+                },
+                {
+                    question: "¿Cuál es el beneficio principal de la modularidad en la programación?",
+                    options: ["Aumenta el tamaño del código", "Hace el código más difícil de entender", "Facilita la organización, mantenimiento y reutilización del código", "Solo funciona para programas pequeños"],
+                    correctAnswer: "Facilita la organización, mantenimiento y reutilización del código",
+                    hints: [
+                        "Piensa en construir algo complejo con piezas pequeñas y bien definidas.",
+                        "Ayuda a dividir un gran problema en partes más manejables.",
+                        "Si un programa es como un rompecabezas, la modularidad crea piezas claras."
+                    ],
+                    explanation: "La modularidad implica dividir un programa grande en módulos o funciones más pequeños e independientes. Esto mejora la organización del código, facilita la depuración, el mantenimiento y la reutilización de componentes."
+                },
+                {
+                    question: "¿Para qué se utilizan los 'parámetros' en una función?",
+                    options: ["Para cambiar el nombre de la función", "Para guardar las notas del programador", "Para recibir valores de entrada que la función necesita para trabajar", "Para detener la ejecución de la función"],
+                    correctAnswer: "Para recibir valores de entrada que la función necesita para trabajar",
+                    hints: [
+                        "Son como 'ingredientes' que le pasas a una receta (la función).",
+                        "Permiten que la función sea flexible y trabaje con diferentes datos cada vez que la llamas.",
+                        "Se declaran en la definición de la función y se llenan al llamarla."
+                    ],
+                    explanation: "Los parámetros son variables especiales que se declaran en la definición de una función y actúan como marcadores de posición para los valores que la función espera recibir como entrada cuando es llamada."
+                },
+                {
+                    question: "¿Qué sentencia se utiliza para que una función 'devuelva' un resultado al lugar donde fue llamada?",
+                    options: ["print", "output", "return", "send"],
+                    correctAnswer: "return",
+                    hints: [
+                        "Es lo que una función 'entrega' después de realizar su trabajo.",
+                        "No es para mostrar en pantalla, sino para pasar un valor de vuelta.",
+                        "La función termina su ejecución en ese punto y envía un valor."
+                    ],
+                    explanation: "La sentencia `return` se utiliza para especificar el valor que una función debe devolver al código que la invocó. Una vez que `return` se ejecuta, la función termina su ejecución."
+                },
+                {
+                    question: "¿Cuál es el ámbito (scope) de las variables declaradas dentro de una función?",
+                    options: ["Global (accesibles desde cualquier parte del programa)", "Solo dentro de la función donde fueron declaradas", "Solo dentro de bucles", "Solo dentro de otras funciones"],
+                    correctAnswer: "Solo dentro de la función donde fueron declaradas",
+                    hints: [
+                        "Son 'privadas' de esa función.",
+                        "No puedes acceder a ellas desde fuera de la función.",
+                        "Su vida útil está limitada a la ejecución de la función."
+                    ],
+                    explanation: "Las variables declaradas dentro de una función tienen un ámbito local. Esto significa que solo son accesibles y existen dentro del bloque de código de esa función y no pueden ser utilizadas directamente desde fuera de ella."
+                }
+            ],
+            8: [ // Preguntas para la Clase 8 - Manejo de Errores y Excepciones
+                {
+                    question: "¿Qué es una 'excepción' en programación?",
+                    options: ["Un tipo de bucle", "Un error que interrumpe el flujo normal del programa", "Una función que no devuelve nada", "Una variable especial"],
+                    correctAnswer: "Un error que interrumpe el flujo normal del programa",
+                    hints: [
+                        "Es una condición anómala que ocurre durante la ejecución.",
+                        "Si no se 'maneja', puede hacer que el programa se 'caiga'.",
+                        "No es un problema de sintaxis (que se detecta antes de ejecutar), sino un problema en tiempo de ejecución."
+                    ],
+                    explanation: "Una excepción es un evento que ocurre durante la ejecución de un programa y que interrumpe el flujo normal de las instrucciones. Pueden ser causadas por errores de programación, condiciones inesperadas (como un archivo no encontrado) o errores de usuario."
+                },
+                {
+                    question: "¿Qué bloque de código se utiliza para 'intentar' ejecutar código que podría generar una excepción?",
+                    options: ["catch", "finally", "try", "throw"],
+                    correctAnswer: "try",
+                    hints: [
+                        "Es el primer bloque en la secuencia de manejo de excepciones.",
+                        "Aquí pones el código 'riesgoso'.",
+                        "La traducción literal del inglés da una pista de su propósito."
+                    ],
+                    explanation: "El bloque `try` (o `intenta` en algunos contextos) se utiliza para encerrar el código que se espera que pueda generar una excepción. Si una excepción ocurre dentro de este bloque, el control pasa al bloque `catch`."
+                },
+                {
+                    question: "¿Qué bloque de código se ejecuta SIEMPRE, haya ocurrido una excepción o no?",
+                    options: ["catch", "else", "finally", "except"],
+                    correctAnswer: "finally",
+                    hints: [
+                        "Es útil para limpieza de recursos, como cerrar archivos o conexiones.",
+                        "Su ejecución está garantizada, sin importar el resultado del `try` y `catch`.",
+                        "Piensa en una acción que debe realizarse al 'final' del proceso."
+                    ],
+                    explanation: "El bloque `finally` (o `finalmente`) se ejecuta siempre después de los bloques `try` y `catch`, independientemente de si se produjo o no una excepción, o si la excepción fue manejada. Es ideal para tareas de limpieza de recursos."
+                },
+                {
+                    question: "¿Cuál es el objetivo principal del manejo de excepciones?",
+                    options: ["Hacer el código más rápido", "Prevenir que el programa se detenga abruptamente y manejar situaciones inesperadas", "Reducir el tamaño del programa", "Crear nuevas variables"],
+                    correctAnswer: "Prevenir que el programa se detenga abruptamente y manejar situaciones inesperadas",
+                    hints: [
+                        "Se trata de robustecer tu programa.",
+                        "Es como poner un 'paraguas' para cuando llueva (errores).",
+                        "Mejora la estabilidad y la experiencia del usuario."
+                    ],
+                    explanation: "El manejo de excepciones permite a los programas responder de manera controlada a errores en tiempo de ejecución, evitando que el programa se bloquee. Permite al desarrollador definir cómo se debe comportar la aplicación ante escenarios inesperados."
+                },
+                {
+                    question: "¿Qué término se usa para 'lanzar' o 'generar' una excepción manualmente?",
+                    options: ["catch", "raise", "handle", "debug"],
+                    correctAnswer: "raise", 
+                    hints: [
+                        "En inglés, es la acción de 'elevar' o 'provocar' algo.",
+                        "Cuando quieres indicar que algo grave ha sucedido a propósito.",
+                        "Es lo opuesto a 'capturar' una excepción."
+                    ],
+                    explanation: "Utilizar una sentencia como `raise` (o `throw` en otros lenguajes) permite al programador generar una excepción de forma explícita cuando se detecta una condición de error específica en el código, que el programa no puede manejar de forma local."
+                }
+            ],
+            9: [ // Preguntas para la Clase 9 - Introducción a la Programación Orientada a Objetos
+                {
+                    question: "¿Cuál es el concepto fundamental de la Programación Orientada a Objetos?",
+                    options: ["Scripts secuenciales", "Funciones aisladas", "Objetos que interactúan entre sí", "Variables globales"],
+                    correctAnswer: "Objetos que interactúan entre sí",
+                    hints: [
+                        "POO se centra en entidades del mundo real o conceptos abstractos.",
+                        "Estas entidades tienen propiedades y comportamientos.",
+                        "No se trata solo de pasos a seguir, sino de 'cosas' con las que trabajas."
+                    ],
+                    explanation: "La Programación Orientada a Objetos (POO) es un paradigma de programación que organiza el diseño del software en torno a objetos, que son instancias de clases, y cómo estos objetos interactúan entre sí."
+                },
+                {
+                    question: "¿Qué es una 'clase' en POO?",
+                    options: ["Un valor fijo", "Una plantilla o molde para crear objetos", "Una función matemática", "Un tipo de error"],
+                    correctAnswer: "Una plantilla o molde para crear objetos",
+                    hints: [
+                        "Es como el 'plano' o la 'receta' para construir algo.",
+                        "Define las características y comportamientos que tendrán las 'cosas' que crees.",
+                        "No es el objeto en sí, sino lo que describe cómo será el objeto."
+                    ],
+                    explanation: "Una clase es una plantilla, un prototipo o un modelo que define las variables (atributos) y los métodos (comportamientos) comunes a todos los objetos de un cierto tipo. Los objetos son instancias de una clase."
+                },
+                {
+                    question: "¿Qué es un 'objeto' en POO?",
+                    options: ["Una clase sin atributos", "Una función genérica", "Una instancia concreta de una clase", "Un tipo de dato primitivo"],
+                    correctAnswer: "Una instancia concreta de una clase",
+                    hints: [
+                        "Es la 'cosa' real que creas a partir del 'plano'.",
+                        "Si la clase es 'Coche', un objeto sería 'mi coche azul'.",
+                        "Es la entidad que tiene valores específicos para los atributos definidos en su clase."
+                    ],
+                    explanation: "Un objeto es una instancia de una clase. Es una entidad concreta que tiene un estado (los valores de sus atributos) y un comportamiento (los métodos que puede ejecutar), definidos por su clase."
+                },
+                {
+                    question: "¿Qué son los 'atributos' de un objeto?",
+                    options: ["Las acciones que puede realizar", "Las instrucciones de un programa", "Las características o propiedades que lo describen", "Los errores que puede contener"],
+                    correctAnswer: "Las características o propiedades que lo describen",
+                    hints: [
+                        "Piensa en las 'cualidades' o 'datos' que tiene una persona o un animal.",
+                        "Son los sustantivos que describen el objeto.",
+                        "Representan el estado del objeto."
+                    ],
+                    explanation: "Los atributos (o propiedades) son las características o datos que describen el estado de un objeto. Por ejemplo, un objeto 'Coche' podría tener atributos como 'color', 'marca' o 'velocidad actual'."
+                },
+                {
+                    question: "¿Qué son los 'métodos' de un objeto?",
+                    options: ["Los errores de un objeto", "Las funciones o acciones que el objeto puede realizar", "Los nombres de las clases", "Los parámetros de entrada"],
+                    correctAnswer: "Las funciones o acciones que el objeto puede realizar",
+                    hints: [
+                        "Piensa en los 'verbos' que el objeto puede ejecutar.",
+                        "Definen el comportamiento del objeto.",
+                        "Son las operaciones que puedes realizar con o sobre el objeto."
+                    ],
+                    explanation: "Los métodos (o comportamientos) son las funciones o procedimientos asociados a una clase u objeto. Definen las acciones que un objeto puede realizar o cómo interactúa con otros objetos."
+                }
+            ]
+        };
+
+        const quizOverlay = document.getElementById('quizOverlay');
+        const quizContainer = quizOverlay.querySelector('.quiz-container');
+        const quizClassNumberSpan = document.getElementById('quizClassNumber');
+        const quizQuestionCounter = document.getElementById('quizQuestionCounter');
+        const questionText = document.getElementById('questionText');
+        const draggableOptions = document.getElementById('draggableOptions');
+        const dropArea = document.getElementById('dropArea');
+        const hintArea = document.getElementById('hintArea');
+        const hintText = document.getElementById('hintText');
+        const explanationArea = document.getElementById('explanationArea');
+        const explanationText = document.getElementById('explanationText');
+        const nextQuestionBtn = document.getElementById('nextQuestionBtn');
+        const celebrationAnimation = document.getElementById('celebrationAnimation');
+
+        function openQuiz() {
+            quizClassNumberSpan.textContent = currentClass; // Actualiza el número de clase en el quiz
+            quizQuestions = quizData[currentClass];
+
+            if (!quizQuestions || quizQuestions.length === 0) {
+                alert("¡Ups! No hay preguntas de quiz disponibles para esta clase aún.");
+                return;
+            }
+
+            currentQuestionIndex = 0;
+            quizOverlay.classList.add('show');
+            quizContainer.classList.add('show');
+            loadQuestion();
+        }
+
+        function closeQuiz() {
+            quizOverlay.classList.remove('show');
+            quizContainer.classList.remove('show');
+            // Limpiar estado del quiz
+            currentQuestionIndex = 0;
+            attempts = 0;
+            draggableOptions.innerHTML = '';
+            dropArea.innerHTML = 'Arrastra la respuesta aquí';
+            dropArea.classList.remove('correct', 'incorrect', 'highlight');
+            hintArea.classList.remove('show');
+            explanationArea.classList.remove('show');
+            celebrationAnimation.classList.remove('show'); // Esconder animación de celebración
+        }
+
+        function loadQuestion() {
+            if (currentQuestionIndex >= quizQuestions.length) {
+                endQuiz();
+                return;
+            }
+
+            const question = quizQuestions[currentQuestionIndex];
+            attempts = 0; // Resetear intentos para la nueva pregunta
+
+            // Resetear áreas
+            dropArea.innerHTML = 'Arrastra la respuesta aquí';
+            dropArea.classList.remove('correct', 'incorrect', 'highlight');
+            hintArea.classList.remove('show');
+            explanationArea.classList.remove('show');
+            nextQuestionBtn.style.display = 'none';
+
+            quizQuestionCounter.textContent = `Pregunta ${currentQuestionIndex + 1} de ${quizQuestions.length}`;
+            questionText.textContent = question.question;
+
+            // Barajar opciones y cargarlas
+            draggableOptions.innerHTML = '';
+            const shuffledOptions = shuffleArray([...question.options]); // Copia para no modificar el original
+            shuffledOptions.forEach(option => {
+                const item = document.createElement('div');
+                item.className = 'draggable-item';
+                item.textContent = option;
+                item.draggable = true;
+                item.ondragstart = dragStart;
+                draggableOptions.appendChild(item);
+            });
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Drag and Drop Functions
+        function dragStart(event) {
+            event.dataTransfer.setData('text/plain', event.target.textContent);
+            event.target.classList.add('dragging');
+        }
+
+        function allowDrop(event) {
+            event.preventDefault(); // Permite soltar
+            dropArea.classList.add('highlight'); // Resaltar área al arrastrar sobre ella
+        }
+
+        function dragEnter(event) {
+            // Esto puede ser útil si quieres efectos adicionales al entrar al área
+        }
+
+        function dragLeave(event) {
+            dropArea.classList.remove('highlight'); // Remover resaltado al salir
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            dropArea.classList.remove('highlight');
+            
+            const data = event.dataTransfer.getData('text/plain');
+            const draggedItem = document.querySelector('.draggable-item.dragging');
+
+            if (draggedItem) {
+                dropArea.innerHTML = ''; // Limpia cualquier contenido anterior
+                dropArea.appendChild(draggedItem);
+                draggedItem.classList.remove('dragging');
+                draggedItem.draggable = false; // Una vez soltado, no se puede arrastrar de nuevo hasta resetear
+                
+                checkAnswer(data);
+            }
+        }
+
+        function checkAnswer(selectedAnswer) {
+            const question = quizQuestions[currentQuestionIndex];
+            attempts++;
+
+            if (selectedAnswer === question.correctAnswer) {
+                dropArea.classList.remove('incorrect');
+                dropArea.classList.add('correct');
+                explanationText.textContent = question.explanation;
+                explanationArea.classList.add('show');
+                nextQuestionBtn.style.display = 'block';
+                hintArea.classList.remove('show'); // Ocultar pistas si se acierta
+                
+                // Deshabilitar todas las opciones restantes para que no se puedan arrastrar más
+                document.querySelectorAll('.draggable-item').forEach(item => {
+                    item.draggable = false;
+                    item.style.pointerEvents = 'none'; // También deshabilitar clics si los hubiera
+                });
+
+            } else {
+                dropArea.classList.remove('correct');
+                dropArea.classList.add('incorrect');
+                
+                // Mostrar pista progresiva
+                const hintIndex = Math.min(attempts - 1, question.hints.length - 1);
+                hintText.textContent = question.hints[hintIndex];
+                hintArea.classList.add('show');
+                
+                // Devolver el item arrastrado a las opciones originales para reintentar
+                const draggedItem = dropArea.querySelector('.draggable-item');
+                if (draggedItem) {
+                    draggableOptions.appendChild(draggedItem);
+                    draggedItem.draggable = true;
+                    draggedItem.style.pointerEvents = 'auto';
+                }
+                dropArea.innerHTML = 'Arrastra la respuesta aquí'; // Restablecer el texto
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+
+        function endQuiz() {
+            quizQuestionCounter.textContent = '';
+            questionText.textContent = '¡Felicidades! Has completado el Quiz de la Clase.';
+            draggableOptions.innerHTML = '';
+            dropArea.innerHTML = '¡Excelente trabajo!';
+            dropArea.classList.add('correct'); // Mantener verde al final
+            hintArea.classList.remove('show');
+            explanationArea.classList.remove('show');
+            nextQuestionBtn.style.display = 'none';
+
+            celebrationAnimation.classList.add('show'); // Mostrar animación de celebración
+
+            setTimeout(() => {
+                closeQuiz(); // Cerrar el quiz después de la celebración
+            }, 5000); // 5 segundos para la animación
         }
     </script>
 </body>

@@ -3,17 +3,974 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexCode - Fundamentos de Programación - Clase 19</title> <!--esto se cambia por clase-->
+    <title>NexCode - Curso De Programación desde 0 - Clase 19</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../cursos.css">
-    <link rel="icon" href="../../LogoWeb.png" type="image/png">
-</head>
+    <link rel="icon" href="../../Imagenes/LogoWeb.png" type="image/png">
+    <style>
+        /* General & Body */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+            z-index: -1;
+            animation: backgroundPulse 8s ease-in-out infinite alternate;
+        }
+        @keyframes backgroundPulse {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid transparent;
+            background-clip: padding-box;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        .navbar::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #00d4ff, #1adf0b, #00ff88, #13d631);
+            background-size: 400% 400%;
+            animation: gradientShift 3s ease infinite;
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00d4ff, #16ca16, #00ff88);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: logoGradient 4s ease infinite;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        @keyframes logoGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        .nav-links li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        .nav-links li a:hover {
+            color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        } 
+
+        /* Main Content Layout */
+        .main-content {
+            margin-top: 100px;
+            padding: 2rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .video-container {
+            display: grid;
+            grid-template-columns: 1fr 350px; /* Sección de video y sidebar derecha */
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .video-details-section { 
+            position: relative;
+        }
+        .video-player {
+            width: 100%;
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+        .video-player::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #00d4ff, #4bc711, #00ff88, #3bcd16);
+            background-size: 400% 400%;
+            border-radius: 23px;
+            z-index: -1;
+            animation: neonGlow 3s ease infinite;
+        }
+        @keyframes neonGlow {
+            0%, 100% { 
+                background-position: 0% 50%;
+                filter: brightness(1);
+            }
+            50% { 
+                background-position: 100% 50%;
+                filter: brightness(1.2);
+            }
+        }
+        .video-player iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 17px;
+        }
+        .video-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        .class-info { 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            flex-grow: 1;
+        }
+        .class-info .class-number {
+            margin-bottom: 0.3rem;
+        }
+        .class-info .video-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #fff;
+            background: none;
+            -webkit-background-clip: unset;
+            -webkit-text-fill-color: unset;
+        }
+        .nav-button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(45deg, #00d4ff, #0080ff);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
+        }
+        .nav-button:disabled, .nav-button[style*="opacity: 0.5"] {
+            opacity: 0.5 !important;
+            cursor: not-allowed !important;
+        }
+        .video-description-box {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: linear-gradient(145deg, rgba(20, 20, 40, 0.8), rgba(30, 30, 60, 0.8));
+            border-radius: 15px;
+            backdrop-filter: blur(20px);
+        }
+        .video-title { 
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .video-description {
+            color: #a0a0a0;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        .class-number {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: linear-gradient(45deg, #07e137, #26cf08);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        /* Right Sidebar */
+        .sidebar-right {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .progress-section, .notes-section {
+            background: linear-gradient(145deg, rgba(20, 20, 40, 0.8), rgba(30, 30, 60, 0.8));
+            border-radius: 20px;
+            padding: 1.5rem;
+            backdrop-filter: blur(20px);
+            height: fit-content;
+            border: 1px solid rgba(64, 224, 255, 0.15);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+        /* Progress Section - Standard Theme */
+        .progress-section .progress-title {
+            font-size: 1.4rem; /* Un poco más grande */
+            font-weight: bold;
+            margin-bottom: 1.2rem; /* Más espacio */
+            color: #00d4ff;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem; /* Más espacio entre ícono y texto */
+            text-shadow: 0 0 8px rgba(0, 212, 255, 0.4); /* Sombra de texto neón */
+        }
+        .progress-section .progress-title i { /* Style for the progress icon */
+            font-size: 1.2em; /* Adjust icon size to fit */
+            color: #00ffaa; /* Make icon green neon */
+            text-shadow: 0 0 5px #00ffaa;
+        }
+        .progress-section .progress-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem; /* Mayor separación */
+            margin-bottom: 2rem;
+        }
+        .progress-section .progress-circle {
+            width: 50px; /* Tamaño más grande */
+            height: 50px; /* Tamaño más grande */
+            border-radius: 50%; /* Vuelve a ser circular */
+            border: 3px solid #333; /* Borde más grueso */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem; /* Texto más grande */
+            font-weight: bold;
+            color: #eee;
+            background: rgba(255, 255, 255, 0.08); /* Fondo ligeramente visible */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra para círculos */
+            transition: all 0.3s ease;
+            cursor: pointer; /* Keep cursor pointer */
+        }
+        .progress-section .progress-circle:hover:not(.current):not(.locked) {
+            transform: scale(1.1); /* Efecto hover */
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+            background: rgba(0, 212, 255, 0.1);
+        }
+        /* Completed State */
+        .progress-section .progress-circle.completed {
+            background: linear-gradient(45deg, #00ff88, #00d4ff); /* Gradiente más vibrante */
+            border-color: #00ff88;
+            color: #1a1a2e; /* Dark text for contrast */
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.6), 0 0 25px rgba(0, 212, 255, 0.4); /* Doble brillo neón */
+        }
+        .progress-section .progress-circle.completed i {
+            font-size: 1.3em; /* Icono de check más grande */
+            color: #1a1a2e;
+        }
+        /* Current State */
+        .progress-section .progress-circle.current {
+            background: linear-gradient(45deg, #71cd08, #0b9c2d); /* Gradiente de neón verde más intenso */
+            border-color: #11ab91;
+            color: #fff;
+            box-shadow: 0 0 20px rgba(113, 205, 8, 0.8), 0 0 30px rgba(17, 171, 145, 0.6); /* Brillo más fuerte */
+            animation: pulse 2s infinite alternate, flicker 0.5s infinite alternate; /* Múltiples animaciones */
+        }
+        .progress-section .progress-circle.current i {
+            text-shadow: none;
+        }
+
+        /* Locked State (New) */
+        .progress-section .progress-circle.locked {
+            background: rgba(255, 255, 255, 0.03); /* Fondo muy sutil */
+            border-color: #555;
+            color: #777; /* Color gris para indicar inactividad */
+            cursor: not-allowed;
+            filter: grayscale(80%) brightness(70%); /* Desaturar y oscurecer */
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5); /* Sombra interna para profundidad */
+        }
+        .progress-section .progress-circle.locked i {
+            font-size: 1.1em; /* Icono de candado */
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.08); opacity: 0.9; } /* Un poco más de escala y opacidad */
+        }
+        @keyframes flicker { /* Nueva animación de parpadeo sutil */
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.95; }
+            52% { opacity: 1; }
+            54% { opacity: 0.9; }
+            56% { opacity: 1; }
+        }
+
+
+        /* Notes Section */
+        .notes-section {
+            /* margin-top: 2rem; -- already handled by sidebar-right gap */
+        }
+        .notes-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #00ff88;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            text-shadow: 0 0 8px rgba(0, 255, 136, 0.4);
+        }
+        .notes-input {
+            width: 100%;
+            height: 150px;
+            padding: 1rem;
+            border: 2px solid rgba(0, 255, 136, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            font-size: 1rem;
+            resize: vertical;
+            margin-bottom: 1rem;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+        .notes-input:focus {
+            outline: none;
+            border-color: #00ff88;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+        .save-notes-btn {
+            padding: 0.9rem 1.8rem;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            color: #0c0c0c;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+        }
+        .save-notes-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.6);
+        }
+        .saved-notes {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid #00ff88;
+            display: none;
+            font-weight: 500;
+        }
+        .saved-notes.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(145deg, rgba(15, 15, 35, 0.98), rgba(25, 25, 45, 0.98));
+            color: #a0a0a0;
+            text-align: center;
+            padding: 2.5rem 1rem 1.5rem;
+            margin-top: 5rem;
+            border-top: 2px solid rgba(0, 212, 255, 0.15);
+            box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+        .footer-brand {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00d4ff, #00ff1a, #00ff88);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: logoGradient 4s ease infinite;
+        }
+        .logo-img {
+            height: 60px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.6));
+            transition: transform 0.3s ease;
+        }
+        .logo-img:hover {
+            transform: scale(1.08);
+        }
+        .footer-text {
+            font-size: 1rem;
+            color: #888;
+            line-height: 1.5;
+        }
+
+        /* Materials and Assessment */
+        .materials-section, .assessment-section {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(145deg, rgba(20, 20, 40, 0.8), rgba(30, 30, 60, 0.8));
+            border-radius: 15px;
+            backdrop-filter: blur(20px);
+            text-align: center;
+            border: 1px solid rgba(64, 224, 255, 0.15);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .materials-button, .exam-button, .exercise-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px;
+            padding: 14px 28px;
+            font-size: 17px;
+            font-weight: bold;
+            border: none;
+            border-radius: 15px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .materials-button {
+            background: linear-gradient(90deg, #00ffe1, #00b3ff);
+            color: #111;
+            box-shadow: 0 0 15px rgba(0, 255, 225, 0.8), 0 0 25px rgba(0, 179, 255, 0.6);
+        }
+        .materials-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 255, 225, 1), 0 0 40px rgba(0, 179, 255, 0.8);
+        }
+
+        .materials-content {
+            display: none;
+            background-color: #1e1e1e;
+            border: 1px solid #00ffe1;
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin-top: 15px;
+            box-shadow: 0 0 12px rgba(0, 255, 225, 0.6);
+            text-align: left;
+        }
+        .materials-content ul {
+            list-style: none;
+            padding: 0;
+        }
+        .materials-content li {
+            margin-bottom: 12px;
+        }
+        .materials-content a {
+            color: #00e5ff;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.2s ease, text-shadow 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.05rem;
+        }
+        .materials-content a:hover {
+            color: #00ffc3;
+            text-shadow: 0 0 8px #00ffc3;
+        }
+        .materials-content a i {
+            font-size: 1.2em;
+        }
+
+        .exam-button {
+            background: linear-gradient(90deg, #0ba8b0, #7873f5);
+            color: #fff;
+            box-shadow: 0 0 18px rgba(11, 168, 176, 0.8), 0 0 30px rgba(120, 115, 245, 0.6);
+        }
+        .exam-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(11, 168, 176, 1), 0 0 40px rgba(120, 115, 245, 0.8);
+        }
+
+        .exercise-button {
+            background: linear-gradient(90deg, #00ff88, #00ffaa);
+            color: #111;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.8), 0 0 28px rgba(0, 255, 170, 0.6);
+        }
+        .exercise-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 255, 136, 1), 0 0 40px rgba(0, 255, 170, 0.8);
+        }
+        .exam-button i, .exercise-button i {
+            margin-right: 10px;
+        }
+
+        /* Media Queries */
+        @media (max-width: 1024px) {
+            .video-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .sidebar-right {
+                order: -1;
+            }
+            .video-player {
+                height: 400px;
+            }
+            .progress-grid {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 0.7rem;
+            }
+            .progress-circle {
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+            .progress-circle.completed i {
+                font-size: 1.2em;
+            }
+            .notes-input {
+                height: 120px;
+            }
+        }
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+            .nav-links {
+                display: none;
+            }
+            .main-content {
+                padding: 1rem;
+            }
+            .video-player {
+                height: 250px;
+            }
+            .video-controls {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+            .nav-button {
+                width: 100%;
+            }
+            .class-info .video-title {
+                font-size: 1rem;
+            }
+            .progress-grid {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 0.6rem;
+            }
+            .progress-circle {
+                width: 40px;
+                height: 40px;
+                font-size: 0.9rem;
+            }
+            .progress-circle.completed i {
+                font-size: 1.1em;
+            }
+            .footer {
+                padding: 2rem 1rem 1rem;
+            }
+            .materials-button, .exam-button, .exercise-button {
+                width: 100%;
+                margin: 10px 0;
+                font-size: 15px;
+                padding: 12px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .progress-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .progress-circle {
+                width: 35px;
+                height: 35px;
+                font-size: 0.8rem;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* ===============================================
+           QUIZ STYLES (STANDARD THEME)
+           =============================================== */
+        .quiz-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85); /* Oscuro y semitransparente */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000; /* Asegura que esté por encima de todo */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            backdrop-filter: blur(5px); /* Desenfoque de fondo */
+        }
+
+        .quiz-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .quiz-container {
+            background: linear-gradient(145deg, #1a1a2e, #16213e); /* Fondo oscuro consistente */
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #00d4ff, #00ff88, #00d4ff) 1; /* Neon border */
+            border-radius: 20px; /* Bordes más redondeados */
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5), 0 0 60px rgba(0, 255, 136, 0.3); /* Doble brillo neón */
+            width: 90%;
+            max-width: 700px;
+            padding: 30px;
+            text-align: center;
+            transform: scale(0.8);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            position: relative; /* Para la animación de fuegos artificiales */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Restore default font */
+        }
+
+        .quiz-container.show {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .quiz-header h2 {
+            font-size: 2.2rem; /* Tamaño de título más grande */
+            color: #00d4ff; /* Color principal neón */
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+            background: linear-gradient(45deg, #00d4ff, #00ff88); /* Degradado neón */
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: normal; /* Remove pixel letter spacing */
+        }
+
+        .close-quiz-btn {
+            background: none;
+            border: none;
+            color: #FF6347; /* Rojo tomate para cerrar */
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, color 0.2s ease;
+            text-shadow: 0 0 8px rgba(255, 99, 71, 0.5);
+        }
+
+        .close-quiz-btn:hover {
+            transform: rotate(90deg);
+            color: #00d4ff; /* Cambia a neón al pasar el ratón */
+            text-shadow: 0 0 15px rgba(0, 212, 255, 0.8);
+        }
+
+        .quiz-body {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .quiz-question-counter {
+            font-size: 1.1rem;
+            color: #00d4ff; /* Azul cielo */
+            margin-bottom: 15px;
+            font-weight: 500;
+            text-shadow: none; /* Remove pixel shadow */
+        }
+
+        .question-area {
+            background: linear-gradient(135deg, rgba(20, 20, 40, 0.9), rgba(30, 30, 60, 0.9)); /* Dark blue gradient */
+            border-radius: 15px;
+            padding: 25px;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+        }
+
+        .drop-area {
+            background: rgba(255, 255, 255, 0.08); /* Light transparent background */
+            border: 3px dashed #00d4ff; /* Neon blue dashed border */
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            width: 80%;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #00e5ff; /* Lighter neon blue */
+            transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            text-shadow: none; /* Remove pixel shadow */
+        }
+
+        .drop-area.highlight {
+            background-color: rgba(0, 212, 255, 0.15); /* Brighter transparent blue on highlight */
+            border-color: #00ff88; /* Green neon */
+            box-shadow: 0 0 15px #00ff88;
+        }
+
+        .drop-area.correct {
+            background-color: #2ECC71; /* Green esmeralda */
+            border-color: #27AE60; /* Darker green */
+            color: #fff;
+            box-shadow: 0 0 20px rgba(46, 204, 113, 0.7);
+            animation: correctPulse 0.8s ease-in-out;
+        }
+
+        .drop-area.incorrect {
+            background-color: #E74C3C; /* Red ladrillo */
+            border-color: #C0392B; /* Darker red */
+            color: #fff;
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.7);
+            animation: incorrectShake 0.5s ease-in-out;
+        }
+
+        @keyframes correctPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes incorrectShake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+
+        .draggable-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+            min-height: 80px;
+        }
+
+        .draggable-item {
+            background: linear-gradient(135deg, #00ffaa, #00e5ff); /* Green-blue neon gradient */
+            border: 2px solid #00d4ff; /* Neon blue border */
+            border-radius: 10px;
+            padding: 12px 20px;
+            cursor: grab;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #1a1a2e; /* Dark text for contrast */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            min-width: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-shadow: none; /* Remove pixel shadow */
+        }
+
+        .draggable-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        .draggable-item.dragging {
+            opacity: 0.5;
+            border-style: dashed;
+            background: #bbb;
+            box-shadow: 0 0 0px transparent;
+        }
+
+        .hint-area {
+            background: rgba(255, 255, 0, 0.1); /* Light yellow transparent */
+            border-left: 5px solid #FFEB3B; /* Yellow for hint */
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-top: 20px;
+            text-align: left;
+            display: none;
+            font-size: 1rem;
+            color: #FFEB3B; /* Yellow text */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.3s ease;
+            text-shadow: none; /* Remove pixel shadow */
+        }
+
+        .hint-area.show {
+            display: block;
+        }
+
+        .explanation-area {
+            background: rgba(46, 204, 113, 0.15); /* Light green transparent */
+            border-left: 5px solid #2ECC71; /* Green for explanation */
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: left;
+            display: none;
+            font-size: 1.1rem;
+            color: #2ECC71; /* Green text */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.3s ease;
+            text-shadow: none; /* Remove pixel shadow */
+        }
+
+        .explanation-area.show {
+            display: block;
+        }
+
+        .next-question-btn {
+            background: linear-gradient(45deg, #00ff88, #00d4ff); /* Green-blue neon */
+            color: #0c0c0c; /* Dark text */
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+            text-shadow: none; /* Remove pixel shadow */
+        }
+
+        .next-question-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 255, 136, 0.6);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Celebration Animation (Standard Fireworks) */
+        .celebration-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none; /* Clicks go through */
+            z-index: 10; /* Above other quiz elements */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease;
+        }
+
+        .celebration-animation.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Example: Simple CSS fireworks particle */
+        .celebration-animation::before,
+        .celebration-animation::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle, #fff, #ffeb3b, transparent 50%);
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(0);
+            animation: firework 1.5s ease-out forwards;
+        }
+
+        .celebration-animation::before {
+            top: 20%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+        .celebration-animation::after {
+            top: 80%;
+            left: 80%;
+            background: radial-gradient(circle, #fff, #e91e63, transparent 50%);
+            animation-delay: 0.5s;
+        }
+
+        @keyframes firework {
+            0% { transform: scale(0); opacity: 0; }
+            10% { opacity: 1; transform: scale(0.5); }
+            100% { opacity: 0; transform: scale(1.5); }
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
             <a href="../../index.html" class="logo">NexCode</a>
-             <ul class="nav-links">
+            <ul class="nav-links">
                 <li><a href="../../index.html">Inicio</a></li>
                 <li><a href="../../index.html#cursos">Cursos</a></li>
                 <li><a href="../../acercade.html">Acerca de</a></li>
@@ -21,62 +978,80 @@
             </ul>
         </div>
     </nav>
+
     <div class="main-content">
         <div class="video-container">
-            <div class="video-section">
-                <div class="video-player"> <!--esto se cambia por clase-->
-                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-                            title="Video del Curso" 
+            <div class="video-details-section">
+                <div class="video-player">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=abcdefgh" 
+                            title="Video del Curso"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
                             allowfullscreen>
                     </iframe>
                 </div>
                 <div class="video-controls">
-                    <a href="curso-p0_18.html" class="nav-button" id="prevBtn"> <!--esto se cambia por clase-->
+                    <a href="curso-p0_18.html" class="nav-button" id="prevBtn">
                         <i class="fas fa-chevron-left"></i>
                         Anterior
                     </a>
-                    <div class="class-number">Clase 19 de 20</div> <!--esto se cambia por clase-->
-                    <a href="curso-p0_20.html" class="nav-button" id="nextBtn"> <!--esto se cambia por clase-->
+                    <div class="class-info">
+                        <span class="class-number">Clase 19 de 20</span>
+                        <span class="video-title">Seguridad en Aplicaciones Web</span>
+                    </div>
+                    <a href="curso-p0_20.html" class="nav-button" id="nextBtn">
                         Siguiente
                         <i class="fas fa-chevron-right"></i>
                     </a>
                 </div>
-                 <button class="materials-button" onclick="toggleMaterials()">
-                    <i class="fas fa-folder-open"></i> Materiales de la clase
-                </button>
-                <div class="materials-content" id="materialsContent">
-                    <ul> <!--esto se cambia por clase-->
-                        <li><a href="https://example.com/diapositivas-clase-2.pdf" target="_gray">📄 Diapositivas - Clase 3 (PDF)</a></li>
-                        <li><a href="https://example.com/ejercicio-practico.zip" target="_gray">📦 Ejercicio práctico</a></li>
-                        <li><a href="https://example.com/recurso-extra.html" target="_gray">🔗 Recurso adicional</a></li>
-                    </ul>
-                </div>
-                 <a href="curso-p0_Ejercicio01.html" class="exercise-button">
-                    <i class="fas fa-code"></i> Ejercicios
-                </a>
-                <div class="video-info">
-                    <h1 class="video-title">Introducción al Curso</h1> <!--esto se cambia por clase-->
-                    <p class="video-description"> <!--esto se cambia por clase-->
-                        En esta segunda clase te daremos una introducción completa al curso. 
-                        Conocerás la estructura del programa, los objetivos de aprendizaje, 
-                        las herramientas que utilizaremos y cómo aprovechar al máximo cada lección.
+                <div class="video-description-box">
+                    <p class="video-description">
+                       En esta clase, abordaremos un tema crítico en el desarrollo web moderno: la seguridad. Aprenderás sobre las vulnerabilidades más comunes en las aplicaciones web, como inyección SQL, XSS (Cross-Site Scripting) y CSRF (Cross-Site Request Forgery). Exploraremos las mejores prácticas y medidas de seguridad esenciales para proteger tus aplicaciones y los datos de tus usuarios, garantizando un entorno digital robusto y confiable.
                     </p>
                 </div>
+
+                <div class="materials-section">
+                    <button class="materials-button" onclick="toggleMaterials()">
+                        <i class="fas fa-book"></i> Materiales Adicionales
+                    </button>
+                    <div class="materials-content" id="materialsContent">
+                        <ul>
+                            <li><a href="../pdfs_PD0/Clase19.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Diapositivas de la Clase 19 (PDF)</a></li>
+                            <li><a href="#" target="_blank"><i class="fas fa-code"></i> Código Fuente de Ejemplos</a></li>
+                            <li><a href="#" target="_blank"><i class="fas fa-link"></i> Enlace a Recursos Externos</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="assessment-section">
+                    <a href="curso-p0_Ejercicio19.html" class="exam-button" target="_blank">
+                        <i class="fas fa-laptop-code"></i> Realizar Ejercicio Práctico
+                    </a>
+                    <button class="exam-button" onclick="openQuiz()">
+                        <i class="fas fa-question-circle"></i> Tomar Quiz de la Clase
+                    </button>
+                </div>
+
             </div>
-            <div class="progress-section">
-                <div class="progress-title">
-                    <i class="fas fa-chart-line"></i>
-                    Progreso del Curso
+
+            <div class="sidebar-right">
+                <div class="progress-section">
+                    <div class="progress-title">
+                        <i class="fas fa-chart-line"></i>
+                        Progreso del Curso
+                    </div>
+                    <div class="progress-grid" id="progressGrid">
+                        </div>
                 </div>
-                <div class="progress-grid" id="progressGrid">
-                </div>
+
                 <div class="notes-section">
                     <div class="notes-title">
                         <i class="fas fa-sticky-note"></i>
                         Mis Notas
                     </div>
-                    <textarea class="notes-input" 
-                              id="notesInput" 
+                    <textarea class="notes-input"
+                              id="notesInput"
                               placeholder="Escribe tus notas y puntos importantes aquí..."></textarea>
                     <button class="save-notes-btn" onclick="saveNotes()">
                         <i class="fas fa-save"></i>
@@ -89,42 +1064,98 @@
             </div>
         </div>
     </div>
-     <footer style="background-color: #111; color: #888; text-align: center; padding: 1rem; margin-top: 4rem;">
-         <div class="footer-content">
-            <div class="footer-brand">Nexcode</div>
-                <img src="../../LogoWeb.png" alt="NexCode Logo" class="logo-img">
-            </div>
-            <div class="footer-text">
-                 © 2025 NexCode. Todos los derechos reservados.
-            </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">NexCode</div>
+            <img src="../../Imagenes/LogoWeb.png" alt="NexCode Logo" class="logo-img">
+        </div>
+        <div class="footer-text">
+            © 2025 NexCode. Todos los derechos reservados.
         </div>
     </footer>
+
+    <div class="quiz-overlay" id="quizOverlay">
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <h2>Quiz - Clase <span id="quizClassNumber">19</span></h2>
+                <button class="close-quiz-btn" onclick="closeQuiz()">×</button>
+            </div>
+            <div class="quiz-body">
+                <div class="quiz-question-counter" id="quizQuestionCounter"></div>
+                <div class="question-area" id="questionArea">
+                    <p id="questionText"></p>
+                    <div class="drop-area" id="dropArea" ondragover="allowDrop(event)" ondrop="drop(event)" ondragleave="dragLeave(event)">
+                        Arrastra la respuesta aquí
+                    </div>
+                </div>
+
+                <div class="draggable-options" id="draggableOptions">
+                    </div>
+
+                <div class="hint-area" id="hintArea">
+                    <p id="hintText"></p>
+                </div>
+
+                <div class="explanation-area" id="explanationArea">
+                    <p id="explanationText"></p>
+                    <button class="next-question-btn" id="nextQuestionBtn" onclick="nextQuestion()">Siguiente Pregunta</button>
+                </div>
+
+                <div class="celebration-animation" id="celebrationAnimation">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+
     <script>
-        const currentClass = 19;  //Esto se cambia por clase
-        const totalClasses = 20;
+        const currentClass = 19;  // CAMBIADO MANUALMENTE PARA CLASE 19
+        const totalClasses = 20; // Asegúrate de que esto coincida con el número total de clases
+
         document.addEventListener('DOMContentLoaded', function() {
             initializeProgress();
             loadNotes();
             updateNavigationButtons();
+            // Iniciar autosave al cargar
+            setInterval(autoSaveNotes, 30000); // Autosave cada 30 segundos
         });
+
+        // --- Progreso del Curso ---
         function initializeProgress() {
             const progressGrid = document.getElementById('progressGrid');
             progressGrid.innerHTML = '';
             for (let i = 1; i <= totalClasses; i++) {
                 const circle = document.createElement('div');
                 circle.className = 'progress-circle';
-                circle.textContent = i;
-                circle.title = `Clase ${i}`;
+                
                 if (i < currentClass) {
                     circle.classList.add('completed');
                     circle.innerHTML = '<i class="fas fa-check"></i>';
-                }
-                else if (i === currentClass) {
+                } else if (i === currentClass) {
                     circle.classList.add('current');
+                    circle.textContent = i;
+                } else {
+                    circle.classList.add('locked');
+                    circle.innerHTML = '<i class="fas fa-lock"></i>';
+                    circle.style.pointerEvents = 'none';
                 }
+                
+                circle.title = `Clase ${i}`;
+
+                if (i <= currentClass) {
+                    circle.addEventListener('click', () => {
+                        if (i !== currentClass) {
+                            window.location.href = `curso-p0_${String(i).padStart(2, '0')}.html`;
+                        }
+                    });
+                }
+
                 progressGrid.appendChild(circle);
             }
         }
+
+        // --- Notas con LocalStorage ---
         function saveNotes() {
             const notes = document.getElementById('notesInput').value;
             const key = `nexcode_notes_class_${currentClass}`;
@@ -137,11 +1168,15 @@
                 localStorage.setItem(key, JSON.stringify(notesData));
                 const savedNotesDiv = document.getElementById('savedNotes');
                 savedNotesDiv.classList.add('show');
+
                 setTimeout(() => {
                     savedNotesDiv.classList.remove('show');
                 }, 3000);
+            } else {
+                localStorage.removeItem(key);
             }
         }
+
         function loadNotes() {
             const key = `nexcode_notes_class_${currentClass}`;
             const savedData = localStorage.getItem(key);
@@ -150,42 +1185,423 @@
                 document.getElementById('notesInput').value = notesData.content;
             }
         }
+
+        function autoSaveNotes() {
+            const notes = document.getElementById('notesInput').value;
+            const key = `nexcode_notes_class_${currentClass}`;
+            if (notes.trim()) {
+                const notesData = {
+                    content: notes,
+                    timestamp: new Date().toISOString(),
+                    className: `Clase ${currentClass}`
+                };
+                localStorage.setItem(key, JSON.stringify(notesData));
+            } else {
+                localStorage.removeItem(key);
+            }
+        }
+
+        // --- Navegación de Clases ---
         function updateNavigationButtons() {
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
-            if (currentClass === 1) {
+
+            if (currentClass <= 1) {
                 prevBtn.style.opacity = '0.5';
                 prevBtn.style.pointerEvents = 'none';
+                prevBtn.href = "#";
+            } else {
+                prevBtn.style.opacity = '1';
+                prevBtn.style.pointerEvents = 'auto';
+                prevBtn.href = `curso-p0_${String(currentClass - 1).padStart(2, '0')}.html`;
             }
-            if (currentClass === totalClasses) {
+
+            if (currentClass >= totalClasses) {
                 nextBtn.style.opacity = '0.5';
                 nextBtn.style.pointerEvents = 'none';
+                nextBtn.href = "#";
+            } else {
+                nextBtn.style.opacity = '1';
+                nextBtn.style.pointerEvents = 'auto';
+                nextBtn.href = `curso-p0_${String(currentClass + 1).padStart(2, '0')}.html`;
             }
         }
-        function markClassCompleted() {
-            const key = `nexcode_completed_class_${currentClass}`;
-            localStorage.setItem(key, 'true');
+
+        // --- Materiales Adicionales (Toggle) ---
+        function toggleMaterials() {
+            const content = document.getElementById('materialsContent');
+            content.style.display = content.style.display === 'block' ? 'none' : 'block';
         }
-        function isClassCompleted(classNumber) {
-            const key = `nexcode_completed_class_${classNumber}`;
-            return localStorage.getItem(key) === 'true';
-        }
-        setInterval(() => {
-            const notes = document.getElementById('notesInput').value;
-            if (notes.trim()) {
-                const key = `nexcode_notes_class_${currentClass}_autosave`;
-                localStorage.setItem(key, notes);
-            }
-        }, 30000);
+
+        // --- Evento de Logout (opcional) ---
         document.getElementById('logoutBtn')?.addEventListener('click', function(e) {
             e.preventDefault();
             localStorage.removeItem('techlearn_logged_in');
             localStorage.removeItem('techlearn_username');
-            window.location.href = 'index.html';
+            window.location.href = '../../index.html';
         });
-        function toggleMaterials() {
-            const content = document.getElementById('materialsContent');
-            content.style.display = content.style.display === 'block' ? 'none' : 'block';
+
+
+        // ===============================================
+        // --- QUIZ INTERACTIVO (ESTILO STANDARD) ---
+        // ===============================================
+
+        let currentQuestionIndex = 0;
+        let attempts = 0; // Para las pistas progresivas
+        let quizQuestions = []; // Array para almacenar las preguntas de la clase actual
+
+        // *** IMPORTANTE: Define tus preguntas del Quiz aquí para CADA CLASE ***
+        const quizData = {
+            17: [ // Preguntas para la Clase 17 - Control de Versiones con Git y GitHub
+                {
+                    question: "¿Qué es 'Git'?",
+                    options: ["Un lenguaje de programación", "Un sistema de control de versiones distribuido", "Una base de datos NoSQL", "Un framework frontend"],
+                    correctAnswer: "Un sistema de control de versiones distribuido",
+                    hints: [
+                        "Es la herramienta que te permite rastrear y gestionar cambios en tu código.",
+                        "No es para escribir código, sino para organizarlo.",
+                        "Permite a varios desarrolladores trabajar en el mismo proyecto sin conflictos."
+                    ],
+                    explanation: "Git es un sistema de control de versiones distribuido (DVCS) ampliamente utilizado para rastrear cambios en el código fuente durante el desarrollo de software. Permite a los desarrolladores colaborar eficientemente, fusionar cambios, y gestionar diferentes versiones del proyecto."
+                },
+                {
+                    question: "¿Cuál es el propósito principal de 'GitHub'?",
+                    options: ["Crear videojuegos", "Alojar y gestionar repositorios Git en la nube, facilitando la colaboración", "Diseñar interfaces gráficas", "Enviar correos electrónicos masivos"],
+                    correctAnswer: "Alojar y gestionar repositorios Git en la nube, facilitando la colaboración",
+                    hints: [
+                        "Es una plataforma web que complementa a Git.",
+                        "Piensa en un lugar donde puedes subir tu código versionado y trabajar con otros.",
+                        "Ofrece herramientas sociales para la revisión de código y gestión de proyectos."
+                    ],
+                    explanation: "GitHub es una plataforma de alojamiento de repositorios Git basada en la web que proporciona todas las funcionalidades de control de versiones distribuidas de Git, además de sus propias características de colaboración, como seguimiento de problemas, wikis, y solicitudes de extracción (pull requests)."
+                },
+                {
+                    question: "¿Qué comando Git se usa para 'guardar' los cambios en el historial local?",
+                    options: ["git pull", "git push", "git commit", "git clone"],
+                    correctAnswer: "git commit",
+                    hints: [
+                        "Es como tomar una 'instantánea' de tu trabajo en un momento dado.",
+                        "Requiere un mensaje que describa los cambios realizados.",
+                        "Crea un nuevo punto en la línea de tiempo de tu proyecto."
+                    ],
+                    explanation: "El comando `git commit` se utiliza para guardar los cambios en el repositorio local de Git. Cada commit representa una 'instantánea' del proyecto en un momento específico e incluye un mensaje que describe los cambios."
+                },
+                {
+                    question: "¿Qué es una 'rama' (branch) en Git?",
+                    options: ["Una carpeta en tu proyecto", "Una copia independiente del código principal para desarrollar nuevas funcionalidades", "Un tipo de archivo de configuración", "Un error en el repositorio"],
+                    correctAnswer: "Una copia independiente del código principal para desarrollar nuevas funcionalidades",
+                    hints: [
+                        "Permite trabajar en paralelo sin afectar el código estable.",
+                        "Es como crear una línea de tiempo alternativa en tu proyecto.",
+                        "Puedes fusionarla con la rama principal más tarde."
+                    ],
+                    explanation: "Una rama (branch) en Git es una línea de desarrollo independiente. Permite a los desarrolladores trabajar en nuevas funcionalidades, correcciones de errores o experimentos sin afectar la rama principal (generalmente 'main' o 'master') del proyecto."
+                },
+                {
+                    question: "¿Qué comando Git se usa para 'descargar' los cambios más recientes de un repositorio remoto?",
+                    options: ["git add", "git commit", "git push", "git pull"],
+                    correctAnswer: "git pull",
+                    hints: [
+                        "Es lo que haces para mantener tu copia local actualizada con lo que hay en la nube.",
+                        "Combina la obtención de cambios y la fusión automática.",
+                        "Suele ir seguido de un 'git push' cuando subes tus propios cambios."
+                    ],
+                    explanation: "El comando `git pull` se utiliza para descargar y fusionar los cambios de un repositorio remoto en la rama local actual. Es una combinación de `git fetch` (descargar cambios) y `git merge` (fusionar cambios)."
+                }
+            ],
+            18: [ // Preguntas para la Clase 18 - Despliegue y Hosting de Aplicaciones Web
+                {
+                    question: "¿Qué es el 'despliegue' (deployment) de una aplicación web?",
+                    options: ["Escribir el código frontend", "Procesar la base de datos", "Hacer que la aplicación esté disponible y accesible para los usuarios en internet", "Diseñar la interfaz de usuario"],
+                    correctAnswer: "Hacer que la aplicación esté disponible y accesible para los usuarios en internet",
+                    hints: [
+                        "Es el paso final para que tu sitio web sea público.",
+                        "Implica mover el código a un servidor accesible desde la web.",
+                        "Es el acto de 'lanzar' tu aplicación al mundo."
+                    ],
+                    explanation: "El despliegue (deployment) de una aplicación web es el proceso de poner la aplicación en funcionamiento en un entorno de producción, haciéndola accesible a los usuarios a través de internet. Esto implica configuraciones de servidor, base de datos y archivos de la aplicación."
+                },
+                {
+                    question: "¿Qué es un 'proveedor de hosting'?",
+                    options: ["Una herramienta para escribir código", "Una empresa que ofrece espacio en servidores para alojar sitios web", "Un tipo de base de datos", "Un lenguaje de programación"],
+                    correctAnswer: "Una empresa que ofrece espacio en servidores para alojar sitios web",
+                    hints: [
+                        "Es como alquilar un 'terreno' en internet para tu sitio.",
+                        "Te proporciona la infraestructura necesaria para que tu web funcione 24/7.",
+                        "Ejemplos incluyen GoDaddy, HostGator, AWS, Google Cloud, Vercel."
+                    ],
+                    explanation: "Un proveedor de hosting es una empresa que posee y mantiene servidores web, ofreciendo espacio y servicios a individuos u organizaciones para alojar sus sitios web o aplicaciones, haciéndolos accesibles en internet."
+                },
+                {
+                    question: "¿Qué es un 'dominio' (domain name) en el contexto de un sitio web?",
+                    options: ["El código fuente de la aplicación", "La dirección IP de un servidor", "El nombre único y amigable para acceder a un sitio web (ej. google.com)", "Un tipo de base de datos"],
+                    correctAnswer: "El nombre único y amigable para acceder a un sitio web (ej. google.com)",
+                    hints: [
+                        "Es la dirección que escribes en el navegador para visitar una página.",
+                        "Facilita recordar la ubicación de un sitio en lugar de números complejos.",
+                        "Es el 'nombre' de tu casa en internet."
+                    ],
+                    explanation: "Un nombre de dominio es una dirección única y fácil de recordar que se utiliza para identificar sitios web en internet. Sirve como una 'traducción' de las direcciones IP numéricas de los servidores, lo que facilita a los usuarios encontrar y recordar sitios web."
+                },
+                {
+                    question: "¿Cuál es una opción popular para alojar aplicaciones frontend (SPA, sitios estáticos)?",
+                    options: ["Servidor SQL", "Máquina virtual con Ubuntu Server", "Netlify o Vercel", "Apache Tomcat"],
+                    correctAnswer: "Netlify o Vercel",
+                    hints: [
+                        "Son plataformas diseñadas para despliegues rápidos de sitios estáticos y SPAs.",
+                        "Ofrecen integración continua y CDN para alta velocidad.",
+                        "Son 'serverless' para el frontend."
+                    ],
+                    explanation: "Netlify y Vercel son plataformas de desarrollo y despliegue que se han vuelto muy populares para alojar aplicaciones frontend de una sola página (SPA) y sitios web estáticos, ofreciendo despliegues rápidos, CDN globales y funciones serverless."
+                },
+                {
+                    question: "¿Qué tecnología se usa comúnmente para 'contenerizar' aplicaciones y facilitar su despliegue consistente?",
+                    options: ["JSON", "XML", "Docker", "REST API"],
+                    correctAnswer: "Docker",
+                    hints: [
+                        "Permite empaquetar una aplicación y todas sus dependencias en una unidad aislada.",
+                        "Garantiza que la aplicación se ejecute igual en cualquier entorno.",
+                        "Piensa en 'contenedores' que puedes mover fácilmente."
+                    ],
+                    explanation: "Docker es una plataforma de código abierto que utiliza la virtualización a nivel de sistema operativo para automatizar el despliegue de aplicaciones dentro de contenedores. Esto asegura que una aplicación funcione de manera idéntica en cualquier entorno, desde desarrollo hasta producción."
+                }
+            ],
+            19: [ // Preguntas para la Clase 19 - Seguridad en Aplicaciones Web
+                {
+                    question: "¿Qué tipo de ataque web ocurre cuando un atacante inserta código malicioso en la entrada de datos, afectando a la base de datos?",
+                    options: ["XSS (Cross-Site Scripting)", "CSRF (Cross-Site Request Forgery)", "Inyección SQL", "Denegación de Servicio (DoS)"],
+                    correctAnswer: "Inyección SQL",
+                    hints: [
+                        "Está directamente relacionado con la manipulación de consultas a la base de datos.",
+                        "Permite a un atacante ejecutar comandos no autorizados en el servidor de la base de datos.",
+                        "Se aprovecha de entradas de usuario no validadas que se concatenan a sentencias de base de datos."
+                    ],
+                    explanation: "La inyección SQL es una vulnerabilidad de seguridad que permite a un atacante interferir con las consultas que una aplicación realiza a su base de datos, a menudo para ver, modificar o eliminar datos a los que normalmente no tendrían acceso."
+                },
+                {
+                    question: "¿Cuál de estos es un principio fundamental para proteger datos sensibles?",
+                    options: ["Almacenar contraseñas en texto plano", "Usar el mismo nombre de usuario para todos los servicios", "Cifrado (Encryption)", "Compartir claves de API públicamente"],
+                    correctAnswer: "Cifrado (Encryption)",
+                    hints: [
+                        "Convierte la información en un código secreto para protegerla.",
+                        "Es crucial para la privacidad y la seguridad de la información en tránsito y en reposo.",
+                        "Se utiliza para proteger datos confidenciales como contraseñas, información de tarjetas de crédito, etc."
+                    ],
+                    explanation: "El cifrado (encryption) es el proceso de codificar información de tal manera que solo las partes autorizadas puedan acceder a ella y descifrarla. Es un pilar fundamental de la seguridad de la información para proteger datos sensibles."
+                },
+                {
+                    question: "¿Qué ataque permite a un atacante inyectar scripts maliciosos en páginas web visualizadas por otros usuarios?",
+                    options: ["Phishing", "Man-in-the-Middle", "XSS (Cross-Site Scripting)", "Inyección de Comandos"],
+                    correctAnswer: "XSS (Cross-Site Scripting)",
+                    hints: [
+                        "Involucra scripts que se ejecutan en el navegador del usuario víctima.",
+                        "Puede robar cookies, tokens de sesión o manipular el contenido de la página.",
+                        "Su acrónimo a menudo usa una 'X' para evitar confusiones con hojas de estilo."
+                    ],
+                    explanation: "Cross-Site Scripting (XSS) es una vulnerabilidad de seguridad web que permite a los atacantes inyectar scripts del lado del cliente en páginas web vistas por otros usuarios. Esto puede permitir el robo de sesiones, la desfiguración de sitios web o la redirección de usuarios a sitios maliciosos."
+                },
+                {
+                    question: "¿Qué es 'HTTPS' y por qué es importante para la seguridad web?",
+                    options: ["Un lenguaje de programación", "Un protocolo de transferencia de texto sin cifrar", "Una base de datos segura", "Una versión segura de HTTP que cifra la comunicación"],
+                    correctAnswer: "Una versión segura de HTTP que cifra la comunicación",
+                    hints: [
+                        "Es la 'S' al final de la dirección URL de un sitio seguro.",
+                        "Garantiza que la información enviada entre tu navegador y el servidor esté protegida.",
+                        "Utiliza SSL/TLS para crear un canal seguro."
+                    ],
+                    explanation: "HTTPS (Hypertext Transfer Protocol Secure) es la versión segura de HTTP. Utiliza SSL/TLS para cifrar la comunicación entre el navegador del usuario y el servidor web, protegiendo la integridad y confidencialidad de los datos transmitidos."
+                },
+                {
+                    question: "¿Cuál de estas NO es una buena práctica de seguridad para contraseñas de usuario?",
+                    options: ["Usar contraseñas largas y complejas", "Reutilizar la misma contraseña para varios sitios", "Habilitar autenticación de dos factores (2FA)", "Cambiar contraseñas regularmente"],
+                    correctAnswer: "Reutilizar la misma contraseña para varios sitios",
+                    hints: [
+                        "Si una contraseña se filtra en un sitio, esto expone tus otras cuentas.",
+                        "Es una de las principales causas de compromisos de cuentas.",
+                        "La seguridad de una cadena es tan fuerte como su eslabón más débil."
+                    ],
+                    explanation: "Reutilizar la misma contraseña para múltiples sitios es una práctica de seguridad muy deficiente. Si una de esas cuentas es comprometida, el atacante puede usar la misma contraseña para intentar acceder a todas las otras cuentas del usuario, lo que se conoce como 'credential stuffing'."
+                }
+            ]
+        };
+
+        const quizOverlay = document.getElementById('quizOverlay');
+        const quizContainer = quizOverlay.querySelector('.quiz-container');
+        const quizClassNumberSpan = document.getElementById('quizClassNumber');
+        const quizQuestionCounter = document.getElementById('quizQuestionCounter');
+        const questionText = document.getElementById('questionText');
+        const draggableOptions = document.getElementById('draggableOptions');
+        const dropArea = document.getElementById('dropArea');
+        const hintArea = document.getElementById('hintArea');
+        const hintText = document.getElementById('hintText');
+        const explanationArea = document.getElementById('explanationArea');
+        const explanationText = document.getElementById('explanationText');
+        const nextQuestionBtn = document.getElementById('nextQuestionBtn');
+        const celebrationAnimation = document.getElementById('celebrationAnimation');
+
+        function openQuiz() {
+            quizClassNumberSpan.textContent = currentClass; // Actualiza el número de clase en el quiz
+            quizQuestions = quizData[currentClass];
+
+            if (!quizQuestions || quizQuestions.length === 0) {
+                alert("¡Ups! No hay preguntas de quiz disponibles para esta clase aún.");
+                return;
+            }
+
+            currentQuestionIndex = 0;
+            quizOverlay.classList.add('show');
+            quizContainer.classList.add('show');
+            loadQuestion();
+        }
+
+        function closeQuiz() {
+            quizOverlay.classList.remove('show');
+            quizContainer.classList.remove('show');
+            // Limpiar estado del quiz
+            currentQuestionIndex = 0;
+            attempts = 0;
+            draggableOptions.innerHTML = '';
+            dropArea.innerHTML = 'Arrastra la respuesta aquí';
+            dropArea.classList.remove('correct', 'incorrect', 'highlight');
+            hintArea.classList.remove('show');
+            explanationArea.classList.remove('show');
+            celebrationAnimation.classList.remove('show'); // Esconder animación de celebración
+        }
+
+        function loadQuestion() {
+            if (currentQuestionIndex >= quizQuestions.length) {
+                endQuiz();
+                return;
+            }
+
+            const question = quizQuestions[currentQuestionIndex];
+            attempts = 0; // Resetear intentos para la nueva pregunta
+
+            // Resetear áreas
+            dropArea.innerHTML = 'Arrastra la respuesta aquí';
+            dropArea.classList.remove('correct', 'incorrect', 'highlight');
+            hintArea.classList.remove('show');
+            explanationArea.classList.remove('show');
+            nextQuestionBtn.style.display = 'none';
+
+            quizQuestionCounter.textContent = `Pregunta ${currentQuestionIndex + 1} de ${quizQuestions.length}`;
+            questionText.textContent = question.question;
+
+            // Barajar opciones y cargarlas
+            draggableOptions.innerHTML = '';
+            const shuffledOptions = shuffleArray([...question.options]); // Copia para no modificar el original
+            shuffledOptions.forEach(option => {
+                const item = document.createElement('div');
+                item.className = 'draggable-item';
+                item.textContent = option;
+                item.draggable = true;
+                item.ondragstart = dragStart;
+                draggableOptions.appendChild(item);
+            });
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Drag and Drop Functions
+        function dragStart(event) {
+            event.dataTransfer.setData('text/plain', event.target.textContent);
+            event.target.classList.add('dragging');
+        }
+
+        function allowDrop(event) {
+            event.preventDefault(); // Permite soltar
+            dropArea.classList.add('highlight'); // Resaltar área al arrastrar sobre ella
+        }
+
+        function dragEnter(event) {
+            // Esto puede ser útil si quieres efectos adicionales al entrar al área
+        }
+
+        function dragLeave(event) {
+            dropArea.classList.remove('highlight'); // Remover resaltado al salir
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            dropArea.classList.remove('highlight');
+            
+            const data = event.dataTransfer.getData('text/plain');
+            const draggedItem = document.querySelector('.draggable-item.dragging');
+
+            if (draggedItem) {
+                dropArea.innerHTML = ''; // Limpia cualquier contenido anterior
+                dropArea.appendChild(draggedItem);
+                draggedItem.classList.remove('dragging');
+                draggedItem.draggable = false; // Una vez soltado, no se puede arrastrar de nuevo hasta resetear
+                
+                checkAnswer(data);
+            }
+        }
+
+        function checkAnswer(selectedAnswer) {
+            const question = quizQuestions[currentQuestionIndex];
+            attempts++;
+
+            if (selectedAnswer === question.correctAnswer) {
+                dropArea.classList.remove('incorrect');
+                dropArea.classList.add('correct');
+                explanationText.textContent = question.explanation;
+                explanationArea.classList.add('show');
+                nextQuestionBtn.style.display = 'block';
+                hintArea.classList.remove('show'); // Ocultar pistas si se acierta
+                
+                // Deshabilitar todas las opciones restantes para que no se puedan arrastrar más
+                document.querySelectorAll('.draggable-item').forEach(item => {
+                    item.draggable = false;
+                    item.style.pointerEvents = 'none'; // También deshabilitar clics si los hubiera
+                });
+
+            } else {
+                dropArea.classList.remove('correct');
+                dropArea.classList.add('incorrect');
+                
+                // Mostrar pista progresiva
+                const hintIndex = Math.min(attempts - 1, question.hints.length - 1);
+                hintText.textContent = question.hints[hintIndex];
+                hintArea.classList.add('show');
+                
+                // Devolver el item arrastrado a las opciones originales para reintentar
+                const draggedItem = dropArea.querySelector('.draggable-item');
+                if (draggedItem) {
+                    draggableOptions.appendChild(draggedItem);
+                    draggedItem.draggable = true;
+                    draggedItem.style.pointerEvents = 'auto';
+                }
+                dropArea.innerHTML = 'Arrastra la respuesta aquí'; // Restablecer el texto
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+
+        function endQuiz() {
+            quizQuestionCounter.textContent = '';
+            questionText.textContent = '¡Felicidades! Has completado el Quiz de la Clase.';
+            draggableOptions.innerHTML = '';
+            dropArea.innerHTML = '¡Excelente trabajo!';
+            dropArea.classList.add('correct'); // Mantener verde al final
+            hintArea.classList.remove('show');
+            explanationArea.classList.remove('show');
+            nextQuestionBtn.style.display = 'none';
+
+            celebrationAnimation.classList.add('show'); // Mostrar animación de celebración
+
+            setTimeout(() => {
+                closeQuiz(); // Cerrar el quiz después de la celebración
+            }, 5000); // 5 segundos para la animación
         }
     </script>
 </body>
