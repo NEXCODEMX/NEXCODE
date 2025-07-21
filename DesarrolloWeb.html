@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXCODE - Desarrollo Web Profesional</title>
+    <meta name="description" content="NEXCODE ofrece desarrollo web profesional y soluciones digitales innovadoras. Creación de páginas web, e-commerce, y diseño gráfico adaptado a tus necesidades.">
+    <link rel="icon" href="logo.png" type="image/png"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700&display=swap">
+    <style>
+        :root {
+            --primary-neon-blue: #00d4ff;
+            --secondary-dark-blue: #0077c2; 
+            --accent-purple: #8e24aa; 
+            --darkest-bg: #0a0a0e; 
+            --dark-medium-bg: #1a1a20; 
+            --light-text: #e0e0e0; 
+            --subtle-text: #a0a0a5; 
+            --border-color: rgba(0, 212, 255, 0.2); 
+            --gradient-start: #06060a;
+            --gradient-end: #121218;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            color: var(--light-text);
+            background: var(--darkest-bg);
+            overflow-x: hidden;
+            position: relative;
+            line-height: 1.6;
+        }
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+        }
+        header {
+            background-color: rgba(10, 10, 14, 0.95); 
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.15); 
+            transition: background-color 0.3s ease;
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+        .logo-text {
+            font-family: 'Orbitron', sans-serif; 
+            font-size: 2rem;
+            color: var(--primary-neon-blue);
+            text-shadow: 0 0 15px rgba(0, 212, 255, 0.7);
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 2.5rem; 
+        }
+
+        nav ul li a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.05rem;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-purple);
+            left: 0;
+            bottom: -8px; 
+            transition: width 0.3s ease-in-out;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-neon-blue);
+            text-shadow: 0 0 12px rgba(0, 212, 255, 0.8);
+        }
+
+       
+        .hero {
+            position: relative;
+            height: 85vh; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero-content {
+            z-index: 1;
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5rem;
+            color: var(--primary-neon-blue);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 1); 
+            animation: pulse-neon 2s infinite alternate; 
+        }
+
+        @keyframes pulse-neon {
+            from {
+                transform: scale(1);
+                text-shadow: 0 0 20px rgba(0, 212, 255, 0.7);
+            }
+            to {
+                transform: scale(1.03);
+                text-shadow: 0 0 40px rgba(0, 212, 255, 1);
+            }
+        }
+
+        .hero p {
+            font-size: 1.7rem; 
+            color: var(--light-text);
+            margin-bottom: 3rem;
+            line-height: 1.5;
+            font-weight: 300;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary-neon-blue), var(--accent-purple)); 
+            color: white;
+            padding: 1.1rem 3rem; 
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.25rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4); 
+            border: none; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 12px 30px rgba(0, 212, 255, 0.6);
+            background: linear-gradient(45deg, var(--accent-purple), var(--primary-neon-blue)); 
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary-neon-blue);
+            color: var(--primary-neon-blue);
+            margin-left: 2rem;
+            box-shadow: none;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-neon-blue);
+            color: var(--darkest-bg);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.6);
+            transform: translateY(-5px) scale(1.03);
+        }
+
+        section {
+            padding: 7rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.2rem;
+            color: var(--primary-neon-blue);
+            text-align: center;
+            margin-bottom: 5rem; 
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px; 
+            height: 5px; 
+            background-color: var(--accent-purple); 
+            margin: 20px auto 0;
+            border-radius: 3px;
+        }
+
+     
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 5rem; 
+            padding: 0 2rem;
+        }
+
+        .about-text {
+            flex: 2;
+            font-size: 1.15rem; 
+            line-height: 1.8;
+            color: var(--subtle-text); 
+        }
+
+        .about-text h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-neon-blue);
+            font-size: 2.2rem;
+            margin-bottom: 1.8rem;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.4);
+        }
+
+        .about-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .about-image i { 
+            font-size: 10rem;
+            color: var(--primary-neon-blue);
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
+            margin-bottom: 1rem;
+        }
+
+    
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem; 
+            padding: 0 2rem;
+        }
+
+        .service-card {
+            background-color: var(--dark-medium-bg); 
+            padding: 3rem; 
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px) scale(1.03); 
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.4);
+            background-color: rgba(26, 26, 32, 0.95); 
+            border-color: var(--primary-neon-blue);
+        }
+
+        .service-card i {
+            font-size: 4rem;
+            color: var(--primary-neon-blue);
+            margin-bottom: 2rem; 
+            text-shadow: 0 0 15px rgba(0, 212, 255, 0.8);
+            animation: float 3s infinite ease-in-out; 
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .service-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--light-text); 
+            margin-bottom: 1.2rem;
+        }
+
+        .service-card p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--subtle-text);
+        }
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            padding: 0 2rem;
+        }
+        .portfolio-item {
+            background-color: var(--dark-medium-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .portfolio-item:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.4);
+            border-color: var(--primary-neon-blue);
+        }
+        .portfolio-item-content {
+            padding: 2rem; 
+        }
+        .portfolio-item h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.7rem;
+            color: var(--primary-neon-blue);
+            margin-bottom: 1rem;
+        }
+        .portfolio-item p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--subtle-text);
+            margin-bottom: 2rem; 
+        }
+        .portfolio-item .btn {
+            display: block;
+            width: fit-content;
+            margin-top: auto;
+            padding: 0.9rem 1.8rem;
+            font-size: 1rem;
+            border-radius: 10px;
+            align-self: flex-start;
+            margin-left: 2rem; 
+            margin-bottom: 2rem; 
+        }
+        .portfolio-item .btn-small {
+            padding: 0.9rem 1.8rem;
+            font-size: 1rem;
+        }
+        #contacto .main-content {
+            padding: 7rem 0; 
+        }
+        #contacto .hero-section {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+        #contacto .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.8rem; 
+            color: var(--primary-neon-blue);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 25px rgba(0, 212, 255, 0.7);
+        }
+        #contacto .hero-subtitle {
+            font-size: 1.6rem;
+            color: var(--light-text);
+            font-weight: 300;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+        #contacto .support-content-section {
+            max-width: 1000px; 
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        #contacto .card-large {
+            background-color: var(--dark-medium-bg);
+            padding: 4rem; 
+            border-radius: 20px; 
+            box-shadow: 0 12px 30px rgba(0, 212, 255, 0.3);
+            border: 2px solid var(--primary-neon-blue); 
+            position: relative;
+            overflow: hidden;
+        }
+        #contacto .card-large::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 150px;
+            height: 150px;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 50%;
+            filter: blur(50px);
+            animation: neon-blob 10s infinite alternate ease-in-out;
+        }
+        #contacto .card-large::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 180px;
+            height: 180px;
+            background: rgba(142, 36, 170, 0.1);
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: neon-blob 12s infinite reverse ease-in-out;
+        }
+        @keyframes neon-blob {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -20px) scale(1.1); }
+            66% { transform: translate(-20px, 30px) scale(0.9); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+        #contacto .card-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem; 
+            color: var(--primary-neon-blue);
+            margin-bottom: 2rem;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+            position: relative;
+            z-index: 1; 
+        }
+        #contacto .card-title .card-icon {
+            margin-right: 20px;
+            color: var(--accent-purple); 
+            text-shadow: 0 0 10px rgba(142, 36, 170, 0.8);
+        }
+        #contacto .card-description {
+            font-size: 1.2rem; 
+            line-height: 1.8;
+            color: var(--subtle-text);
+            text-align: center;
+            margin-bottom: 4rem; 
+            position: relative;
+            z-index: 1;
+        }
+        #contacto .contact-methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 2.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        #contacto .contact-card {
+            background-color: var(--darkest-bg); 
+            padding: 2.5rem; 
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column; 
+            align-items: center;
+            text-decoration: none;
+            color: var(--light-text);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.08);
+        }
+        #contacto .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, transparent, var(--primary-neon-blue), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease-out;
+        }
+        #contacto .contact-card:hover::before {
+            transform: translateX(0%);
+        }
+        #contacto .contact-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 212, 255, 0.4);
+            border-color: var(--primary-neon-blue);
+        }
+        #contacto .contact-icon {
+            font-size: 3.5rem; 
+            color: var(--primary-neon-blue);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 12px rgba(0, 212, 255, 0.8);
+            transition: color 0.3s ease;
+        }
+        #contacto .contact-card:hover .contact-icon {
+            color: var(--accent-purple); 
+            text-shadow: 0 0 15px rgba(142, 36, 170, 0.9);
+        }
+        #contacto .contact-info {
+            display: flex;
+            flex-direction: column;
+            text-align: center; 
+        }
+        #contacto .contact-label {
+            font-size: 1rem; 
+            color: var(--accent-purple); 
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
+        }
+        #contacto .contact-value {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--light-text);
+            word-break: break-all;
+        }
+        footer {
+            background-color: rgba(10, 10, 14, 0.95);
+            color: var(--subtle-text);
+            padding: 3.5rem 0; 
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            box-shadow: 0 -5px 15px rgba(0, 212, 255, 0.15);
+        }
+        footer .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        footer .logo img {
+            height: 45px; 
+            margin-bottom: 1.8rem;
+        }
+        footer p {
+            margin-bottom: 1.2rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .social-links {
+            margin-top: 2rem;
+        }
+        .social-links a {
+            color: var(--light-text);
+            font-size: 2rem;
+            margin: 0 1rem;
+            transition: color 0.4s ease, transform 0.4s ease;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+        .social-links a:hover {
+            color: var(--primary-neon-blue);
+            transform: translateY(-5px) scale(1.15);
+            text-shadow: 0 0 15px rgba(0, 212, 255, 0.8);
+        }
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 4rem; }
+            .hero p { font-size: 1.4rem; }
+            .section-title { font-size: 2.8rem; }
+            .about-content { flex-direction: column; text-align: center; gap: 3rem; }
+            .about-image { order: -1; margin-bottom: 2rem; }
+            #contacto .card-title { font-size: 2.5rem; }
+            #contacto .card-large { padding: 3rem; }
+        }
+        @media (max-width: 768px) {
+            header .container { flex-direction: column; align-items: flex-start; }
+            nav ul { margin-top: 1.5rem; flex-wrap: wrap; justify-content: flex-start; width: 100%; }
+            nav ul li { margin: 0.5rem 1rem 0.5rem 0; }
+            .hero h1 { font-size: 3rem; }
+            .hero p { font-size: 1.2rem; }
+            .btn { padding: 0.9rem 2.2rem; font-size: 1.1rem; display: block; width: fit-content; margin: 1rem auto; }
+            .btn-secondary { margin-left: 0; margin-top: 1rem; }
+            section { padding: 5rem 0; }
+            .section-title { font-size: 2.2rem; margin-bottom: 3rem; }
+            .services-grid, .portfolio-grid, #contacto .contact-methods-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .about-text h3 { font-size: 1.8rem; }
+            .service-card, .portfolio-item, #contacto .card-large, #contacto .contact-card { padding: 2rem; }
+            #contacto .hero-title { font-size: 2.8rem; }
+            #contacto .hero-subtitle { font-size: 1.3rem; }
+            #contacto .card-title { font-size: 2rem; }
+            #contacto .card-description { font-size: 1.05rem; margin-bottom: 2.5rem; }
+            #contacto .contact-icon { font-size: 3rem; }
+            #contacto .contact-value { font-size: 1.1rem; }
+            .portfolio-item .btn { margin-left: 0; text-align: center; width: 100%; }
+            .logo { width: 100%; justify-content: center; margin-bottom: 1rem; }
+        }
+        @media (max-width: 480px) {
+            .logo-text { font-size: 1.8rem; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1rem; }
+            .btn { padding: 0.8rem 1.8rem; font-size: 1rem; }
+            nav ul li { margin: 0.5rem 0.8rem 0.5rem 0; }
+            .section-title { font-size: 1.9rem; }
+            .about-text h3 { font-size: 1.6rem; }
+            .service-card h3 { font-size: 1.6rem; }
+            .portfolio-item h3 { font-size: 1.5rem; }
+            #contacto .hero-title { font-size: 2.2rem; }
+            #contacto .hero-subtitle { font-size: 1.1rem; }
+            #contacto .card-title { font-size: 1.8rem; }
+            #contacto .contact-icon { font-size: 2.5rem; }
+            #contacto .contact-label { font-size: 0.85rem; }
+            #contacto .contact-value { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="logo.png" alt="NEXCODE Logo"> <span class="logo-text">NEXCODE</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#portafolio">Portafolio</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section id="inicio" class="hero">
+            <div class="hero-content">
+                <h1>NEXCODE</h1>
+                <p>Desarrollo Web Profesional y Soluciones Digitales Innovadoras para Impulsar tu Negocio.</p>
+                <a href="#servicios" class="btn">Explora Nuestros Servicios</a>
+                <a href="#contacto" class="btn btn-secondary">Contáctanos Hoy</a>
+            </div>
+        </section>
+        <section id="nosotros">
+            <h2 class="section-title">Acerca de NEXCODE</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Más allá del código, construimos futuro.</h3>
+                    <p>En NEXCODE, somos un equipo de expertos apasionados por el desarrollo web y el diseño gráfico. Nos especializamos en la creación de páginas web profesionales, modernas y funcionales, adaptadas a las necesidades específicas de cada cliente.</p>
+                    <p>Desde soluciones económicas sin base de datos hasta plataformas complejas con funcionalidades avanzadas, ofrecemos una gama de precios y características para que tu presencia digital sea exactamente lo que necesitas.</p>
+                    <p>Además de nuestro enfoque en el desarrollo web, también compartimos nuestro conocimiento a través de cursos en línea, empoderando a la próxima generación de desarrolladores. Nuestra misión es transformar tus ideas en experiencias digitales impactantes.</p>
+                    </div>
+                <div class="about-image">
+                    <i class="fas fa-users"></i> </div>
+            </div>
+        </section>
+        <section id="servicios">
+            <h2 class="section-title">Nuestros Servicios</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-briefcase"></i>
+                    <h3>Páginas Web para Empresas</h3>
+                    <p>Diseño y desarrollo de sitios corporativos robustos, seguros y escalables que reflejan la profesionalidad de tu marca.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Páginas Web para Restaurantes y Menús Digitales</h3>
+                    <p>Crea una experiencia gastronómica online con menús interactivos, galerías de platillos y sistemas de reservación.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h3>E-commerce y Tiendas Online</h3>
+                    <p>Plataformas de venta online seguras y optimizadas para maximizar tus conversiones, con gestión de productos y pagos.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Páginas Web para Negocios y Landing Pages</h3>
+                    <p>Soluciones efectivas para cualquier tipo de negocio, desde landing pages para campañas hasta sitios completos.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-id-card-alt"></i>
+                    <h3>Tarjeta de Marca Personal / Currículums Web</h3>
+                    <p>Destaca tu perfil profesional con una tarjeta de presentación web o un currículum interactivo y elegante.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-palette"></i>
+                    <h3>Perfiles y Tarjetas de Presentación Web</h3>
+                    <p>Diseño de perfiles online únicos y tarjetas de presentación digitales que impresionan y conectan.</p>
+                </div>
+            </div>
+        </section>
+        <section id="portafolio">
+            <h2 class="section-title">Nuestros Prototipos y Ejemplos</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <div class="portfolio-item-content">
+                        <h3>Menú Digital Básico ($200)</h3> <p>Ideal para restaurantes con fondo, producto y precio.</p>
+                        <a href="https://demian369369.github.io/JarvisFrontendProject/PaginasWeb/Prototipo0/" target="_blank" class="btn btn-small">Ver prototipo</a> </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-item-content">
+                        <h3>Menú Digital Avanzado ($300)</h3> <p>Con fondo, producto, precio, botones e idiomas.</p>
+                        <a href="https://demian369369.github.io/JarvisFrontendProject/PaginasWeb/Prototipo1/" target="_blank" class="btn btn-small">Ver prototipo</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-item-content">
+                        <h3>Tienda Online Sencilla ($400)</h3> <p>Incluye fondo, producto, precio, botones, idiomas y más información.</p>
+                        <a href="https://nexcodemx.github.io/SanzaArt/SanzaArt.html" target="_blank" class="btn btn-small">Ver prototipo</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-item-content">
+                        <h3>Tienda Online Moderna ($700)</h3> <p>Catálogos, animaciones y diseño moderno.</p>
+                        <a href="https://demian369369.github.io/JarvisFrontendProject/PaginasWeb/Prototipo3/" target="_blank" class="btn btn-small">Ver prototipo</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-item-content">
+                        <h3>Web con Base de Datos ($800)</h3> <p>Ideal para promociones y varias sucursales con comentarios de usuarios y datos en tiempo real.</p>
+                        <a href="https://demian369369.github.io/JarvisFrontendProject/PaginasWeb/Prototipo4/" target="_blank" class="btn btn-small">Ver prototipo</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-item-content">
+                        <h3>E-commerce con Filtro ($900)</h3> <p>Incluye filtro de búsqueda, sistema lógico de compras y promociones en tiempo real.</p>
+                        <a href="https://demian369369.github.io/JarvisFrontendProject/PaginasWeb/Prototipo5/" target="_blank" class="btn btn-small">Ver prototipo</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-item-content">
+                        <h3>E-commerce Completo ($1000)</h3> <p>Recomendado para tiendas online, promociones y sucursales con sistema de compras avanzado.</p>
+                        <a href="https://demian369369.github.io/JarvisFrontendProject/PaginasWeb/Prototipo6/" target="_blank" class="btn btn-small">Ver prototipo</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-item-content">
+                        <h3>Restaurante Premium (React) ($2000)</h3> <p>Con reserva de mesas, animaciones avanzadas, React y personalización total.</p>
+                        <a href="https://demian369369.github.io/JarvisFrontendProject/PaginasWeb/Prototipo7/" target="_blank" class="btn btn-small">Ver prototipo</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-item-content">
+                        <h3>Web Corporativa Personalizable ($1200)</h3> <p>Una página completamente adaptable a las necesidades específicas de tu empresa.</p>
+                        <a href="https://demian369369.github.io/JarvisFrontendProject/PaginasWeb/Prototipo8/" target="_blank" class="btn btn-small">Ver prototipo</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-item-content">
+                        <h3>Tarjeta de Marca Personal ($200)</h3> <p>Con fondo, información y secciones adicionales. Perfecta para destacar tu marca personal.</p>
+                        <a href="RagknosDemian.html" target="_blank" class="btn btn-small">Ver prototipo</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="contacto">
+            <main class="main-content">
+                <section class="hero-section">
+                    <h1 class="hero-title">Conéctate con NEXCODE</h1>
+                    <p class="hero-subtitle">Estamos listos para transformar tus ideas en realidad digital. Ponte en contacto con nuestro equipo experto.</p>
+                </section>
+                <section class="support-content-section content-card-section">
+                    <div class="card-large">
+                        <h2 class="card-title"><i class="fas fa-headset card-icon"></i> ¿Cómo Podemos Ayudarte?</h2>
+                        <p class="card-description">
+                            Nuestro equipo está aquí para resolver tus dudas, discutir tus proyectos o recibir tus sugerencias.
+                            Elige el método de contacto que te sea más conveniente.
+                        </p>
+                        <div class="contact-methods-grid">
+                            <a href="mailto:nexcodemx@gmail.com" class="contact-card card-medium">
+                                <i class="fas fa-envelope contact-icon"></i>
+                                <div class="contact-info">
+                                    <span class="contact-label">Envíanos un Email</span>
+                                    <span class="contact-value">nexcodemx@gmail.com</span>
+                                </div>
+                            </a>
+                            <a href="https://www.instagram.com/nexcode_mx/" target="_blank" class="contact-card card-medium">
+                                <i class="fab fa-instagram contact-icon"></i>
+                                <div class="contact-info">
+                                    <span class="contact-label">Síguenos en Instagram</span>
+                                    <span class="contact-value">@NexCode_MX</span>
+                                </div>
+                            </a>
+                            <a href="https://github.com/NEXCODEMX" target="_blank" class="contact-card card-medium">
+                                <i class="fab fa-github contact-icon"></i>
+                                <div class="contact-info">
+                                    <span class="contact-label">Visita nuestro GitHub</span>
+                                    <span class="contact-value">github.com/NEXCODEMX</span>
+                                </div>
+                            </a>
+                            <a href="https://www.youtube.com/@NEXCODEMX" target="_blank" class="contact-card card-medium"> <i class="fab fa-youtube contact-icon"></i>
+                                <div class="contact-info">
+                                    <span class="contact-label">Suscríbete en YouTube</span>
+                                    <span class="contact-value">NEXCODEMX</span>
+                                </div>
+                            </a>
+                            <a href="https://wa.me/523343408028" target="_blank" class="contact-card card-medium"> <i class="fab fa-whatsapp contact-icon"></i> <div class="contact-info">
+                                    <span class="contact-label">Envía un WhatsApp</span>
+                                    <span class="contact-value">+52 3343408028</span>
+                                </div>
+                            </a>
+                             <a href="tel:+523343408028" class="contact-card card-medium">
+                                <i class="fas fa-phone contact-icon"></i>
+                                <div class="contact-info">
+                                    <span class="contact-label">Llámanos</span>
+                                    <span class="contact-value">+52 3343408028</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <p>© 2025 NEXCODE. Todos los derechos reservados.</p>
+            <p>Diseño y Desarrollo Web Profesional con Pasión.</p>
+            <div class="social-links">
+                <a href="https://www.instagram.com/nexcode_mx/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://github.com/NEXCODEMX" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.youtube.com/@NEXCODEMX" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a> <a href="mailto:nexcodemx@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                <a href="https://wa.me/523343408028" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a> <a href="tel:+523343408028" aria-label="Teléfono"><i class="fas fa-phone"></i></a>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff" 
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    },
+                    "image": {
+                        "src": "img/github.svg",
+                        "width": 100,
+                        "height": 100
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff", 
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+        document.querySelectorAll('nav ul li a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
